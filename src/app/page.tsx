@@ -1,103 +1,63 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="relative min-h-dvh overflow-hidden">
+      {/* Orbs background */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -top-16 -left-24 size-[44rem] rounded-full orb bg-gradient-to-tr from-fuchsia-500/30 via-indigo-500/30 to-cyan-400/30 float-slow" />
+        <div className="absolute bottom-[-8rem] -right-32 size-[40rem] rounded-full orb bg-gradient-to-tr from-emerald-400/30 via-teal-400/30 to-sky-400/30 float-slow" style={{animationDelay: '1.5s'}} />
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+      <main className="relative mx-auto max-w-5xl px-6 py-20 sm:py-28">
+        <section className="glass rounded-[var(--radius-xl)] p-8 sm:p-12 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.25)]">
+          <div className="flex flex-col items-start gap-6">
+            <span className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium opacity-80">
+              <span className="size-2 rounded-full bg-emerald-500" />
+              Disponible para proyectos
+            </span>
+            <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight">
+              Nicolas Wagimin Bravo
+            </h1>
+            <p className="max-w-2xl text-balance text-base sm:text-lg opacity-80">
+              Ingeniero de software enfocado en crear experiencias digitales elegantes, rápidas y accesibles.
+            </p>
+
+            <div className="flex flex-wrap gap-3 pt-2">
+              <a href="#contacto" className="rounded-full bg-foreground px-5 py-2.5 text-background text-sm font-medium hover:opacity-90 transition">
+                Contáctame
+              </a>
+              <a href="#trabajo" className="rounded-full border px-5 py-2.5 text-sm font-medium hover:bg-foreground/5 transition">
+                Ver trabajo
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="trabajo" className="mt-14 grid gap-6 sm:grid-cols-2">
+          {["Diseño limpio","Rendimiento","Accesibilidad","Estrategia"].map((label, i) => (
+            <div key={i} className="glass rounded-2xl p-6">
+              <div className="flex items-center gap-3">
+                <div className="size-8 rounded-xl bg-gradient-to-tr from-fuchsia-500 to-cyan-400" />
+                <h3 className="text-base font-semibold">{label}</h3>
+              </div>
+              <p className="mt-3 text-sm opacity-80">
+                Soluciones pensadas para impacto real, con una base técnica sólida y estética moderna.
+              </p>
+            </div>
+          ))}
+        </section>
+
+        <section id="contacto" className="mt-14">
+          <div className="glass rounded-2xl p-6">
+            <h2 className="text-xl font-semibold">Hablemos</h2>
+            <p className="mt-2 text-sm opacity-80">Escríbeme para colaborar o conversar ideas.</p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <a href="mailto:nicolaswagiminbravo@gmail.com" className="rounded-full border px-4 py-2 text-sm hover:bg-foreground/5">Email</a>
+              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="rounded-full border px-4 py-2 text-sm hover:bg-foreground/5">LinkedIn</a>
+              <a href="https://github.com/nicolaswagimin" target="_blank" rel="noreferrer" className="rounded-full border px-4 py-2 text-sm hover:bg-foreground/5">GitHub</a>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
