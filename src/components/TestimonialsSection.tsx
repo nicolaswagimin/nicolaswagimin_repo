@@ -20,7 +20,7 @@ export function TestimonialsSection() {
               </div>
               <div className="space-y-6 mb-8">
                 <blockquote className="text-2xl lg:text-3xl font-medium text-gray-800 leading-relaxed">
-                  "Nicolás siempre aporta ideas creativas y se compromete con la calidad del trabajo. Su dedicación y enfoque colaborativo hacen que sea un excelente compañero de equipo en cualquier proyecto."
+                  &ldquo;Nicolás siempre aporta ideas creativas y se compromete con la calidad del trabajo. Su dedicación y enfoque colaborativo hacen que sea un excelente compañero de equipo en cualquier proyecto.&rdquo;
                 </blockquote>
               </div>
               <div className="space-y-2">
@@ -40,7 +40,7 @@ export function TestimonialsSection() {
                 </div>
                 <div className="space-y-3">
                   <p className="text-gray-600 leading-relaxed">
-                    "Es muy responsable con los proyectos de equipo. Siempre está dispuesto a ayudar y aportar soluciones cuando hay dificultades técnicas. Su conocimiento en desarrollo web nos ha ayudado mucho."
+                    &ldquo;Es muy responsable con los proyectos de equipo. Siempre está dispuesto a ayudar y aportar soluciones cuando hay dificultades técnicas. Su conocimiento en desarrollo web nos ha ayudado mucho.&rdquo;
                   </p>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -63,7 +63,7 @@ export function TestimonialsSection() {
                 </div>
                 <div className="space-y-3">
                   <p className="text-gray-300 leading-relaxed">
-                    "Nicolás tiene una gran capacidad para aprender tecnologías nuevas rápidamente. En nuestro proyecto de MentalCare, se encargó de la parte backend y siempre cumplió con los tiempos."
+                    &ldquo;Nicolás tiene una gran capacidad para aprender tecnologías nuevas rápidamente. En nuestro proyecto de MentalCare, se encargó de la parte backend y siempre cumplió con los tiempos.&rdquo;
                   </p>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -86,7 +86,7 @@ export function TestimonialsSection() {
                 </div>
                 <div className="space-y-3">
                   <p className="text-gray-600 leading-relaxed">
-                    "Su actitud de aprendizaje constante es admirable. Siempre está investigando nuevas herramientas y compartiendo conocimiento con el resto del grupo. Es un estudiante muy dedicado."
+                    &ldquo;Su actitud de aprendizaje constante es admirable. Siempre está investigando nuevas herramientas y compartiendo conocimiento con el resto del grupo. Es un estudiante muy dedicado.&rdquo;
                   </p>
                 </div>
                 <div className="flex items-center space-x-4">
