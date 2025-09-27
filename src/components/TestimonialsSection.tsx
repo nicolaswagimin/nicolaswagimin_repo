@@ -36,7 +36,7 @@ export function TestimonialsSection() {
             <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="space-y-6">
                 <div className="flex justify-center">
-                  <div className="text-gray-400 text-4xl">"</div>
+                  <div className="text-gray-400 text-4xl">&ldquo;</div>
                 </div>
                 <div className="space-y-3">
                   <p className="text-gray-600 leading-relaxed">
@@ -59,7 +59,7 @@ export function TestimonialsSection() {
             <div className="bg-gray-800 rounded-2xl p-8 text-white">
               <div className="space-y-6">
                 <div className="flex justify-center">
-                  <div className="text-gray-400 text-4xl">"</div>
+                  <div className="text-gray-400 text-4xl">&ldquo;</div>
                 </div>
                 <div className="space-y-3">
                   <p className="text-gray-300 leading-relaxed">
@@ -82,7 +82,7 @@ export function TestimonialsSection() {
             <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="space-y-6">
                 <div className="flex justify-center">
-                  <div className="text-gray-400 text-4xl">"</div>
+                  <div className="text-gray-400 text-4xl">&ldquo;</div>
                 </div>
                 <div className="space-y-3">
                   <p className="text-gray-600 leading-relaxed">
