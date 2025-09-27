@@ -1,6 +1,22 @@
+'use client';
+
 import { Button } from "./ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function ProjectsSection() {
+  const { dictionary } = useLanguage();
+
+  const openGitHub = () => {
+    window.open('https://github.com/nicolaswagimin', '_blank');
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="py-24 bg-gray-50" id="projects">
       <div className="container mx-auto px-6">
@@ -9,16 +25,20 @@ export function ProjectsSection() {
           <div className="grid lg:grid-cols-12 gap-12 mb-16">
             <div className="lg:col-span-6">
               <div className="space-y-4">
-                <p className="text-gray-500 uppercase tracking-wider">PROYECTOS DESTACADOS</p>
-                <h2 className="text-4xl font-bold text-gray-800">Mi trabajo</h2>
+                <p className="text-gray-500 uppercase tracking-wider">{dictionary.projects.sectionTitle}</p>
+                <h2 className="text-4xl font-bold text-gray-800">{dictionary.projects.title}</h2>
                 <p className="text-gray-600 max-w-md">
-                  Una selección de proyectos académicos y personales que demuestran mi aprendizaje y aplicación de tecnologías modernas.
+                  {dictionary.projects.description}
                 </p>
               </div>
             </div>
             <div className="lg:col-span-6 flex items-end justify-end">
-              <Button variant="outline" className="border-gray-400 text-gray-700 px-6 h-12 rounded-full">
-                Ver GitHub
+              <Button 
+                onClick={openGitHub}
+                variant="outline" 
+                className="border-gray-400 text-gray-700 px-6 h-12 rounded-full"
+              >
+                {dictionary.projects.viewGitHub}
               </Button>
             </div>
           </div>
@@ -32,7 +52,7 @@ export function ProjectsSection() {
                     <div className="absolute inset-0 bg-blue-200 opacity-80"></div>
                     <div className="absolute top-6 left-6">
                       <span className="px-3 py-1 bg-gray-800 rounded-full text-white text-xs font-medium">
-                        Proyecto Principal
+                        {dictionary.projects.featured.badge}
                       </span>
                     </div>
                     <div className="absolute bottom-6 right-6">
@@ -45,9 +65,9 @@ export function ProjectsSection() {
                 <div className="lg:col-span-5 p-8 flex flex-col justify-center">
                   <div className="space-y-6">
                     <div className="space-y-3">
-                      <h3 className="text-2xl font-bold text-gray-800">MentalCare</h3>
+                      <h3 className="text-2xl font-bold text-gray-800">{dictionary.projects.featured.title}</h3>
                       <p className="text-gray-600">
-                        Plataforma web de apoyo emocional juvenil que integra IA y patrones de diseño de software. Proyecto final de curso con enfoque social y académico, desarrollado en equipo aplicando metodologías ágiles.
+                        {dictionary.projects.featured.description}
                       </p>
                     </div>
                     
@@ -66,8 +86,11 @@ export function ProjectsSection() {
                       </span>
                     </div>
                     
-                    <Button className="bg-gray-800 hover:bg-gray-700 text-white px-6 h-10 rounded-full w-fit">
-                      Ver Detalles
+                    <Button 
+                      onClick={() => scrollToSection('contact')}
+                      className="bg-gray-800 hover:bg-gray-700 text-white px-6 h-10 rounded-full w-fit"
+                    >
+                      {dictionary.projects.featured.viewDetails}
                     </Button>
                   </div>
                 </div>
@@ -91,12 +114,12 @@ export function ProjectsSection() {
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <span className="text-xs text-gray-500 uppercase tracking-wider">API REST</span>
+                    <span className="text-xs text-gray-500 uppercase tracking-wider">{dictionary.projects.project1.type}</span>
                   </div>
-                  <h4 className="text-lg font-semibold text-gray-800">Gestor de Avatares Empresariales</h4>
+                  <h4 className="text-lg font-semibold text-gray-800">{dictionary.projects.project1.title}</h4>
                 </div>
                 <p className="text-gray-600 text-sm">
-                  API en Spring Boot para gestionar avatares dinámicos, probada con Postman. Ejercicio práctico de integración API y pruebas de endpoints.
+                  {dictionary.projects.project1.description}
                 </p>
                 <div className="flex space-x-2">
                   <span className="px-2 py-1 bg-gray-100 rounded text-xs text-gray-600">Spring Boot</span>
@@ -119,12 +142,12 @@ export function ProjectsSection() {
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                    <span className="text-xs text-gray-500 uppercase tracking-wider">WEB APP</span>
+                    <span className="text-xs text-gray-500 uppercase tracking-wider">{dictionary.projects.project2.type}</span>
                   </div>
-                  <h4 className="text-lg font-semibold text-gray-800">Plataforma de Retos</h4>
+                  <h4 className="text-lg font-semibold text-gray-800">{dictionary.projects.project2.title}</h4>
                 </div>
                 <p className="text-gray-600 text-sm">
-                  Aplicación web que permite a estudiantes practicar y resolver ejercicios de programación. Proyecto universitario en equipo aplicando patrones de software.
+                  {dictionary.projects.project2.description}
                 </p>
                 <div className="flex space-x-2">
                   <span className="px-2 py-1 bg-gray-100 rounded text-xs text-gray-600">Java</span>
@@ -147,12 +170,12 @@ export function ProjectsSection() {
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                    <span className="text-xs text-gray-500 uppercase tracking-wider">PORTFOLIO</span>
+                    <span className="text-xs text-gray-500 uppercase tracking-wider">{dictionary.projects.project3.type}</span>
                   </div>
-                  <h4 className="text-lg font-semibold text-gray-800">Portafolio Personal</h4>
+                  <h4 className="text-lg font-semibold text-gray-800">{dictionary.projects.project3.title}</h4>
                 </div>
                 <p className="text-gray-600 text-sm">
-                  Sitio personal para mostrar trayectoria y proyectos. Ejemplo de aplicación de frameworks modernos en un proyecto personal real.
+                  {dictionary.projects.project3.description}
                 </p>
                 <div className="flex space-x-2">
                   <span className="px-2 py-1 bg-gray-100 rounded text-xs text-gray-600">Next.js</span>
