@@ -10,7 +10,7 @@ export function LanguageToggle() {
     <Button 
       variant="outline" 
       onClick={toggleLanguage}
-      className="border-gray-300 text-gray-700 px-4 h-9 rounded-full hover:bg-gray-50 transition-colors"
+      className="px-4 h-9"
     >
       {locale === 'es' ? dictionary.common.languageToggle : dictionary.common.languageToggleES}
     </Button>
