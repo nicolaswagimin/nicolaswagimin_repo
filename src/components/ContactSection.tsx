@@ -18,14 +18,18 @@ export function ContactSection() {
   };
 
   return (
-    <section className="py-24 bg-white" id="contact">
+    <section className="py-24 bg-muted/30" id="contact">
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-20">
-            <p className="text-gray-500 uppercase tracking-wider mb-4">{dictionary.contact.sectionTitle}</p>
-            <h2 className="text-4xl font-bold text-gray-800 mb-6">{dictionary.contact.title}</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-muted-foreground uppercase tracking-wider mb-4 text-sm font-medium">
+              {dictionary.contact.sectionTitle}
+            </p>
+            <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+              {dictionary.contact.title}
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
               {dictionary.contact.description}
             </p>
           </div>
@@ -33,50 +37,62 @@ export function ContactSection() {
           <div className="grid lg:grid-cols-12 gap-16">
             {/* Contact Form */}
             <div className="lg:col-span-7">
-              <div className="bg-gray-50 rounded-3xl p-10 border border-gray-200">
+              <div className="bg-card rounded-3xl p-10 border border-border shadow-lg">
                 <div className="space-y-4 mb-8">
-                  <p className="text-gray-500 uppercase tracking-wider">{dictionary.contact.form.title}</p>
-                  <h3 className="text-2xl font-bold text-gray-800">{dictionary.contact.form.subtitle}</h3>
+                  <p className="text-muted-foreground uppercase tracking-wider text-sm font-medium">
+                    {dictionary.contact.form.title}
+                  </p>
+                  <h3 className="text-2xl font-bold text-foreground">
+                    {dictionary.contact.form.subtitle}
+                  </h3>
                 </div>
                 
                 <form className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-3">
-                      <label className="text-gray-600 font-medium">{dictionary.contact.form.fields.name}</label>
+                      <label className="text-foreground font-medium">
+                        {dictionary.contact.form.fields.name}
+                      </label>
                       <input 
                         type="text" 
                         placeholder={dictionary.contact.form.fields.namePlaceholder}
-                        className="w-full h-12 bg-white border border-gray-300 rounded-xl px-4 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent"
+                        className="w-full h-12 bg-background border border-border rounded-xl px-4 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground"
                       />
                     </div>
                     <div className="space-y-3">
-                      <label className="text-gray-600 font-medium">{dictionary.contact.form.fields.email}</label>
+                      <label className="text-foreground font-medium">
+                        {dictionary.contact.form.fields.email}
+                      </label>
                       <input 
                         type="email" 
                         placeholder={dictionary.contact.form.fields.emailPlaceholder}
-                        className="w-full h-12 bg-white border border-gray-300 rounded-xl px-4 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent"
+                        className="w-full h-12 bg-background border border-border rounded-xl px-4 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground"
                       />
                     </div>
                   </div>
                   
                   <div className="space-y-3">
-                    <label className="text-gray-600 font-medium">{dictionary.contact.form.fields.subject}</label>
+                    <label className="text-foreground font-medium">
+                      {dictionary.contact.form.fields.subject}
+                    </label>
                     <input 
                       type="text" 
                       placeholder={dictionary.contact.form.fields.subjectPlaceholder}
-                      className="w-full h-12 bg-white border border-gray-300 rounded-xl px-4 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent"
+                      className="w-full h-12 bg-background border border-border rounded-xl px-4 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground"
                     />
                   </div>
                   
                   <div className="space-y-3">
-                    <label className="text-gray-600 font-medium">{dictionary.contact.form.fields.message}</label>
+                    <label className="text-foreground font-medium">
+                      {dictionary.contact.form.fields.message}
+                    </label>
                     <textarea 
                       placeholder={dictionary.contact.form.fields.messagePlaceholder}
-                      className="w-full h-32 bg-white border border-gray-300 rounded-xl px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent"
+                      className="w-full h-32 bg-background border border-border rounded-xl px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground"
                     ></textarea>
                   </div>
                   
-                  <Button className="bg-gray-800 hover:bg-gray-700 text-white px-8 h-12 rounded-full">
+                  <Button className="px-8 h-12">
                     {dictionary.contact.form.submit}
                   </Button>
                 </form>
@@ -86,9 +102,13 @@ export function ContactSection() {
             {/* Contact Information */}
             <div className="lg:col-span-5 space-y-12">
               <div className="space-y-4">
-                <p className="text-gray-500 uppercase tracking-wider">{dictionary.contact.info.title}</p>
-                <h3 className="text-2xl font-bold text-gray-800">{dictionary.contact.info.subtitle}</h3>
-                <p className="text-gray-600">
+                <p className="text-muted-foreground uppercase tracking-wider text-sm font-medium">
+                  {dictionary.contact.info.title}
+                </p>
+                <h3 className="text-2xl font-bold text-foreground">
+                  {dictionary.contact.info.subtitle}
+                </h3>
+                <p className="text-muted-foreground">
                   {dictionary.contact.info.description}
                 </p>
               </div>
@@ -96,34 +116,46 @@ export function ContactSection() {
               <div className="space-y-8">
                 {/* Email */}
                 <div className="flex items-start space-x-4">
-                  <div className="w-14 h-14 bg-blue-500 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xl">✉️</span>
+                  <div className="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-primary text-xl">✉️</span>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-gray-500 uppercase tracking-wider text-sm">{dictionary.contact.info.email}</p>
-                    <p className="text-gray-800 font-medium">{dictionary.contact.info.emailValue}</p>
+                    <p className="text-muted-foreground uppercase tracking-wider text-sm">
+                      {dictionary.contact.info.email}
+                    </p>
+                    <p className="text-foreground font-medium">
+                      {dictionary.contact.info.emailValue}
+                    </p>
                   </div>
                 </div>
                 
                 {/* Location */}
                 <div className="flex items-start space-x-4">
-                  <div className="w-14 h-14 bg-green-500 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xl">📍</span>
+                  <div className="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-primary text-xl">📍</span>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-gray-500 uppercase tracking-wider text-sm">{dictionary.contact.info.location}</p>
-                    <p className="text-gray-800 font-medium">{dictionary.contact.info.locationValue}</p>
+                    <p className="text-muted-foreground uppercase tracking-wider text-sm">
+                      {dictionary.contact.info.location}
+                    </p>
+                    <p className="text-foreground font-medium">
+                      {dictionary.contact.info.locationValue}
+                    </p>
                   </div>
                 </div>
                 
                 {/* Status */}
                 <div className="flex items-start space-x-4">
-                  <div className="w-14 h-14 bg-purple-500 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xl">🎓</span>
+                  <div className="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-primary text-xl">🎓</span>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-gray-500 uppercase tracking-wider text-sm">{dictionary.contact.info.status}</p>
-                    <p className="text-gray-800 font-medium">{dictionary.contact.info.statusValue}</p>
+                    <p className="text-muted-foreground uppercase tracking-wider text-sm">
+                      {dictionary.contact.info.status}
+                    </p>
+                    <p className="text-foreground font-medium">
+                      {dictionary.contact.info.statusValue}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -131,25 +163,29 @@ export function ContactSection() {
               {/* Social Media */}
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <p className="text-gray-500 uppercase tracking-wider text-sm">{dictionary.contact.social.title}</p>
-                  <h4 className="text-lg font-semibold text-gray-800">{dictionary.contact.social.subtitle}</h4>
+                  <p className="text-muted-foreground uppercase tracking-wider text-sm">
+                    {dictionary.contact.social.title}
+                  </p>
+                  <h4 className="text-lg font-semibold text-foreground">
+                    {dictionary.contact.social.subtitle}
+                  </h4>
                 </div>
                 <div className="flex space-x-4">
                   <button 
                     onClick={() => openSocialLink('https://github.com/nicolaswagimin')}
-                    className="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-gray-700 cursor-pointer transition-colors"
+                    className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center hover:bg-primary-hover cursor-pointer transition-colors shadow-md hover:shadow-lg"
                   >
                     <span className="text-white font-bold">GH</span>
                   </button>
                   <button 
                     onClick={() => openSocialLink('https://www.linkedin.com/in/nicolas-wagimin-bravo')}
-                    className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center hover:bg-blue-600 cursor-pointer transition-colors"
+                    className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center hover:bg-primary-hover cursor-pointer transition-colors shadow-md hover:shadow-lg"
                   >
                     <span className="text-white font-bold">in</span>
                   </button>
                   <button 
                     onClick={() => openSocialLink('https://twitter.com/nicolaswagimin')}
-                    className="w-12 h-12 bg-blue-400 rounded-xl flex items-center justify-center hover:bg-blue-500 cursor-pointer transition-colors"
+                    className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center hover:bg-primary-hover cursor-pointer transition-colors shadow-md hover:shadow-lg"
                   >
                     <span className="text-white font-bold">𝕏</span>
                   </button>
@@ -157,16 +193,18 @@ export function ContactSection() {
               </div>
               
               {/* Call to Action */}
-              <div className="bg-gray-800 rounded-2xl p-8 text-white">
+              <div className="bg-primary rounded-2xl p-8 text-white shadow-lg">
                 <div className="space-y-4">
-                  <h4 className="text-xl font-semibold text-white">{dictionary.contact.cta.title}</h4>
-                  <p className="text-gray-300">
+                  <h4 className="text-xl font-semibold text-white">
+                    {dictionary.contact.cta.title}
+                  </h4>
+                  <p className="text-white/80">
                     {dictionary.contact.cta.description}
                   </p>
                   <Button 
                     onClick={() => scrollToSection('contact')}
                     variant="outline" 
-                    className="border-gray-500 text-gray-300 hover:bg-gray-700 px-6 h-10 rounded-full"
+                    className="border-white/30 text-white hover:bg-white/10 px-6 h-10"
                   >
                     {dictionary.contact.cta.button}
                   </Button>
