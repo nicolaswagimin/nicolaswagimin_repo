@@ -81,25 +81,25 @@ export function TestimonialsSection() {
             </div>
             
             {/* Comment 2 */}
-            <div className="bg-primary rounded-2xl p-8 text-white shadow-lg">
+            <div className="bg-card rounded-2xl p-8 border border-border shadow-md hover:shadow-lg transition-shadow">
               <div className="space-y-6">
                 <div className="flex justify-center">
-                  <div className="text-white/30 text-4xl">&ldquo;</div>
+                  <div className="text-primary/30 text-4xl">&ldquo;</div>
                 </div>
                 <div className="space-y-3">
-                  <p className="text-white/90 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     &ldquo;{dictionary.testimonials.testimonial2.quote}&rdquo;
                   </p>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-primary-hover/20 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
                     <span className="text-white font-semibold">M</span>
                   </div>
                   <div className="space-y-1">
-                    <p className="font-semibold text-white">
+                    <p className="font-semibold text-foreground">
                       {dictionary.testimonials.testimonial2.author}
                     </p>
-                    <p className="text-sm text-white/80">
+                    <p className="text-sm text-muted-foreground">
                       {dictionary.testimonials.testimonial2.role}
                     </p>
                   </div>
