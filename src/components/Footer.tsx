@@ -1,4 +1,17 @@
+'use client';
+
+import { useLanguage } from "@/contexts/LanguageContext";
+
 export function Footer() {
+  const { dictionary } = useLanguage();
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="bg-gray-800 text-white py-16">
       <div className="container mx-auto px-6">
@@ -11,21 +24,21 @@ export function Footer() {
                 <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
                   <span className="text-gray-800 font-bold">N</span>
                 </div>
-                <span className="text-2xl font-bold text-white">Nicolás Wagimin</span>
+                <span className="text-2xl font-bold text-white">{dictionary.footer.brand.name}</span>
               </div>
               <div className="space-y-3">
                 <p className="text-gray-300 leading-relaxed">
-                  Estudiante de Ingeniería de Software especializado en desarrollo web y backend, aplicando tecnologías modernas y buenas prácticas en cada proyecto de aprendizaje.
+                  {dictionary.footer.brand.description}
                 </p>
               </div>
               
               {/* Contact */}
               <div className="space-y-3">
-                <h4 className="text-lg font-semibold text-white">Colaboremos</h4>
+                <h4 className="text-lg font-semibold text-white">{dictionary.footer.collaboration.title}</h4>
                 <div className="flex space-x-3">
                   <input 
                     type="email" 
-                    placeholder="¿Tienes un proyecto en mente?"
+                    placeholder={dictionary.footer.collaboration.placeholder}
                     className="flex-1 h-12 bg-gray-700 rounded-full border border-gray-600 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
                   />
                   <button className="w-24 h-12 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
@@ -39,33 +52,53 @@ export function Footer() {
             <div className="lg:col-span-7 grid md:grid-cols-3 gap-8">
               {/* Navegación */}
               <div className="space-y-4">
-                <h4 className="text-lg font-semibold text-white">Navegación</h4>
+                <h4 className="text-lg font-semibold text-white">{dictionary.footer.navigation.title}</h4>
                 <div className="space-y-3">
-                  <a href="#about" className="text-gray-400 hover:text-white cursor-pointer block transition-colors">Acerca de</a>
-                  <a href="#projects" className="text-gray-400 hover:text-white cursor-pointer block transition-colors">Proyectos</a>
-                  <a href="#skills" className="text-gray-400 hover:text-white cursor-pointer block transition-colors">Habilidades</a>
-                  <a href="#experience" className="text-gray-400 hover:text-white cursor-pointer block transition-colors">Experiencia</a>
+                  <button 
+                    onClick={() => scrollToSection('about')}
+                    className="text-gray-400 hover:text-white cursor-pointer block transition-colors"
+                  >
+                    {dictionary.footer.navigation.about}
+                  </button>
+                  <button 
+                    onClick={() => scrollToSection('projects')}
+                    className="text-gray-400 hover:text-white cursor-pointer block transition-colors"
+                  >
+                    {dictionary.footer.navigation.projects}
+                  </button>
+                  <button 
+                    onClick={() => scrollToSection('skills')}
+                    className="text-gray-400 hover:text-white cursor-pointer block transition-colors"
+                  >
+                    {dictionary.footer.navigation.skills}
+                  </button>
+                  <button 
+                    onClick={() => scrollToSection('experience')}
+                    className="text-gray-400 hover:text-white cursor-pointer block transition-colors"
+                  >
+                    {dictionary.footer.navigation.experience}
+                  </button>
                 </div>
               </div>
               
               {/* Tecnologías */}
               <div className="space-y-4">
-                <h4 className="text-lg font-semibold text-white">Tecnologías</h4>
+                <h4 className="text-lg font-semibold text-white">{dictionary.footer.technologies.title}</h4>
                 <div className="space-y-3">
-                  <p className="text-gray-400 hover:text-white cursor-pointer block transition-colors">Frontend Web</p>
-                  <p className="text-gray-400 hover:text-white cursor-pointer block transition-colors">Backend APIs</p>
-                  <p className="text-gray-400 hover:text-white cursor-pointer block transition-colors">Java & Python</p>
-                  <p className="text-gray-400 hover:text-white cursor-pointer block transition-colors">Desarrollo Full Stack</p>
+                  <p className="text-gray-400 hover:text-white cursor-pointer block transition-colors">{dictionary.footer.technologies.frontend}</p>
+                  <p className="text-gray-400 hover:text-white cursor-pointer block transition-colors">{dictionary.footer.technologies.backend}</p>
+                  <p className="text-gray-400 hover:text-white cursor-pointer block transition-colors">{dictionary.footer.technologies.javaPython}</p>
+                  <p className="text-gray-400 hover:text-white cursor-pointer block transition-colors">{dictionary.footer.technologies.fullStack}</p>
                 </div>
               </div>
               
               {/* Contacto */}
               <div className="space-y-4">
-                <h4 className="text-lg font-semibold text-white">Contacto</h4>
+                <h4 className="text-lg font-semibold text-white">{dictionary.footer.contact.title}</h4>
                 <div className="space-y-3">
-                  <p className="text-gray-400">nicolaswagimin@gmail.com</p>
-                  <p className="text-gray-400">Pasto, Colombia</p>
-                  <p className="text-gray-400">Estudiante activo</p>
+                  <p className="text-gray-400">{dictionary.footer.contact.email}</p>
+                  <p className="text-gray-400">{dictionary.footer.contact.location}</p>
+                  <p className="text-gray-400">{dictionary.footer.contact.status}</p>
                 </div>
                 
                 {/* Social Media */}
@@ -88,12 +121,12 @@ export function Footer() {
           <div className="border-t border-gray-600 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <div className="flex items-center space-x-6">
-                <p className="text-gray-500">© 2025 Nicolás Wagimin Bravo. Portafolio académico.</p>
+                <p className="text-gray-500">{dictionary.footer.copyright.text}</p>
               </div>
               <div className="flex items-center space-x-6">
-                <a href="#" className="text-gray-400 hover:text-white cursor-pointer transition-colors">Universidad Cooperativa</a>
-                <a href="#" className="text-gray-400 hover:text-white cursor-pointer transition-colors">Campus Pasto</a>
-                <a href="#" className="text-gray-400 hover:text-white cursor-pointer transition-colors">Ingeniería de Software</a>
+                <a href="#" className="text-gray-400 hover:text-white cursor-pointer transition-colors">{dictionary.footer.links.university}</a>
+                <a href="#" className="text-gray-400 hover:text-white cursor-pointer transition-colors">{dictionary.footer.links.campus}</a>
+                <a href="#" className="text-gray-400 hover:text-white cursor-pointer transition-colors">{dictionary.footer.links.degree}</a>
               </div>
             </div>
           </div>

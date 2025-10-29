@@ -1,4 +1,10 @@
+'use client';
+
+import { useLanguage } from "@/contexts/LanguageContext";
+
 export function AboutSection() {
+  const { dictionary } = useLanguage();
+
   return (
     <section className="py-24 bg-white" id="about">
       <div className="container mx-auto px-6">
@@ -7,14 +13,14 @@ export function AboutSection() {
           <div className="grid lg:grid-cols-12 gap-12 mb-20">
             <div className="lg:col-span-4">
               <div className="space-y-4">
-                <p className="text-gray-500 uppercase tracking-wider">ABOUT</p>
-                <h2 className="text-4xl font-bold text-gray-800">Mi historia</h2>
+                <p className="text-gray-500 uppercase tracking-wider">{dictionary.about.sectionTitle}</p>
+                <h2 className="text-4xl font-bold text-gray-800">{dictionary.about.title}</h2>
               </div>
             </div>
             <div className="lg:col-span-8">
               <div className="space-y-4 max-w-2xl">
                 <p className="text-gray-600 text-lg leading-relaxed">
-                  Desarrollador en formación con interés en desarrollo web y backend, utilizando tecnologías modernas y buenas prácticas aprendidas en la universidad.
+                  {dictionary.about.description}
                 </p>
               </div>
             </div>
@@ -33,7 +39,7 @@ export function AboutSection() {
                     </div>
                   </div>
                   <div className="absolute bottom-6 left-6 right-6">
-                    <p className="text-white/90 text-sm">Estudiante Ingeniería de Software · Universidad Cooperativa de Colombia</p>
+                    <p className="text-white/90 text-sm">{dictionary.about.university}</p>
                   </div>
                 </div>
                 
@@ -43,15 +49,15 @@ export function AboutSection() {
                     <div className="w-8 h-8 bg-blue-500 rounded-lg mb-3 flex items-center justify-center">
                       <span className="text-white text-xs">FE</span>
                     </div>
-                    <p className="text-sm font-medium text-gray-800 mb-1">Frontend</p>
-                    <p className="text-xs text-gray-500">En progreso</p>
+                    <p className="text-sm font-medium text-gray-800 mb-1">{dictionary.about.skills.frontend}</p>
+                    <p className="text-xs text-gray-500">{dictionary.about.skills.frontendStatus}</p>
                   </div>
                   <div className="bg-gray-800 rounded-xl p-4">
                     <div className="w-8 h-8 bg-green-500 rounded-lg mb-3 flex items-center justify-center">
                       <span className="text-white text-xs">⚡</span>
                     </div>
-                    <p className="text-sm font-medium text-white mb-1">Backend</p>
-                    <p className="text-xs text-gray-400">Aprendiendo</p>
+                    <p className="text-sm font-medium text-white mb-1">{dictionary.about.skills.backend}</p>
+                    <p className="text-xs text-gray-400">{dictionary.about.skills.backendStatus}</p>
                   </div>
                 </div>
               </div>
@@ -63,13 +69,13 @@ export function AboutSection() {
               <div className="space-y-6">
                 <div className="space-y-4">
                   <p className="text-gray-600 leading-relaxed">
-                    Desde que empecé la carrera de Ingeniería de Software me interesó entender cómo las ideas se convierten en aplicaciones útiles. A lo largo de mis estudios he desarrollado proyectos académicos que me han permitido aprender tanto del frontend como del backend, aplicando lenguajes como Python y Java junto a frameworks modernos.
+                    {dictionary.about.bio.p1}
                   </p>
                   <p className="text-gray-600 leading-relaxed">
-                    Mi metodología se basa en el aprendizaje constante, la práctica y la colaboración. Creo que cada proyecto, por pequeño que sea, enseña algo nuevo y fortalece la disciplina de construir software de manera estructurada.
+                    {dictionary.about.bio.p2}
                   </p>
                   <p className="text-gray-600 leading-relaxed">
-                    Me motiva seguir mejorando y tener la oportunidad de aportar a proyectos que mezclen tecnología con impacto real en las personas.
+                    {dictionary.about.bio.p3}
                   </p>
                 </div>
                 
@@ -77,15 +83,15 @@ export function AboutSection() {
                 <div className="grid grid-cols-3 gap-6 py-8 border-y border-gray-200">
                   <div>
                     <div className="text-2xl font-bold text-gray-800 mb-2">2</div>
-                    <div className="text-sm text-gray-500">Años experiencia académica</div>
+                    <div className="text-sm text-gray-500">{dictionary.about.metrics.years}</div>
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-gray-800 mb-2">6</div>
-                    <div className="text-sm text-gray-500">Proyectos universitarios</div>
+                    <div className="text-sm text-gray-500">{dictionary.about.metrics.projects}</div>
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-gray-800 mb-2">2021</div>
-                    <div className="text-sm text-gray-500">Inicio en UCC</div>
+                    <div className="text-sm text-gray-500">{dictionary.about.metrics.startYear}</div>
                   </div>
                 </div>
               </div>
@@ -93,7 +99,7 @@ export function AboutSection() {
               {/* Skills Categories */}
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Frontend</h3>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">{dictionary.about.skills.frontend}</h3>
                   <div className="flex flex-wrap gap-3">
                     <span className="px-4 py-2 bg-gray-100 rounded-full border border-gray-200 text-sm text-gray-700">
                       HTML/CSS
@@ -111,7 +117,7 @@ export function AboutSection() {
                 </div>
                 
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Backend</h3>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">{dictionary.about.skills.backend}</h3>
                   <div className="flex flex-wrap gap-3">
                     <span className="px-4 py-2 bg-gray-100 rounded-full border border-gray-200 text-sm text-gray-700">
                       Python

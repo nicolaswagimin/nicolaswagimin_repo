@@ -278,35 +278,42 @@ export const en = {
 
   // Footer
   footer: {
-    description: "Software Engineering student specialized in web development and backend, applying modern technologies and best practices in every learning project.",
-    collaborate: "Let's collaborate",
-    emailPlaceholder: "Do you have a project in mind?",
-    navigation: "Navigation",
-    technologies: "Technologies",
-    contact: "Contact",
-    navLinks: {
+    brand: {
+      name: "Nicolás Wagimin",
+      description: "Software Engineering student specialized in web development and backend, applying modern technologies and best practices in every learning project."
+    },
+    collaboration: {
+      title: "Let's collaborate",
+      placeholder: "Do you have a project in mind?"
+    },
+    navigation: {
+      title: "Navigation",
       about: "About",
       projects: "Projects",
-      skills: "Skills", 
+      skills: "Skills",
       experience: "Experience"
     },
-    techLinks: {
+    technologies: {
+      title: "Technologies",
       frontend: "Frontend Web",
       backend: "Backend APIs",
-      languages: "Java & Python",
-      fullstack: "Full Stack Development"
+      javaPython: "Java & Python",
+      fullStack: "Full Stack Development"
     },
-    contactInfo: {
+    contact: {
+      title: "Contact",
       email: "nicolaswagimin@gmail.com",
       location: "Pasto, Colombia",
       status: "Active student"
     },
-    bottomLinks: {
-      university: "Universidad Cooperativa",
-      campus: "Pasto Campus", 
-      degree: "Software Engineering"
+    copyright: {
+      text: "© 2025 Nicolás Wagimin Bravo. Academic portfolio."
     },
-    copyright: "© 2025 Nicolás Wagimin Bravo. Academic portfolio."
+    links: {
+      university: "Cooperativa University",
+      campus: "Pasto Campus",
+      degree: "Software Engineering"
+    }
   },
 
   // Common

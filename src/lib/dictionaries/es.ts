@@ -278,35 +278,42 @@ export const es = {
 
   // Footer
   footer: {
-    description: "Estudiante de Ingeniería de Software especializado en desarrollo web y backend, aplicando tecnologías modernas y buenas prácticas en cada proyecto de aprendizaje.",
-    collaborate: "Colaboremos",
-    emailPlaceholder: "¿Tienes un proyecto en mente?",
-    navigation: "Navegación",
-    technologies: "Tecnologías",
-    contact: "Contacto",
-    navLinks: {
+    brand: {
+      name: "Nicolás Wagimin",
+      description: "Estudiante de Ingeniería de Software especializado en desarrollo web y backend, aplicando tecnologías modernas y buenas prácticas en cada proyecto de aprendizaje."
+    },
+    collaboration: {
+      title: "Colaboremos",
+      placeholder: "¿Tienes un proyecto en mente?"
+    },
+    navigation: {
+      title: "Navegación",
       about: "Acerca de",
       projects: "Proyectos",
-      skills: "Habilidades", 
+      skills: "Habilidades",
       experience: "Experiencia"
     },
-    techLinks: {
+    technologies: {
+      title: "Tecnologías",
       frontend: "Frontend Web",
       backend: "Backend APIs",
-      languages: "Java & Python",
-      fullstack: "Desarrollo Full Stack"
+      javaPython: "Java & Python",
+      fullStack: "Desarrollo Full Stack"
     },
-    contactInfo: {
+    contact: {
+      title: "Contacto",
       email: "nicolaswagimin@gmail.com",
       location: "Pasto, Colombia",
       status: "Estudiante activo"
     },
-    bottomLinks: {
-      university: "Universidad Cooperativa",
-      campus: "Campus Pasto", 
-      degree: "Ingeniería de Software"
+    copyright: {
+      text: "© 2025 Nicolás Wagimin Bravo. Portafolio académico."
     },
-    copyright: "© 2025 Nicolás Wagimin Bravo. Portafolio académico."
+    links: {
+      university: "Universidad Cooperativa",
+      campus: "Campus Pasto",
+      degree: "Ingeniería de Software"
+    }
   },
 
   // Common
