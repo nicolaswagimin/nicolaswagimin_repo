@@ -1,6 +1,18 @@
+'use client';
+
 import { Button } from "./ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function HeroSection() {
+  const { dictionary } = useLanguage();
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
       {/* Background Elements */}
@@ -15,7 +27,7 @@ export function HeroSection() {
           {/* Top Text */}
           <div className="text-center mb-16">
             <div className="inline-block px-4 py-2 bg-gray-200 rounded-full mb-6">
-              <span className="text-gray-700 text-sm font-medium">Estudiante de Ingeniería de Software · Pasto, Colombia</span>
+              <span className="text-gray-700 text-sm font-medium">{dictionary.hero.location}</span>
             </div>
           </div>
           
@@ -24,26 +36,33 @@ export function HeroSection() {
             <div className="lg:col-span-7 space-y-8">
               <div className="space-y-6">
                 <div className="space-y-4">
-                  <p className="text-gray-600 uppercase tracking-wider">DEVELOPER PORTFOLIO</p>
+                  <p className="text-gray-600 uppercase tracking-wider">{dictionary.hero.subtitle}</p>
                   <h1 className="text-5xl lg:text-6xl font-bold text-gray-800">
-                    Construyendo ideas en 
-                    <span className="text-gray-600"> código</span>
+                    {dictionary.hero.title}{" "}
+                    <span className="text-gray-600">{dictionary.hero.titleHighlight}</span>
                   </h1>
                 </div>
                 
                 <div className="space-y-3 max-w-lg">
                   <p className="text-gray-600 text-lg">
-                    Soy Nicolás Wagimin Bravo, desarrollador en formación con interés en desarrollo web y backend, utilizando tecnologías modernas y buenas prácticas aprendidas en la universidad.
+                    {dictionary.hero.description}
                   </p>
                 </div>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="bg-gray-800 hover:bg-gray-700 text-white px-8 h-12 rounded-full">
-                  Ver Proyectos
+                <Button 
+                  onClick={() => scrollToSection('projects')}
+                  className="bg-gray-800 hover:bg-gray-700 text-white px-8 h-12 rounded-full"
+                >
+                  {dictionary.hero.buttons.viewProjects}
                 </Button>
-                <Button variant="outline" className="border-gray-400 text-gray-700 px-8 h-12 rounded-full">
-                  Contacto
+                <Button 
+                  onClick={() => scrollToSection('contact')}
+                  variant="outline" 
+                  className="border-gray-400 text-gray-700 px-8 h-12 rounded-full"
+                >
+                  {dictionary.hero.buttons.contact}
                 </Button>
               </div>
               
@@ -51,15 +70,15 @@ export function HeroSection() {
               <div className="grid grid-cols-3 gap-8 pt-8 border-t border-gray-200">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-gray-800 mb-2">6+</div>
-                  <div className="text-sm text-gray-500">Proyectos</div>
+                  <div className="text-sm text-gray-500">{dictionary.hero.stats.projects}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-gray-800 mb-2">2</div>
-                  <div className="text-sm text-gray-500">Años aprendiendo</div>
+                  <div className="text-sm text-gray-500">{dictionary.hero.stats.years}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-gray-800 mb-2">Active</div>
-                  <div className="text-sm text-gray-500">Estudiante</div>
+                  <div className="text-sm text-gray-500">{dictionary.hero.stats.status}</div>
                 </div>
               </div>
             </div>
@@ -71,21 +90,21 @@ export function HeroSection() {
                 <div className="w-full h-96 bg-gray-300 rounded-2xl shadow-xl relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-400"></div>
                   <div className="absolute bottom-6 left-6 right-6">
-                    <div className="text-white font-semibold text-lg mb-2">Code & Learn</div>
-                    <div className="text-white/80 text-sm">Portfolio 2025</div>
+                    <div className="text-white font-semibold text-lg mb-2">{dictionary.hero.magazine.title}</div>
+                    <div className="text-white/80 text-sm">{dictionary.hero.magazine.subtitle}</div>
                   </div>
                 </div>
                 
                 {/* Floating Cards */}
                 <div className="absolute -top-4 -right-4 w-24 h-32 bg-white rounded-lg shadow-lg border border-gray-200 p-3">
                   <div className="w-full h-12 bg-gray-200 rounded mb-2"></div>
-                  <div className="text-xs text-gray-600 mb-1">Latest</div>
-                  <div className="text-xs text-gray-400">Project</div>
+                  <div className="text-xs text-gray-600 mb-1">{dictionary.hero.magazine.latestProject}</div>
+                  <div className="text-xs text-gray-400">{dictionary.hero.magazine.project}</div>
                 </div>
                 
                 <div className="absolute -bottom-6 -left-6 w-32 h-20 bg-gray-800 rounded-lg p-4">
-                  <div className="text-white text-sm font-medium mb-2">Java + Spring</div>
-                  <div className="text-gray-300 text-xs">Learning</div>
+                  <div className="text-white text-sm font-medium mb-2">{dictionary.hero.magazine.javaSpring}</div>
+                  <div className="text-gray-300 text-xs">{dictionary.hero.magazine.learning}</div>
                 </div>
               </div>
             </div>
