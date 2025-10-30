@@ -48,14 +48,14 @@ export function SkillsSection() {
               </p>
             </div>
             
-            <div className="bg-primary rounded-2xl p-8 text-center shadow-lg">
-              <div className="w-16 h-16 bg-primary-hover/20 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-                <span className="text-white text-2xl">🚀</span>
+            <div className="bg-card rounded-2xl p-8 text-center border border-border hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-2xl mx-auto mb-6 flex items-center justify-center">
+                <span className="text-primary text-2xl">🚀</span>
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">
+              <h3 className="text-lg font-semibold text-foreground mb-2">
                 {dictionary.skills.categories.frameworks}
               </h3>
-              <p className="text-sm text-white/80">
+              <p className="text-sm text-muted-foreground">
                 {dictionary.skills.categories.frameworksDesc}
               </p>
             </div>
@@ -152,8 +152,8 @@ export function SkillsSection() {
                         {dictionary.skills.soft.adaptability}
                       </span>
                     </div>
-                    <div className="px-4 py-3 bg-primary rounded-lg">
-                      <span className="text-sm font-medium text-white">
+                    <div className="px-4 py-3 bg-card rounded-lg border border-border">
+                      <span className="text-sm font-medium text-foreground">
                         {dictionary.skills.soft.problemSolving}
                       </span>
                     </div>

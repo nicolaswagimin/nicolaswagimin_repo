@@ -101,7 +101,7 @@ export function ProjectsSection() {
                     {/* Left Content */}
                     <div className="flex-1 space-y-3">
                       <div className="flex items-start gap-3">
-                        <div className="w-3 h-3 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="w-3 h-3 bg-card border-2 border-border rounded-full mt-2 flex-shrink-0"></div>
                         <div className="flex-1">
                           <div className="flex items-center gap-3 flex-wrap">
                             <h3 className="text-xl font-semibold text-foreground hover:text-primary transition-colors">

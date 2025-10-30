@@ -21,8 +21,8 @@ export function Footer() {
             {/* Logo & Description */}
             <div className="lg:col-span-5 space-y-6">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold">N</span>
+                <div className="w-10 h-10 bg-card rounded-full border border-border flex items-center justify-center">
+                  <span className="text-foreground font-bold">N</span>
                 </div>
                 <span className="text-2xl font-bold text-foreground">
                   {dictionary.footer.brand.name}

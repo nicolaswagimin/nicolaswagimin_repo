@@ -37,7 +37,7 @@ export function ExperienceSection() {
               <div className="space-y-12">
                 {/* Current Education */}
                 <div className="relative pl-8">
-                  <div className="absolute left-0 top-2 w-4 h-4 bg-primary rounded-full"></div>
+                  <div className="absolute left-0 top-2 w-4 h-4 bg-card border-2 border-border rounded-full"></div>
                   <div className="absolute left-2 top-6 w-px h-full bg-border"></div>
                   
                   <div className="bg-card rounded-2xl p-8 shadow-md border border-border">
@@ -63,7 +63,7 @@ export function ExperienceSection() {
                       <div className="flex flex-wrap gap-2 pt-2">
                         <span className="px-2 py-1 bg-card rounded text-xs text-foreground border border-border">Java</span>
                         <span className="px-2 py-1 bg-card rounded text-xs text-foreground border border-border">Python</span>
-                        <span className="px-2 py-1 bg-primary text-white rounded text-xs">Patrones de Diseño</span>
+                        <span className="px-2 py-1 bg-card rounded text-xs text-foreground border border-border">Patrones de Diseño</span>
                         <span className="px-2 py-1 bg-card rounded text-xs text-foreground border border-border">Scrum</span>
                       </div>
                     </div>
@@ -72,7 +72,7 @@ export function ExperienceSection() {
                 
                 {/* Project Experience */}
                 <div className="relative pl-8">
-                  <div className="absolute left-0 top-2 w-4 h-4 bg-primary rounded-full"></div>
+                  <div className="absolute left-0 top-2 w-4 h-4 bg-card border-2 border-border rounded-full"></div>
                   <div className="absolute left-2 top-6 w-px h-full bg-border"></div>
                   
                   <div className="bg-card rounded-2xl p-8 shadow-md border border-border">
@@ -107,7 +107,7 @@ export function ExperienceSection() {
                 
                 {/* Learning Phase */}
                 <div className="relative pl-8">
-                  <div className="absolute left-0 top-2 w-4 h-4 bg-primary rounded-full"></div>
+                  <div className="absolute left-0 top-2 w-4 h-4 bg-card border-2 border-border rounded-full"></div>
                   
                   <div className="bg-card rounded-2xl p-8 shadow-md border border-border">
                     <div className="space-y-4">
@@ -204,15 +204,15 @@ export function ExperienceSection() {
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-4 p-4 bg-primary rounded-xl text-white">
-                    <div className="w-12 h-12 bg-primary-hover/20 rounded-lg flex-shrink-0 flex items-center justify-center">
-                      <span className="text-white text-xl">⚙️</span>
+                  <div className="flex items-center space-x-4 p-4 bg-card rounded-xl border border-border">
+                    <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-lg flex-shrink-0 flex items-center justify-center">
+                      <span className="text-primary text-xl">⚙️</span>
                     </div>
                     <div className="space-y-1">
-                      <h4 className="font-semibold text-white">
+                      <h4 className="font-semibold text-foreground">
                         {dictionary.experience.areas.softwareEng.title}
                       </h4>
-                      <p className="text-sm text-white/80">
+                      <p className="text-sm text-muted-foreground">
                         {dictionary.experience.areas.softwareEng.description}
                       </p>
                     </div>
@@ -245,7 +245,7 @@ export function ExperienceSection() {
                   </h3>
                 </div>
                 
-                <div className="bg-primary/10 dark:bg-primary/20 border border-primary/20 rounded-xl p-6">
+                <div className="bg-card border border-border rounded-xl p-6">
                   <div className="flex items-center space-x-3 mb-3">
                     <div className="w-3 h-3 bg-primary rounded-full"></div>
                     <span className="font-semibold text-primary">

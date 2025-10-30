@@ -32,8 +32,8 @@ export function TestimonialsSection() {
           {/* Featured Comment */}
           <div className="bg-muted/50 rounded-3xl p-12 mb-16 border border-border">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="w-16 h-16 bg-primary rounded-full mx-auto mb-8 flex items-center justify-center">
-                <span className="text-white text-2xl font-bold">P</span>
+              <div className="w-16 h-16 bg-card rounded-full border border-border mx-auto mb-8 flex items-center justify-center">
+                <span className="text-foreground text-2xl font-bold">P</span>
               </div>
               <div className="space-y-6 mb-8">
                 <blockquote className="text-2xl lg:text-3xl font-medium text-foreground leading-relaxed">
@@ -65,8 +65,8 @@ export function TestimonialsSection() {
                   </p>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                    <span className="text-white font-semibold">S</span>
+                  <div className="w-12 h-12 bg-card rounded-full border border-border flex items-center justify-center">
+                    <span className="text-foreground font-semibold">S</span>
                   </div>
                   <div className="space-y-1">
                     <p className="font-semibold text-foreground">
@@ -92,8 +92,8 @@ export function TestimonialsSection() {
                   </p>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                    <span className="text-white font-semibold">M</span>
+                  <div className="w-12 h-12 bg-card rounded-full border border-border flex items-center justify-center">
+                    <span className="text-foreground font-semibold">M</span>
                   </div>
                   <div className="space-y-1">
                     <p className="font-semibold text-foreground">
@@ -119,8 +119,8 @@ export function TestimonialsSection() {
                   </p>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                    <span className="text-white font-semibold">L</span>
+                  <div className="w-12 h-12 bg-card rounded-full border border-border flex items-center justify-center">
+                    <span className="text-foreground font-semibold">L</span>
                   </div>
                   <div className="space-y-1">
                     <p className="font-semibold text-foreground">

@@ -61,14 +61,14 @@ export function AboutSection() {
                     {dictionary.about.skills.frontendStatus}
                   </p>
                 </div>
-                <div className="bg-primary rounded-xl p-4">
-                  <div className="w-10 h-10 bg-primary-hover/20 rounded-lg mb-3 flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">⚡</span>
+                <div className="bg-card rounded-xl p-4 border border-border">
+                  <div className="w-10 h-10 bg-primary/10 dark:bg-primary/20 rounded-lg mb-3 flex items-center justify-center">
+                    <span className="text-primary text-xs font-bold">⚡</span>
                   </div>
-                  <p className="text-sm font-medium text-white mb-1">
+                  <p className="text-sm font-medium text-foreground mb-1">
                     {dictionary.about.skills.backend}
                   </p>
-                  <p className="text-xs text-white/80">
+                  <p className="text-xs text-muted-foreground">
                     {dictionary.about.skills.backendStatus}
                   </p>
                 </div>
@@ -130,7 +130,7 @@ export function AboutSection() {
                     <span className="px-4 py-2 bg-card rounded-full border border-border text-sm text-foreground">
                       Next.js
                     </span>
-                    <span className="px-4 py-2 bg-primary text-white rounded-full text-sm">
+                    <span className="px-4 py-2 bg-card rounded-full border border-border text-sm text-foreground">
                       Tailwind CSS
                     </span>
                   </div>

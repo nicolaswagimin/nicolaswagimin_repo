@@ -24,8 +24,8 @@ export function Header() {
         <nav className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-white text-sm font-bold">N</span>
+            <div className="w-8 h-8 bg-card rounded-full border border-border flex items-center justify-center">
+              <span className="text-foreground text-sm font-bold">N</span>
             </div>
             <span className="text-xl font-bold text-foreground">Nicolás Wagimin</span>
           </div>

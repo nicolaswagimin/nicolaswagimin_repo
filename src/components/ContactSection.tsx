@@ -193,18 +193,17 @@ export function ContactSection() {
               </div>
               
               {/* Call to Action */}
-              <div className="bg-primary rounded-2xl p-8 text-white shadow-lg">
+              <div className="bg-card rounded-2xl p-8 border border-border shadow-lg">
                 <div className="space-y-4">
-                  <h4 className="text-xl font-semibold text-white">
+                  <h4 className="text-xl font-semibold text-foreground">
                     {dictionary.contact.cta.title}
                   </h4>
-                  <p className="text-white/80">
+                  <p className="text-muted-foreground">
                     {dictionary.contact.cta.description}
                   </p>
                   <Button 
                     onClick={() => scrollToSection('contact')}
-                    variant="outline" 
-                    className="border-white/30 text-white hover:bg-white/10 px-6 h-10"
+                    className="px-6 h-10"
                   >
                     {dictionary.contact.cta.button}
                   </Button>
