@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  /* Light theme colors - Verde Pino */
+  /* Light theme colors - Verde Esmeralda Elegante */
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #2d5016;
-  --primary-hover: #3d6b1f;
+  --primary: #059669;
+  --primary-hover: #047857;
   --secondary: #64748b;
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
@@ -15,16 +15,16 @@
 }
 
 .dark {
-  /* Dark theme colors - Verde Pino Oscuro */
-  --background: #1a2e0f;
+  /* Dark theme colors - Verde Esmeralda Oscuro Elegante */
+  --background: #0f1f1a;
   --foreground: #f8fafc;
-  --primary: #4a7c2a;
-  --primary-hover: #5d9a35;
+  --primary: #10b981;
+  --primary-hover: #34d399;
   --secondary: #475569;
-  --muted: #2a3d1f;
+  --muted: #1a2e24;
   --muted-foreground: #94a3b8;
-  --border: #3a4d2f;
-  --card: #223318;
+  --border: #2a3d32;
+  --card: #1a2e24;
   --card-foreground: #f8fafc;
 }
 
