@@ -12,6 +12,10 @@
   --border: #e2e8f0;
   --card: #ffffff;
   --card-foreground: #171717;
+  /* Button tokens (light) */
+  --btn-bg: #ffffff;
+  --btn-text: #000000;
+  --btn-hover-bg: #f3f4f6; /* gray-100 */
 }
 
 .dark {
@@ -26,6 +30,10 @@
   --border: #2a3d32;
   --card: #1a2e24;
   --card-foreground: #f8fafc;
+  /* Button tokens (dark) */
+  --btn-bg: #1f2937; /* gray-800 */
+  --btn-text: #ffffff;
+  --btn-hover-bg: #111827; /* gray-900 */
 }
 
 @theme inline {
@@ -39,6 +47,9 @@
   --color-border: var(--border);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-btn-bg: var(--btn-bg);
+  --color-btn-text: var(--btn-text);
+  --color-btn-hover-bg: var(--btn-hover-bg);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --radius-xl: 28px;
