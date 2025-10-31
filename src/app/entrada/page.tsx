@@ -20,13 +20,13 @@ export default function EntradaPage() {
   };
 
   useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
+    const handleKeyPress = () => {
       handleInteraction();
     };
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [isCrushing]);
+  }, [isCrushing, handleInteraction]);
 
   return (
     <div 
@@ -63,7 +63,7 @@ export default function EntradaPage() {
         <p>📍 Ubicación: Pasto, Colombia</p>
         <p>================================</p>
         
-        <p><em>"Me gusta programar y aprender cosas nuevas"</em></p>
+        <p><em>&quot;Me gusta programar y aprender cosas nuevas&quot;</em></p>
         <p>================================</p>
         
         <p className="hint">[Click o presiona cualquier tecla para continuar...]</p>

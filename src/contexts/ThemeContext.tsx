@@ -51,7 +51,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     // Initialize with explicit default theme; ignore system and storage
     const initialTheme: Theme = defaultTheme;
     setTheme(initialTheme);
-  }, []);
+  }, [defaultTheme]);
 
   const value: ThemeContextType = {
     theme,

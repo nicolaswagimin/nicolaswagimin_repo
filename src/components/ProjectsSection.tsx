@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from "./ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { fetchGitHubRepos, getLanguageColor, type GitHubRepo } from "@/lib/github";
+import { fetchGitHubRepos, type GitHubRepo } from "@/lib/github";
 import AnimatedListProjects from "./AnimatedListProjects";
 
 export function ProjectsSection() {
@@ -89,7 +89,6 @@ export function ProjectsSection() {
                 window.open(project.html_url, '_blank');
               }}
               showGradients={true}
-              enableArrowNavigation={true}
               displayScrollbar={true}
               className="mx-auto"
               itemClassName="text-center"
