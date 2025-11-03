@@ -1,8 +1,11 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-
-type Theme = 'light' | 'dark';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import type { Theme } from '@/types';
+import { applyTheme } from '@/utils/theme';
+import { storage } from '@/utils/storage';
+import { STORAGE_KEYS } from '@/constants';
+import { APP_CONFIG } from '@/config';
 
 interface ThemeContextType {
   theme: Theme;
@@ -25,32 +28,43 @@ interface ThemeProviderProps {
   defaultTheme?: Theme;
 }
 
+const isValidTheme = (value: string): value is Theme => {
+  return value === 'light' || value === 'dark';
+};
+
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ 
   children, 
-  defaultTheme = 'light' 
+  defaultTheme = APP_CONFIG.defaultTheme,
 }) => {
   const [theme, setThemeState] = useState<Theme>(defaultTheme);
 
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-      document.body.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.body.classList.remove('dark');
+  const setTheme = useCallback((newTheme: Theme) => {
+    if (!isValidTheme(newTheme)) {
+      console.warn(`Invalid theme: ${newTheme}. Using default.`);
+      return;
     }
-  };
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setThemeState(newTheme);
+    applyTheme(newTheme);
+    if (typeof window !== 'undefined') {
+      storage.setString(STORAGE_KEYS.THEME, newTheme);
+    }
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    const newTheme: Theme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
-  };
+  }, [theme, setTheme]);
 
+  // Initialize theme on mount (client-side only)
   useEffect(() => {
-    // Initialize with explicit default theme; ignore system and storage
-    const initialTheme: Theme = defaultTheme;
-    setTheme(initialTheme);
+    const storedTheme = storage.getString(STORAGE_KEYS.THEME);
+    const initialTheme = (storedTheme && isValidTheme(storedTheme)) 
+      ? storedTheme 
+      : defaultTheme;
+    
+    setThemeState(initialTheme);
+    applyTheme(initialTheme);
   }, [defaultTheme]);
 
   const value: ThemeContextType = {

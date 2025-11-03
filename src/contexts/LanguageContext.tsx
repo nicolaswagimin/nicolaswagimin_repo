@@ -1,7 +1,10 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { Dictionary, Locale, getDictionary } from '@/lib/dictionaries';
+import { storage } from '@/utils/storage';
+import { STORAGE_KEYS } from '@/constants';
+import { APP_CONFIG } from '@/config';
 
 interface LanguageContextType {
   locale: Locale;
@@ -25,29 +28,43 @@ interface LanguageProviderProps {
   defaultLocale?: Locale;
 }
 
+const isValidLocale = (value: string): value is Locale => {
+  return value === 'es' || value === 'en';
+};
+
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ 
   children, 
-  defaultLocale = 'es' 
+  defaultLocale = APP_CONFIG.defaultLocale,
 }) => {
   const [locale, setLocaleState] = useState<Locale>(defaultLocale);
-  const [dictionary, setDictionary] = useState<Dictionary>(getDictionary(defaultLocale));
+  const [dictionary, setDictionary] = useState<Dictionary>(() => 
+    getDictionary(defaultLocale)
+  );
 
-  const setLocale = (newLocale: Locale) => {
+  const setLocale = useCallback((newLocale: Locale) => {
+    if (!isValidLocale(newLocale)) {
+      console.warn(`Invalid locale: ${newLocale}. Using default.`);
+      return;
+    }
+
     setLocaleState(newLocale);
     setDictionary(getDictionary(newLocale));
-    localStorage.setItem('locale', newLocale);
-  };
+    if (typeof window !== 'undefined') {
+      storage.setString(STORAGE_KEYS.LOCALE, newLocale);
+    }
+  }, []);
 
-  const toggleLanguage = () => {
-    const newLocale = locale === 'es' ? 'en' : 'es';
+  const toggleLanguage = useCallback(() => {
+    const newLocale: Locale = locale === 'es' ? 'en' : 'es';
     setLocale(newLocale);
-  };
+  }, [locale, setLocale]);
 
+  // Initialize locale from storage on mount (client-side only)
   useEffect(() => {
-    // Load saved locale from localStorage
-    const savedLocale = localStorage.getItem('locale') as Locale;
-    if (savedLocale && (savedLocale === 'es' || savedLocale === 'en')) {
-      setLocale(savedLocale);
+    const storedLocale = storage.getString(STORAGE_KEYS.LOCALE);
+    if (storedLocale && isValidLocale(storedLocale)) {
+      setLocaleState(storedLocale);
+      setDictionary(getDictionary(storedLocale));
     }
   }, []);
 
