@@ -5,17 +5,16 @@ import { Button } from "./ui/button";
 import { LanguageToggle } from "./LanguageToggle";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useScroll } from "@/hooks/useScroll";
 
 export function Header() {
   const { dictionary } = useLanguage();
+  const { scroll } = useScroll();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
+  const handleScrollToSection = (sectionId: string) => {
+    scroll(sectionId);
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -42,25 +41,25 @@ export function Header() {
           {/* Navigation Menu - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
             <button 
-              onClick={() => scrollToSection('about')} 
+              onClick={() => handleScrollToSection('about')} 
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               {dictionary.header.nav.home}
             </button>
             <button 
-              onClick={() => scrollToSection('projects')} 
+              onClick={() => handleScrollToSection('projects')} 
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               {dictionary.header.nav.projects}
             </button>
             <button 
-              onClick={() => scrollToSection('skills')} 
+              onClick={() => handleScrollToSection('skills')} 
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               {dictionary.header.nav.skills}
             </button>
             <button 
-              onClick={() => scrollToSection('experience')} 
+              onClick={() => handleScrollToSection('experience')} 
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               {dictionary.header.nav.experience}
@@ -70,7 +69,7 @@ export function Header() {
             <ThemeToggle />
             
             <Button 
-              onClick={() => scrollToSection('contact')}
+              onClick={() => handleScrollToSection('contact')}
               className="px-6 h-9"
             >
               {dictionary.header.nav.contact}
@@ -102,25 +101,25 @@ export function Header() {
           <div className="md:hidden mt-4 pb-4 border-t border-border">
             <div className="flex flex-col space-y-4 pt-4">
               <button 
-                onClick={() => scrollToSection('about')} 
+                onClick={() => handleScrollToSection('about')} 
                 className="text-left text-muted-foreground hover:text-foreground transition-colors py-2"
               >
                 {dictionary.header.nav.home}
               </button>
               <button 
-                onClick={() => scrollToSection('projects')} 
+                onClick={() => handleScrollToSection('projects')} 
                 className="text-left text-muted-foreground hover:text-foreground transition-colors py-2"
               >
                 {dictionary.header.nav.projects}
               </button>
               <button 
-                onClick={() => scrollToSection('skills')} 
+                onClick={() => handleScrollToSection('skills')} 
                 className="text-left text-muted-foreground hover:text-foreground transition-colors py-2"
               >
                 {dictionary.header.nav.skills}
               </button>
               <button 
-                onClick={() => scrollToSection('experience')} 
+                onClick={() => handleScrollToSection('experience')} 
                 className="text-left text-muted-foreground hover:text-foreground transition-colors py-2"
               >
                 {dictionary.header.nav.experience}
@@ -128,7 +127,7 @@ export function Header() {
               <div className="flex items-center gap-4 pt-2">
                 <LanguageToggle />
                 <Button 
-                  onClick={() => scrollToSection('contact')}
+                  onClick={() => handleScrollToSection('contact')}
                   className="px-6 h-9"
                 >
                   {dictionary.header.nav.contact}

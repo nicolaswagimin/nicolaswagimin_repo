@@ -2,18 +2,12 @@
 
 import React, { useState, useEffect, useRef, ReactNode, MouseEventHandler } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { getLanguageColor } from '@/lib/github';
-import type { GitHubRepo } from '@/lib/github';
+import { getLanguageColor } from '@/services/github.service';
+import type { GitHubRepo } from '@/types/github';
+import { formatDate } from '@/utils/date';
+import { scrollToElement } from '@/utils/scroll';
+import { SCROLL_OPTIONS, ANIMATION_DELAYS } from '@/constants';
 
-// Función para formatear fechas
-const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('es-ES', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-};
 
 interface AnimatedListProjectsProps {
   projects: GitHubRepo[];
@@ -94,10 +88,11 @@ const AnimatedListProjects: React.FC<AnimatedListProjectsProps> = ({
     
     const { scrollTop, scrollHeight, clientHeight } = listRef.current;
     const maxScroll = scrollHeight - clientHeight;
+    const threshold = ANIMATION_DELAYS.GRADIENT_FADE_THRESHOLD;
     
     if (maxScroll > 0) {
-      setTopGradientOpacity(scrollTop > 10 ? 0 : 1 - scrollTop / 10);
-      setBottomGradientOpacity(scrollTop < maxScroll - 10 ? 1 : (maxScroll - scrollTop) / 10);
+      setTopGradientOpacity(scrollTop > threshold ? 0 : 1 - scrollTop / threshold);
+      setBottomGradientOpacity(scrollTop < maxScroll - threshold ? 1 : (maxScroll - scrollTop) / threshold);
     }
   };
 
@@ -108,17 +103,7 @@ const AnimatedListProjects: React.FC<AnimatedListProjectsProps> = ({
     const selectedItem = container.children[selectedIndex] as HTMLElement;
     
     if (selectedItem) {
-      const extraMargin = 20;
-      const containerScrollTop = container.scrollTop;
-      const containerHeight = container.clientHeight;
-      const itemTop = selectedItem.offsetTop;
-      const itemBottom = itemTop + selectedItem.offsetHeight;
-      
-      if (itemTop < containerScrollTop + extraMargin) {
-        container.scrollTo({ top: itemTop - extraMargin, behavior: 'smooth' });
-      } else if (itemBottom > containerScrollTop + containerHeight - extraMargin) {
-        container.scrollTo({ top: itemBottom - containerHeight + extraMargin, behavior: 'smooth' });
-      }
+      scrollToElement(container, selectedItem, SCROLL_OPTIONS.EXTRA_MARGIN);
     } else {
       setKeyboardNav(false);
     }
@@ -142,7 +127,7 @@ const AnimatedListProjects: React.FC<AnimatedListProjectsProps> = ({
         {projects.map((project, index) => (
           <AnimatedProjectItem
             key={project.id}
-            delay={0.1 * index + Math.random() * 0.05}
+            delay={ANIMATION_DELAYS.PROJECT_ITEM_BASE * index + Math.random() * ANIMATION_DELAYS.PROJECT_ITEM_RANDOM}
             index={index}
             onMouseEnter={() => setSelectedIndex(index)}
             onClick={() => {
@@ -260,7 +245,7 @@ const AnimatedListProjects: React.FC<AnimatedListProjectsProps> = ({
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span>Actualizado {formatDate(project.updated_at)}</span>
+                      <span>Actualizado {formatDate(project.updated_at, 'es-ES')}</span>
                     </div>
                     {project.stargazers_count > 0 && (
                       <div className="flex items-center gap-1">

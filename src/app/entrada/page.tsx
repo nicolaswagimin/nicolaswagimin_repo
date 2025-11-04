@@ -1,23 +1,25 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import './entrada.css';
+import { cookies } from '@/utils/storage';
+import { ROUTES } from '@/constants';
 
 export default function EntradaPage() {
   const [isCrushing, setIsCrushing] = useState(false);
   const router = useRouter();
 
-  const handleInteraction = () => {
+  const handleInteraction = useCallback(() => {
     if (!isCrushing) {
       setIsCrushing(true);
       setTimeout(() => {
         // Establecer cookie para indicar que ya visitó
-        document.cookie = 'hasVisitedPortfolio=true; path=/; max-age=31536000'; // 1 año
-        router.push('/');
+        cookies.set('hasVisitedPortfolio', 'true', 365);
+        router.push(ROUTES.HOME);
       }, 1500);
     }
-  };
+  }, [isCrushing, router]);
 
   useEffect(() => {
     const handleKeyPress = () => {
