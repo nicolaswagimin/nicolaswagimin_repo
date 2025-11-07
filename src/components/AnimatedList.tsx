@@ -131,13 +131,13 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
         ref={listRef}
         className={`max-h-[400px] overflow-y-auto p-4 ${
           displayScrollbar
-            ? '[&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-track]:bg-[#060010] [&::-webkit-scrollbar-thumb]:bg-[#222] [&::-webkit-scrollbar-thumb]:rounded-[4px]'
+            ? '[&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-track]:bg-muted [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-thumb]:rounded-[4px]'
             : 'scrollbar-hide'
         }`}
         onScroll={handleScroll}
         style={{
           scrollbarWidth: displayScrollbar ? 'thin' : 'none',
-          scrollbarColor: '#222 #060010'
+          scrollbarColor: 'var(--border) var(--muted)'
         }}
       >
         {items.map((item, index) => (
@@ -153,8 +153,8 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
               }
             }}
           >
-            <div className={`p-4 bg-[#111] rounded-lg ${selectedIndex === index ? 'bg-[#222]' : ''} ${itemClassName}`}>
-              <p className="text-white text-sm">{item}</p>
+            <div className={`p-4 bg-card rounded-lg border border-border ${selectedIndex === index ? 'bg-muted/50 border-primary/50' : ''} ${itemClassName}`}>
+              <p className="text-foreground text-sm">{item}</p>
             </div>
           </AnimatedItem>
         ))}
@@ -164,14 +164,14 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
           <div
             className="absolute top-0 left-0 right-0 h-8 pointer-events-none"
             style={{
-              background: `linear-gradient(to bottom, rgba(6, 0, 16, 1) 0%, rgba(6, 0, 16, 0) 100%)`,
+              background: `linear-gradient(to bottom, var(--background) 0%, transparent 100%)`,
               opacity: topGradientOpacity
             }}
           />
           <div
             className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none"
             style={{
-              background: `linear-gradient(to top, rgba(6, 0, 16, 1) 0%, rgba(6, 0, 16, 0) 100%)`,
+              background: `linear-gradient(to top, var(--background) 0%, transparent 100%)`,
               opacity: bottomGradientOpacity
             }}
           />
