@@ -31,11 +31,15 @@ async function fetchGitHubReposInternal(
   try {
     const url = `${GITHUB_CONFIG.API_BASE_URL}/users/${username}/repos?sort=${sort}&per_page=${perPage}`;
     
+    // Para client-side, no usar next: { revalidate }
+    // En el cliente, fetch funciona normalmente sin opciones de Next.js
+    const headers = {
+      'Accept': 'application/vnd.github.v3+json',
+    };
+    
     const response = await fetch(url, {
-      headers: {
-        'Accept': 'application/vnd.github.v3+json',
-      },
-      next: { revalidate },
+      headers,
+      ...(typeof window === 'undefined' && { next: { revalidate } }),
     });
 
     if (!response.ok) {

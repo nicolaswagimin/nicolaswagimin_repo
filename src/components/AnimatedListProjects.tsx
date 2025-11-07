@@ -115,13 +115,13 @@ const AnimatedListProjects: React.FC<AnimatedListProjectsProps> = ({
         ref={listRef}
         className={`max-h-[600px] overflow-y-auto p-4 ${
           displayScrollbar
-            ? '[&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-track]:bg-[#060010] [&::-webkit-scrollbar-thumb]:bg-[#222] [&::-webkit-scrollbar-thumb]:rounded-[4px]'
+            ? '[&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-track]:bg-muted [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-thumb]:rounded-[4px] dark:[&::-webkit-scrollbar-track]:bg-muted dark:[&::-webkit-scrollbar-thumb]:bg-border'
             : 'scrollbar-hide'
         }`}
         onScroll={handleScroll}
         style={{
           scrollbarWidth: displayScrollbar ? 'thin' : 'none',
-          scrollbarColor: '#222 #060010'
+          scrollbarColor: 'var(--border) var(--muted)'
         }}
       >
         {projects.map((project, index) => (
@@ -138,15 +138,15 @@ const AnimatedListProjects: React.FC<AnimatedListProjectsProps> = ({
             }}
           >
             <motion.div 
-              className={`bg-card rounded-xl border border-border p-6 ${selectedIndex === index ? 'bg-[#222] border-primary/50' : ''} ${itemClassName}`}
+              className={`bg-card rounded-xl border border-border p-6 ${selectedIndex === index ? 'border-primary/50 bg-muted/50' : ''} ${itemClassName}`}
               initial={{ boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
               whileHover={{ 
-                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3)',
-                borderColor: 'rgba(147, 51, 234, 0.5)',
+                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+                borderColor: 'var(--primary)',
                 transition: { duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }
               }}
               animate={{ 
-                borderColor: selectedIndex === index ? 'rgba(147, 51, 234, 0.5)' : 'rgba(255, 255, 255, 0.1)'
+                borderColor: selectedIndex === index ? 'var(--primary)' : 'var(--border)'
               }}
             >
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
@@ -276,14 +276,14 @@ const AnimatedListProjects: React.FC<AnimatedListProjectsProps> = ({
           <div
             className="absolute top-0 left-0 right-0 h-8 pointer-events-none"
             style={{
-              background: `linear-gradient(to bottom, rgba(6, 0, 16, 1) 0%, rgba(6, 0, 16, 0) 100%)`,
+              background: `linear-gradient(to bottom, var(--background) 0%, transparent 100%)`,
               opacity: topGradientOpacity
             }}
           />
           <div
             className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none"
             style={{
-              background: `linear-gradient(to top, rgba(6, 0, 16, 1) 0%, rgba(6, 0, 16, 0) 100%)`,
+              background: `linear-gradient(to top, var(--background) 0%, transparent 100%)`,
               opacity: bottomGradientOpacity
             }}
           />
