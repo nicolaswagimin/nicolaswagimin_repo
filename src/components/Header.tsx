@@ -29,15 +29,6 @@ export function Header() {
             <span className="text-xl font-bold text-foreground">Nicolás Wagimin</span>
           </div>
           
-          {/* Search Bar */}
-          <div className="hidden lg:flex items-center flex-1 max-w-md mx-8">
-            <input 
-              type="text" 
-              placeholder={dictionary.header.searchPlaceholder}
-              className="w-full h-10 bg-muted rounded-full border border-border px-4 text-sm placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground"
-            />
-          </div>
-          
           {/* Navigation Menu - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
             <button 

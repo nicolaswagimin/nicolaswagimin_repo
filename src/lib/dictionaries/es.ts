@@ -2,7 +2,6 @@
 export const es = {
   // Header
   header: {
-    searchPlaceholder: "Buscar proyectos, habilidades...",
     nav: {
       home: "Inicio",
       projects: "Proyectos", 
@@ -116,8 +115,8 @@ export const es = {
     viewGitHub: "Ver GitHub",
     featured: {
       badge: "Proyecto Principal",
-      title: "MentalCare",
-      description: "Plataforma web de apoyo emocional juvenil que integra IA y patrones de diseño de software. Proyecto final de curso con enfoque social y académico, desarrollado en equipo aplicando metodologías ágiles.",
+      title: "Portafolio Personal",
+      description: "Sitio web personal desarrollado con Next.js y React, demostrando habilidades en desarrollo frontend moderno, diseño responsivo y mejores prácticas de desarrollo web.",
       viewDetails: "Ver Detalles"
     },
     project1: {
@@ -219,9 +218,9 @@ export const es = {
       role: "Compañera de estudios • UCC"
     },
     testimonial2: {
-      quote: "Nicolás tiene una gran capacidad para aprender tecnologías nuevas rápidamente. En nuestro proyecto de MentalCare, se encargó de la parte backend y siempre cumplió con los tiempos.",
+      quote: "Nicolás tiene una gran capacidad para aprender tecnologías nuevas rápidamente. Siempre está actualizado con las últimas tendencias en desarrollo y aporta soluciones innovadoras a los proyectos.",
       author: "Miguel Rodríguez", 
-      role: "Compañero de equipo • Proyecto MentalCare"
+      role: "Compañero de estudios • UCC"
     },
     testimonial3: {
       quote: "Su actitud de aprendizaje constante es admirable. Siempre está investigando nuevas herramientas y compartiendo conocimiento con el resto del grupo. Es un estudiante muy dedicado.",

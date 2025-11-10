@@ -112,7 +112,7 @@ export function ProjectsSection() {
                     </div>
                     <div className="absolute bottom-6 right-6">
                       <div className="w-12 h-12 bg-card rounded-lg flex items-center justify-center shadow-lg border border-border">
-                        <span className="text-primary text-xl">🏥</span>
+                        <span className="text-primary text-xl">💼</span>
                       </div>
                     </div>
                   </div>
@@ -127,17 +127,17 @@ export function ProjectsSection() {
                     </div>
                     
                     <div className="flex flex-wrap gap-2">
-                      <span className="px-3 py-1 bg-muted rounded-full border border-border text-xs text-foreground">
-                        Java
-                      </span>
-                      <span className="px-3 py-1 bg-muted rounded-full border border-border text-xs text-foreground">
-                        Spring Boot
+                      <span className="px-3 py-1 bg-primary rounded-full text-xs text-primary-foreground">
+                        Next.js
                       </span>
                       <span className="px-3 py-1 bg-primary rounded-full text-xs text-primary-foreground">
                         React
                       </span>
                       <span className="px-3 py-1 bg-muted rounded-full border border-border text-xs text-foreground">
-                        Patrones de Diseño
+                        TypeScript
+                      </span>
+                      <span className="px-3 py-1 bg-muted rounded-full border border-border text-xs text-foreground">
+                        Tailwind CSS
                       </span>
                     </div>
                     
