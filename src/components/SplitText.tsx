@@ -22,36 +22,41 @@ export interface SplitTextProps {
   tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div';
   textAlign?: React.CSSProperties['textAlign'];
   onLetterAnimationComplete?: () => void;
-  repeat?: boolean; // Si es true, la animación se repite cada vez que el elemento es visible
+  repeat?: boolean;
 }
 
 const SplitText: React.FC<SplitTextProps> = ({
   text,
   className = '',
-  delay = 100,
-  duration = 0.6,
-  ease = 'power3.out',
+  delay = 80,
+  duration = 0.8,
+  ease = 'power2.out',
   splitType = 'chars',
-  from = { opacity: 0, y: 40 },
+  from = { opacity: 0, y: 30 },
   to = { opacity: 1, y: 0 },
-  threshold = 0.1,
-  rootMargin = '-100px',
+  threshold = 0.15,
+  rootMargin = '0px',
   tag = 'p',
   textAlign = 'center',
   onLetterAnimationComplete,
-  repeat = true
+  repeat = false,
 }) => {
   const ref = useRef<HTMLElement>(null);
-  const animationCompletedRef = useRef(false);
-  const [fontsLoaded, setFontsLoaded] = useState<boolean>(false);
+  const splitInstanceRef = useRef<GSAPSplitText | null>(null);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
+  const animationRef = useRef<gsap.core.Tween | null>(null);
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
-    if (document.fonts.status === 'loaded') {
-      setFontsLoaded(true);
-    } else {
-      document.fonts.ready.then(() => {
-        setFontsLoaded(true);
-      });
+    // Verificar si las fuentes están cargadas
+    if (typeof window !== 'undefined') {
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => setFontsLoaded(true)).catch(() => setFontsLoaded(true));
+      } else {
+        // Fallback: esperar un poco y luego continuar
+        setTimeout(() => setFontsLoaded(true), 100);
+      }
     }
   }, []);
 
@@ -59,132 +64,176 @@ const SplitText: React.FC<SplitTextProps> = ({
     () => {
       if (!ref.current || !text || !fontsLoaded) return;
 
-      const el = ref.current as HTMLElement & {
-        _rbsplitInstance?: GSAPSplitText;
-      };
+      const element = ref.current;
 
-      if (el._rbsplitInstance) {
-        try {
-          el._rbsplitInstance.revert();
-        } catch {
-          // Ignore errors during revert
-        }
-        el._rbsplitInstance = undefined;
+      // Limpiar instancias anteriores
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+        scrollTriggerRef.current = null;
       }
 
-      const startPct = (1 - threshold) * 100;
-      const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
-      const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
-      const marginUnit = marginMatch ? marginMatch[2] || 'px' : 'px';
-      const sign =
-        marginValue === 0
-          ? ''
-          : marginValue < 0
-            ? `-=${Math.abs(marginValue)}${marginUnit}`
-            : `+=${marginValue}${marginUnit}`;
-      const start = `top ${startPct}%${sign}`;
-      let targets: Element[] = [];
-      const assignTargets = (self: GSAPSplitText) => {
-        if (splitType.includes('chars') && self.chars.length) targets = self.chars;
-        if (!targets.length && splitType.includes('words') && self.words.length) targets = self.words;
-        if (!targets.length && splitType.includes('lines') && self.lines.length) targets = self.lines;
-        if (!targets.length) targets = self.chars || self.words || self.lines;
-      };
-      const splitInstance = new GSAPSplitText(el, {
-        type: splitType,
-        smartWrap: true,
-        autoSplit: splitType === 'lines',
-        linesClass: 'split-line',
-        wordsClass: 'split-word',
-        charsClass: 'split-char',
-        reduceWhiteSpace: false,
-        onSplit: (self: GSAPSplitText) => {
-          assignTargets(self);
-          
-          // Configurar estado inicial
-          gsap.set(targets, { ...from });
-          
-          let hasCompleted = false;
-          
-          // Crear timeline para la animación
-          const tl = gsap.timeline({ paused: true });
-          
-          // Agregar animación con stagger al timeline
-          tl.to(targets, {
-            ...to,
-            duration: 1, // Duración base del timeline
-            ease: 'none', // Sin easing para control manual con scroll
-            stagger: delay / 1000,
-            willChange: 'transform, opacity',
-            force3D: true
+      if (animationRef.current) {
+        animationRef.current.kill();
+        animationRef.current = null;
+      }
+
+      if (splitInstanceRef.current) {
+        try {
+          splitInstanceRef.current.revert();
+        } catch (e) {
+          // Ignorar errores
+        }
+        splitInstanceRef.current = null;
+      }
+
+      // Pequeño delay para asegurar que el DOM está listo
+      gsap.delayedCall(0.1, () => {
+        if (!element) return;
+
+        try {
+          // Crear instancia de SplitText
+          const split = new GSAPSplitText(element, {
+            type: splitType,
+            linesClass: 'split-line',
+            wordsClass: 'split-word',
+            charsClass: 'split-char',
           });
-          
-          // Calcular punto final - la animación completa cuando el elemento está bien visible
-          const endMargin = marginValue === 0
-            ? ''
-            : marginValue < 0
-              ? `+=${Math.abs(marginValue)}${marginUnit}`
+
+          splitInstanceRef.current = split;
+
+          // Determinar qué elementos animar
+          let animatableElements: Element[] = [];
+          if (splitType.includes('chars') && split.chars && split.chars.length > 0) {
+            animatableElements = split.chars;
+          } else if (splitType.includes('words') && split.words && split.words.length > 0) {
+            animatableElements = split.words;
+          } else if (split.lines && split.lines.length > 0) {
+            animatableElements = split.lines;
+          }
+
+          if (animatableElements.length === 0) {
+            return;
+          }
+
+          // Configurar estado inicial - hacer visible inmediatamente para evitar parpadeo
+          gsap.set(animatableElements, { 
+            ...from,
+            visibility: 'visible' // Asegurar que sea visible
+          });
+
+          // Función para ejecutar la animación de forma fluida
+          const playAnimation = (resetFirst = true) => {
+            // Evitar animaciones duplicadas
+            if (animationRef.current && animationRef.current.isActive()) {
+              return;
+            }
+
+            // Limpiar animación anterior
+            if (animationRef.current) {
+              animationRef.current.kill();
+              animationRef.current = null;
+            }
+
+            // Resetear estado inicial si es necesario
+            if (resetFirst) {
+              gsap.set(animatableElements, { ...from });
+            }
+
+            // Crear animación suave con stagger correcto
+            animationRef.current = gsap.to(animatableElements, {
+              ...to,
+              duration: duration,
+              ease: ease,
+              stagger: delay / 1000, // Stagger en segundos
+              onComplete: () => {
+                hasAnimatedRef.current = true;
+                animationRef.current = null;
+                if (onLetterAnimationComplete) {
+                  onLetterAnimationComplete();
+                }
+              },
+            });
+          };
+
+          // Calcular puntos de ScrollTrigger de forma más precisa
+          const marginMatch = rootMargin.match(/^(-?\d+)(px|em|rem|%)?$/);
+          const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
+          const marginUnit = marginMatch ? marginMatch[2] || 'px' : 'px';
+
+          // Configurar inicio: cuando el elemento entra en el viewport (80% desde arriba)
+          const startPercent = 80;
+          let start = `top ${startPercent}%`;
+          if (marginValue !== 0) {
+            const offset = marginValue < 0 
+              ? `+=${Math.abs(marginValue)}${marginUnit}` 
               : `-=${marginValue}${marginUnit}`;
-          
-          // Crear ScrollTrigger con scrub para sincronizar con el scroll
-          // Esto hace que la animación progrese a medida que haces scroll (como Apple)
-          ScrollTrigger.create({
-            trigger: el,
+            start += offset;
+          }
+
+          // Crear ScrollTrigger - animación se activa cuando el elemento entra
+          const st = ScrollTrigger.create({
+            trigger: element,
             start: start,
-            end: `top center${endMargin}`, // La animación se completa cuando el elemento está en el centro
-            scrub: 1, // Sincronizar con el scroll (1 = suavizado, true = inmediato)
-            animation: tl,
-            onUpdate: (self) => {
-              // Callback cuando el scroll se actualiza
-              if (self.progress === 1 && !hasCompleted) {
-                hasCompleted = true;
-                animationCompletedRef.current = true;
-                onLetterAnimationComplete?.();
-              } else if (self.progress < 1) {
-                hasCompleted = false;
+            once: !repeat, // Solo una vez si repeat es false
+            onEnter: () => {
+              // Cuando el elemento entra en el viewport por primera vez
+              playAnimation(true);
+            },
+            onEnterBack: () => {
+              // Cuando haces scroll hacia arriba y el elemento entra de nuevo
+              if (repeat) {
+                playAnimation(true);
+              } else if (!hasAnimatedRef.current) {
+                // Si no ha animado aún, animar
+                playAnimation(true);
               }
             },
             onLeaveBack: () => {
               // Cuando el elemento sale completamente por arriba
               if (repeat) {
-                hasCompleted = false;
+                // Resetear flag para permitir re-animación
+                hasAnimatedRef.current = false;
               }
+            },
+          });
+
+          scrollTriggerRef.current = st;
+
+          // Verificar si ya está visible al cargar
+          gsap.delayedCall(0.4, () => {
+            ScrollTrigger.refresh();
+            if (st.isActive && !hasAnimatedRef.current) {
+              playAnimation(true);
             }
           });
-          
-          // Retornar el timeline
-          return tl;
+        } catch (error) {
+          console.warn('Error creating SplitText animation:', error);
         }
       });
-      el._rbsplitInstance = splitInstance;
+
+      // Cleanup
       return () => {
-        ScrollTrigger.getAll().forEach(st => {
-          if (st.trigger === el) st.kill();
-        });
-        try {
-          splitInstance.revert();
-        } catch {
-          // Ignore errors during cleanup
+        if (scrollTriggerRef.current) {
+          scrollTriggerRef.current.kill();
+          scrollTriggerRef.current = null;
         }
-        el._rbsplitInstance = undefined;
+        if (animationRef.current) {
+          animationRef.current.kill();
+          animationRef.current = null;
+        }
+        if (splitInstanceRef.current) {
+          try {
+            splitInstanceRef.current.revert();
+          } catch {
+            // Ignorar errores de limpieza
+          }
+          splitInstanceRef.current = null;
+        }
       };
     },
     {
-      dependencies: [
-        text,
-        delay,
-        duration,
-        ease,
-        splitType,
-        JSON.stringify(from),
-        JSON.stringify(to),
-        threshold,
-        rootMargin,
-        fontsLoaded,
-        onLetterAnimationComplete,
-        repeat
-      ],
-      scope: ref
+      dependencies: [text, fontsLoaded, delay, duration, ease, splitType, threshold, rootMargin, repeat, onLetterAnimationComplete],
+      scope: ref,
     }
   );
 
@@ -192,14 +241,14 @@ const SplitText: React.FC<SplitTextProps> = ({
     const isInline = tag === 'span';
     const style: React.CSSProperties = {
       textAlign,
-      overflow: 'hidden',
+      overflow: 'visible', // Cambiar a visible para evitar que se corte
       display: isInline ? 'inline-block' : 'block',
       whiteSpace: 'normal',
       wordWrap: 'break-word',
-      willChange: 'transform, opacity',
-      width: isInline ? 'auto' : '100%'
+      width: isInline ? 'auto' : '100%',
     };
-    const classes = `split-parent ${className}`;
+    const classes = `${className}`.trim();
+
     switch (tag) {
       case 'h1':
         return (
@@ -257,8 +306,8 @@ const SplitText: React.FC<SplitTextProps> = ({
         );
     }
   };
+
   return renderTag();
 };
 
 export default SplitText;
-
