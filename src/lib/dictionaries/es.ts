@@ -113,12 +113,6 @@ export const es = {
     title: "Mi trabajo",
     description: "Una selección de proyectos académicos y personales que demuestran mi aprendizaje y aplicación de tecnologías modernas.",
     viewGitHub: "Ver GitHub",
-    featured: {
-      badge: "Proyecto Principal",
-      title: "Portafolio Personal",
-      description: "Sitio web personal desarrollado con Next.js y React, demostrando habilidades en desarrollo frontend moderno, diseño responsivo y mejores prácticas de desarrollo web.",
-      viewDetails: "Ver Detalles"
-    },
     project1: {
       type: "API REST",
       title: "Gestor de Avatares Empresariales",

@@ -113,12 +113,6 @@ export const en = {
     title: "My work",
     description: "A selection of academic and personal projects that demonstrate my learning and application of modern technologies.",
     viewGitHub: "View GitHub",
-    featured: {
-      badge: "Main Project",
-      title: "Personal Portfolio",
-      description: "Personal website developed with Next.js and React, showcasing skills in modern frontend development, responsive design and web development best practices.",
-      viewDetails: "View Details"
-    },
     project1: {
       type: "REST API",
       title: "Corporate Avatar Manager",
