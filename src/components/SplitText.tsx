@@ -101,62 +101,59 @@ const SplitText: React.FC<SplitTextProps> = ({
         onSplit: (self: GSAPSplitText) => {
           assignTargets(self);
           
-          // Función para ejecutar la animación
-          const playAnimation = () => {
-            // Resetear a estado inicial
-            gsap.set(targets, { ...from });
-            
-            // Crear y ejecutar animación
-            return gsap.to(targets, {
-              ...to,
-              duration,
-              ease,
-              stagger: delay / 1000,
-              onComplete: () => {
-                animationCompletedRef.current = true;
-                onLetterAnimationComplete?.();
-              },
-              willChange: 'transform, opacity',
-              force3D: true
-            });
-          };
+          // Configurar estado inicial
+          gsap.set(targets, { ...from });
           
-          // Configurar ScrollTrigger
+          let hasCompleted = false;
+          
+          // Crear timeline para la animación
+          const tl = gsap.timeline({ paused: true });
+          
+          // Agregar animación con stagger al timeline
+          tl.to(targets, {
+            ...to,
+            duration: 1, // Duración base del timeline
+            ease: 'none', // Sin easing para control manual con scroll
+            stagger: delay / 1000,
+            willChange: 'transform, opacity',
+            force3D: true
+          });
+          
+          // Calcular punto final - la animación completa cuando el elemento está bien visible
+          const endMargin = marginValue === 0
+            ? ''
+            : marginValue < 0
+              ? `+=${Math.abs(marginValue)}${marginUnit}`
+              : `-=${marginValue}${marginUnit}`;
+          
+          // Crear ScrollTrigger con scrub para sincronizar con el scroll
+          // Esto hace que la animación progrese a medida que haces scroll (como Apple)
           ScrollTrigger.create({
             trigger: el,
-            start,
-            once: !repeat,
-            fastScrollEnd: true,
-            anticipatePin: 0.4,
-            onEnter: () => {
-              playAnimation();
-            },
-            onEnterBack: () => {
-              if (repeat) {
-                playAnimation();
-              }
-            },
-            onLeave: () => {
-              if (repeat) {
-                // Resetear cuando sale del viewport
-                gsap.set(targets, { ...from });
+            start: start,
+            end: `top center${endMargin}`, // La animación se completa cuando el elemento está en el centro
+            scrub: 1, // Sincronizar con el scroll (1 = suavizado, true = inmediato)
+            animation: tl,
+            onUpdate: (self) => {
+              // Callback cuando el scroll se actualiza
+              if (self.progress === 1 && !hasCompleted) {
+                hasCompleted = true;
+                animationCompletedRef.current = true;
+                onLetterAnimationComplete?.();
+              } else if (self.progress < 1) {
+                hasCompleted = false;
               }
             },
             onLeaveBack: () => {
+              // Cuando el elemento sale completamente por arriba
               if (repeat) {
-                // Resetear cuando sale del viewport
-                gsap.set(targets, { ...from });
+                hasCompleted = false;
               }
             }
           });
           
-          // Si repeat es false, ejecutar una vez inmediatamente
-          if (!repeat) {
-            return playAnimation();
-          }
-          
-          // Retornar una animación vacía si repeat es true (se ejecutará en los callbacks)
-          return gsap.set(targets, { ...from });
+          // Retornar el timeline
+          return tl;
         }
       });
       el._rbsplitInstance = splitInstance;
