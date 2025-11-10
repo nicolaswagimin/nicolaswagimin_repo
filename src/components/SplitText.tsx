@@ -22,6 +22,7 @@ export interface SplitTextProps {
   tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div';
   textAlign?: React.CSSProperties['textAlign'];
   onLetterAnimationComplete?: () => void;
+  repeat?: boolean; // Si es true, la animación se repite cada vez que el elemento es visible
 }
 
 const SplitText: React.FC<SplitTextProps> = ({
@@ -37,7 +38,8 @@ const SplitText: React.FC<SplitTextProps> = ({
   rootMargin = '-100px',
   tag = 'p',
   textAlign = 'center',
-  onLetterAnimationComplete
+  onLetterAnimationComplete,
+  repeat = true
 }) => {
   const ref = useRef<HTMLElement>(null);
   const animationCompletedRef = useRef(false);
@@ -98,29 +100,63 @@ const SplitText: React.FC<SplitTextProps> = ({
         reduceWhiteSpace: false,
         onSplit: (self: GSAPSplitText) => {
           assignTargets(self);
-          return gsap.fromTo(
-            targets,
-            { ...from },
-            {
+          
+          // Función para ejecutar la animación
+          const playAnimation = () => {
+            // Resetear a estado inicial
+            gsap.set(targets, { ...from });
+            
+            // Crear y ejecutar animación
+            return gsap.to(targets, {
               ...to,
               duration,
               ease,
               stagger: delay / 1000,
-              scrollTrigger: {
-                trigger: el,
-                start,
-                once: true,
-                fastScrollEnd: true,
-                anticipatePin: 0.4
-              },
               onComplete: () => {
                 animationCompletedRef.current = true;
                 onLetterAnimationComplete?.();
               },
               willChange: 'transform, opacity',
               force3D: true
+            });
+          };
+          
+          // Configurar ScrollTrigger
+          ScrollTrigger.create({
+            trigger: el,
+            start,
+            once: !repeat,
+            fastScrollEnd: true,
+            anticipatePin: 0.4,
+            onEnter: () => {
+              playAnimation();
+            },
+            onEnterBack: () => {
+              if (repeat) {
+                playAnimation();
+              }
+            },
+            onLeave: () => {
+              if (repeat) {
+                // Resetear cuando sale del viewport
+                gsap.set(targets, { ...from });
+              }
+            },
+            onLeaveBack: () => {
+              if (repeat) {
+                // Resetear cuando sale del viewport
+                gsap.set(targets, { ...from });
+              }
             }
-          );
+          });
+          
+          // Si repeat es false, ejecutar una vez inmediatamente
+          if (!repeat) {
+            return playAnimation();
+          }
+          
+          // Retornar una animación vacía si repeat es true (se ejecutará en los callbacks)
+          return gsap.set(targets, { ...from });
         }
       });
       el._rbsplitInstance = splitInstance;
@@ -148,7 +184,8 @@ const SplitText: React.FC<SplitTextProps> = ({
         threshold,
         rootMargin,
         fontsLoaded,
-        onLetterAnimationComplete
+        onLetterAnimationComplete,
+        repeat
       ],
       scope: ref
     }
