@@ -6,6 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { APP_CONFIG } from "@/config";
 import type { GitHubRepo } from "@/types/github";
 import AnimatedListProjects from "./AnimatedListProjects";
+import SplitText from "./SplitText";
 
 export function ProjectsSection() {
   const { dictionary } = useLanguage();
@@ -50,7 +51,18 @@ export function ProjectsSection() {
             <div className="lg:col-span-6">
               <div className="space-y-4">
                 <p className="text-muted-foreground uppercase tracking-wider">{dictionary.projects.sectionTitle}</p>
-                <h2 className="text-4xl font-bold text-foreground">{dictionary.projects.title}</h2>
+                <SplitText
+                  text={dictionary.projects.title}
+                  className="text-4xl font-bold text-foreground"
+                  tag="h2"
+                  delay={80}
+                  duration={0.7}
+                  splitType="words"
+                  from={{ opacity: 0, y: 30 }}
+                  to={{ opacity: 1, y: 0 }}
+                  threshold={0.1}
+                  textAlign="left"
+                />
                 <p className="text-muted-foreground max-w-md">
                   {dictionary.projects.description}
                 </p>

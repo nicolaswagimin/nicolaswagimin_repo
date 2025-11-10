@@ -1,6 +1,7 @@
 'use client';
 
 import { useLanguage } from "@/contexts/LanguageContext";
+import SplitText from "./SplitText";
 
 export function AboutSection() {
   const { dictionary } = useLanguage();
@@ -16,9 +17,18 @@ export function AboutSection() {
                 <p className="text-muted-foreground uppercase tracking-wider text-sm font-medium">
                   {dictionary.about.sectionTitle}
                 </p>
-                <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
-                  {dictionary.about.title}
-                </h2>
+                <SplitText
+                  text={dictionary.about.title}
+                  className="text-4xl lg:text-5xl font-bold text-foreground"
+                  tag="h2"
+                  delay={80}
+                  duration={0.7}
+                  splitType="words"
+                  from={{ opacity: 0, y: 30 }}
+                  to={{ opacity: 1, y: 0 }}
+                  threshold={0.1}
+                  textAlign="left"
+                />
               </div>
             </div>
             <div className="lg:col-span-8">

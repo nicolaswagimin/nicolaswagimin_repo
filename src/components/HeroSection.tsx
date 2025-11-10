@@ -2,6 +2,7 @@
 
 import { Button } from "./ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SplitText from "./SplitText";
 
 export function HeroSection() {
   const { dictionary } = useLanguage();
@@ -38,10 +39,33 @@ export function HeroSection() {
                   <p className="text-muted-foreground uppercase tracking-wider text-sm font-medium">
                     {dictionary.hero.subtitle}
                   </p>
-                  <h1 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-                    {dictionary.hero.title}{" "}
-                    <span className="text-primary">{dictionary.hero.titleHighlight}</span>
-                  </h1>
+                  <div className="text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+                    <SplitText
+                      text={dictionary.hero.title}
+                      className="font-bold"
+                      tag="span"
+                      delay={50}
+                      duration={0.8}
+                      splitType="chars"
+                      from={{ opacity: 0, y: 50 }}
+                      to={{ opacity: 1, y: 0 }}
+                      threshold={0.2}
+                      textAlign="left"
+                    />
+                    {" "}
+                    <SplitText
+                      text={dictionary.hero.titleHighlight}
+                      className="font-bold text-primary"
+                      tag="span"
+                      delay={50}
+                      duration={0.8}
+                      splitType="chars"
+                      from={{ opacity: 0, y: 50 }}
+                      to={{ opacity: 1, y: 0 }}
+                      threshold={0.2}
+                      textAlign="left"
+                    />
+                  </div>
                 </div>
                 
                 <div className="space-y-3 max-w-lg">
