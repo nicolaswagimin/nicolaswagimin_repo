@@ -40,12 +40,15 @@
 
 .carousel-viewport {
   position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .carousel-item {
   position: relative;
   display: flex;
-  flex-shrink: 0;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
@@ -54,9 +57,11 @@
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   overflow: hidden;
-  cursor: grab;
+  cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  width: 100%;
+  min-height: 350px;
 }
 
 .carousel-item:hover {

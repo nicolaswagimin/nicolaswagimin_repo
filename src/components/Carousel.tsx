@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { motion, PanInfo, useMotionValue, MotionValue, Transition } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import './Carousel.css';
 
 export interface CarouselItem {
@@ -85,12 +85,6 @@ const DEFAULT_ITEMS: CarouselItem[] = [
   }
 ];
 
-const DRAG_BUFFER = 0;
-const VELOCITY_THRESHOLD = 500;
-const GAP = 16;
-const SPRING_OPTIONS = { type: 'spring' as const, stiffness: 300, damping: 30 };
-
-
 export default function Carousel({
   items = DEFAULT_ITEMS,
   baseWidth = 300,
@@ -102,15 +96,11 @@ export default function Carousel({
 }: CarouselProps): React.JSX.Element {
   const containerPadding = 16;
   const itemWidth = baseWidth - containerPadding * 2;
-  const trackItemOffset = itemWidth + GAP;
-
-  const carouselItems = loop ? [...items, items[0]] : items;
+  
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const x = useMotionValue(0);
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [isResetting, setIsResetting] = useState<boolean>(false);
-
   const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (pauseOnHover && containerRef.current) {
       const container = containerRef.current;
@@ -129,10 +119,7 @@ export default function Carousel({
     if (autoplay && (!pauseOnHover || !isHovered)) {
       const timer = setInterval(() => {
         setCurrentIndex(prev => {
-          if (prev === items.length - 1 && loop) {
-            return prev + 1;
-          }
-          if (prev === carouselItems.length - 1) {
+          if (prev === items.length - 1) {
             return loop ? 0 : prev;
           }
           return prev + 1;
@@ -140,45 +127,9 @@ export default function Carousel({
       }, autoplayDelay);
       return () => clearInterval(timer);
     }
-  }, [autoplay, autoplayDelay, isHovered, loop, items.length, carouselItems.length, pauseOnHover]);
+  }, [autoplay, autoplayDelay, isHovered, loop, items.length, pauseOnHover]);
 
-  const effectiveTransition: Transition = isResetting ? { duration: 0 } : SPRING_OPTIONS;
-
-  const handleAnimationComplete = () => {
-    if (loop && currentIndex === carouselItems.length - 1) {
-      setIsResetting(true);
-      x.set(0);
-      setCurrentIndex(0);
-      setTimeout(() => setIsResetting(false), 50);
-    }
-  };
-
-  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo): void => {
-    const offset = info.offset.x;
-    const velocity = info.velocity.x;
-    if (offset < -DRAG_BUFFER || velocity < -VELOCITY_THRESHOLD) {
-      if (loop && currentIndex === items.length - 1) {
-        setCurrentIndex(currentIndex + 1);
-      } else {
-        setCurrentIndex(prev => Math.min(prev + 1, carouselItems.length - 1));
-      }
-    } else if (offset > DRAG_BUFFER || velocity > VELOCITY_THRESHOLD) {
-      if (loop && currentIndex === 0) {
-        setCurrentIndex(items.length - 1);
-      } else {
-        setCurrentIndex(prev => Math.max(prev - 1, 0));
-      }
-    }
-  };
-
-  const dragProps = loop
-    ? {}
-    : {
-        dragConstraints: {
-          left: -trackItemOffset * (carouselItems.length - 1),
-          right: 0
-        }
-      };
+  const currentItem = items[currentIndex];
 
   return (
     <div
@@ -201,53 +152,37 @@ export default function Carousel({
           justifyContent: 'center'
         }}
       >
-        <motion.div
-          className="carousel-track"
-          drag="x"
-          {...dragProps}
-          style={{
-            display: 'flex',
-            gap: `${GAP}px`,
-            x,
-            width: `${itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)}px`,
-            transform: `translateX(${-(currentIndex * (itemWidth + GAP))}px)`,
-          }}
-          onDragEnd={handleDragEnd}
-          animate={{ x: -(currentIndex * (itemWidth + GAP)) }}
-          transition={effectiveTransition}
-          onAnimationComplete={handleAnimationComplete}
-        >
-          {carouselItems.map((item, index) => {
-            return (
-              <div
-                key={`${item.id}-${index}`}
-                className="carousel-item"
-                style={{
-                  width: itemWidth,
-                  minHeight: '350px',
-                  flexShrink: 0,
-                }}
-              >
-                <div className={`carousel-item-header ${round ? 'round' : ''}`}>
-                  <span className="carousel-icon-container">{item.icon}</span>
-                </div>
-                <div className="carousel-item-content">
-                  <div className="carousel-item-title">{item.title}</div>
-                  <p className="carousel-item-description">{item.description}</p>
-                </div>
-              </div>
-            );
-          })}
-        </motion.div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            className="carousel-item"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              width: itemWidth,
+              minHeight: '350px',
+            }}
+          >
+            <div className={`carousel-item-header ${round ? 'round' : ''}`}>
+              <span className="carousel-icon-container">{currentItem.icon}</span>
+            </div>
+            <div className="carousel-item-content">
+              <div className="carousel-item-title">{currentItem.title}</div>
+              <p className="carousel-item-description">{currentItem.description}</p>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
       <div className={`carousel-indicators-container ${round ? 'round' : ''}`}>
         <div className="carousel-indicators">
           {items.map((_, index) => (
             <motion.div
               key={index}
-              className={`carousel-indicator ${currentIndex % items.length === index ? 'active' : 'inactive'}`}
+              className={`carousel-indicator ${currentIndex === index ? 'active' : 'inactive'}`}
               animate={{
-                scale: currentIndex % items.length === index ? 1.2 : 1
+                scale: currentIndex === index ? 1.2 : 1
               }}
               onClick={() => setCurrentIndex(index)}
               transition={{ duration: 0.15 }}
@@ -258,4 +193,3 @@ export default function Carousel({
     </div>
   );
 }
-
