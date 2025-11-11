@@ -279,23 +279,24 @@ export default function Carousel({
             transition={effectiveTransition}
             onAnimationComplete={handleAnimationComplete}
           >
-        {carouselItems.map((item, index) => {
-          return (
-            <CarouselItemWrapper
-              key={`${item.id}-${index}`}
-              item={item}
-              index={index}
-              itemWidth={itemWidth}
-              trackItemOffset={trackItemOffset}
-              round={round}
-              x={x}
-              effectiveTransition={effectiveTransition}
-              currentIndex={currentIndex}
-              itemsLength={items.length}
-            />
-          );
-        })}
-        </motion.div>
+            {carouselItems.map((item, index) => {
+              return (
+                <CarouselItemWrapper
+                  key={`${item.id}-${index}`}
+                  item={item}
+                  index={index}
+                  itemWidth={itemWidth}
+                  trackItemOffset={trackItemOffset}
+                  round={round}
+                  x={x}
+                  effectiveTransition={effectiveTransition}
+                  currentIndex={currentIndex}
+                  itemsLength={items.length}
+                />
+              );
+            })}
+          </motion.div>
+        </div>
       </div>
       <div className={`carousel-indicators-container ${round ? 'round' : ''}`}>
         <div className="carousel-indicators">
