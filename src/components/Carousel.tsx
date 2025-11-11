@@ -244,22 +244,25 @@ export default function Carousel({
         display: 'flex', 
         justifyContent: 'center',
         position: 'relative',
-        height: '100%'
+        minHeight: '400px',
+        alignItems: 'center'
       }}>
         <motion.div
           className="carousel-track"
           drag="x"
           {...dragProps}
           style={{
-            width: itemWidth,
+            display: 'flex',
             gap: `${GAP}px`,
             x,
-            display: 'flex',
-            justifyContent: 'center',
+            width: `${itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)}px`,
+            justifyContent: 'flex-start',
             alignItems: 'center'
           }}
           onDragEnd={handleDragEnd}
-          animate={{ x: -(currentIndex * trackItemOffset) }}
+          animate={{ 
+            x: -(currentIndex * trackItemOffset) + ((itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)) - baseWidth) / 2 + containerPadding
+          }}
           transition={effectiveTransition}
           onAnimationComplete={handleAnimationComplete}
         >
