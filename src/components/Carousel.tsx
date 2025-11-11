@@ -230,8 +230,8 @@ export default function Carousel({
       };
 
   // Calcular el ancho total necesario para mostrar las tarjetas laterales
-  // Mostrar la tarjeta central completa + partes de las laterales
-  const viewportPadding = itemWidth * 0.5; // Espacio para mostrar partes de tarjetas laterales
+  // Mostrar la tarjeta central completa + partes visibles de las laterales
+  const viewportPadding = itemWidth * 0.6; // Espacio para mostrar partes de tarjetas laterales (60% del ancho de tarjeta)
   const viewportWidth = itemWidth + viewportPadding * 2; // Ancho para mostrar tarjeta central + partes laterales
   const containerWidth = Math.max(baseWidth + viewportPadding * 2, viewportWidth);
 
@@ -261,7 +261,8 @@ export default function Carousel({
           overflow: 'visible',
           position: 'relative',
           display: 'flex',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          margin: '0 auto'
         }}>
           <motion.div
             className="carousel-track"
@@ -273,7 +274,8 @@ export default function Carousel({
               x,
               width: `${itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)}px`,
               justifyContent: 'flex-start',
-              alignItems: 'center'
+              alignItems: 'center',
+              position: 'relative'
             }}
             onDragEnd={handleDragEnd}
             animate={{ 
