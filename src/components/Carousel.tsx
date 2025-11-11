@@ -85,10 +85,10 @@ const DEFAULT_ITEMS: CarouselItem[] = [
   }
 ];
 
-const DRAG_BUFFER = 0;
-const VELOCITY_THRESHOLD = 500;
-const GAP = 24;
-const SPRING_OPTIONS = { type: 'spring' as const, stiffness: 300, damping: 30 };
+const DRAG_BUFFER = 50;
+const VELOCITY_THRESHOLD = 300;
+const GAP = 32;
+const SPRING_OPTIONS = { type: 'spring' as const, stiffness: 260, damping: 25 };
 
 // Componente wrapper que crea el transform para cada item
 function CarouselItemWrapper({
@@ -112,22 +112,50 @@ function CarouselItemWrapper({
   currentIndex: number;
   itemsLength: number;
 }) {
-  const rotateY = useTransform(x, (value) => {
-    const offset = value + index * trackItemOffset;
-    const centerOffset = offset - (itemsLength * trackItemOffset) / 2;
-    return centerOffset / 20;
-  });
+  // Calcular distancia desde el centro (sin considerar loop para simplificar)
+  const distanceFromCenter = Math.abs(index - currentIndex);
+  
+  // Simplificar rotación 3D: solo aplicar rotación basada en posición relativa
+  const isActive = index === currentIndex;
+  const isNext = index === currentIndex + 1 || (currentIndex === itemsLength - 1 && index === 0);
+  const isPrev = index === currentIndex - 1 || (currentIndex === 0 && index === itemsLength - 1);
+  
+  // Calcular rotación 3D suave
+  let rotateYValue = 0;
+  if (isNext) {
+    rotateYValue = -15;
+  } else if (isPrev) {
+    rotateYValue = 15;
+  } else if (distanceFromCenter > 1) {
+    rotateYValue = distanceFromCenter > 2 ? (index < currentIndex ? 25 : -25) : (index < currentIndex ? 20 : -20);
+  }
+
+  // Calcular opacidad y escala
+  const opacity = isActive ? 1 : isNext || isPrev ? 0.7 : 0.4;
+  const scale = isActive ? 1 : isNext || isPrev ? 0.92 : 0.85;
+  const zIndex = isActive ? 10 : isNext || isPrev ? 5 : 1;
 
   return (
     <motion.div
-      className={`carousel-item ${round ? 'round' : ''}`}
+      className={`carousel-item ${round ? 'round' : ''} ${isActive ? 'active' : ''}`}
       style={{
         width: itemWidth,
-        height: round ? itemWidth : '100%',
-        rotateY,
+        height: round ? itemWidth : 'auto',
+        minHeight: '400px',
+        zIndex,
         ...(round && { borderRadius: '50%' })
       }}
-      transition={effectiveTransition}
+      animate={{
+        opacity,
+        scale,
+        rotateY: rotateYValue,
+        x: 0
+      }}
+      transition={{
+        opacity: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+        scale: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+        rotateY: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+      }}
     >
       <div className={`carousel-item-header ${round ? 'round' : ''}`}>
         <span className="carousel-icon-container">{item.icon}</span>
@@ -149,7 +177,6 @@ export default function Carousel({
   loop = false,
   round = false
 }: CarouselProps): React.JSX.Element {
-  const containerPadding = 0;
   const itemWidth = baseWidth;
   const trackItemOffset = itemWidth + GAP;
 
@@ -229,11 +256,9 @@ export default function Carousel({
         }
       };
 
-  // Calcular el ancho total necesario para mostrar las tarjetas laterales
-  // Mostrar la tarjeta central completa + partes visibles de las laterales
-  const viewportPadding = itemWidth * 0.6; // Espacio para mostrar partes de tarjetas laterales (60% del ancho de tarjeta)
-  const viewportWidth = itemWidth + viewportPadding * 2; // Ancho para mostrar tarjeta central + partes laterales
-  const containerWidth = Math.max(baseWidth + viewportPadding * 2, viewportWidth);
+  // Calcular el ancho del viewport para mostrar tarjeta central + partes de laterales
+  const viewportPadding = itemWidth * 0.35; // Espacio para mostrar partes de tarjetas laterales
+  const viewportWidth = itemWidth + viewportPadding * 2;
 
   return (
     <div
@@ -242,31 +267,40 @@ export default function Carousel({
       style={{
         width: '100%',
         maxWidth: '100%',
-        overflow: 'visible',
         ...(round && { height: `${baseWidth}px`, borderRadius: '50%' })
       }}
     >
-      <div style={{ 
-        overflow: 'visible', 
-        width: '100%', 
-        display: 'flex', 
-        justifyContent: 'center',
-        position: 'relative',
-        minHeight: '450px',
-        alignItems: 'center',
-        padding: '20px 0'
-      }}>
-        <div style={{
-          width: `${containerWidth}px`,
-          overflow: 'visible',
-          position: 'relative',
-          display: 'flex',
+      <div 
+        className="carousel-viewport-wrapper"
+        style={{ 
+          overflow: 'hidden', 
+          width: '100%', 
+          display: 'flex', 
           justifyContent: 'center',
-          margin: '0 auto'
-        }}>
+          position: 'relative',
+          minHeight: '500px',
+          alignItems: 'center',
+          padding: '40px 0'
+        }}
+      >
+        <div 
+          className="carousel-viewport"
+          style={{
+            width: `${viewportWidth}px`,
+            overflow: 'hidden',
+            position: 'relative',
+            display: 'flex',
+            justifyContent: 'center',
+            margin: '0 auto',
+            perspective: '1000px',
+            transformStyle: 'preserve-3d'
+          }}
+        >
           <motion.div
             className="carousel-track"
             drag="x"
+            dragElastic={0.15}
+            dragMomentum={false}
             {...dragProps}
             style={{
               display: 'flex',
@@ -275,11 +309,12 @@ export default function Carousel({
               width: `${itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)}px`,
               justifyContent: 'flex-start',
               alignItems: 'center',
-              position: 'relative'
+              position: 'relative',
+              transformStyle: 'preserve-3d'
             }}
             onDragEnd={handleDragEnd}
             animate={{ 
-              x: -(currentIndex * trackItemOffset) + (containerWidth - itemWidth) / 2
+              x: -(currentIndex * trackItemOffset) + (viewportWidth - itemWidth) / 2
             }}
             transition={effectiveTransition}
             onAnimationComplete={handleAnimationComplete}

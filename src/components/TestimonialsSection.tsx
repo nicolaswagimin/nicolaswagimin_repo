@@ -15,9 +15,9 @@ export function TestimonialsSection() {
   };
 
   return (
-    <section className="py-24 bg-background">
-      <div className="container mx-auto px-6" style={{ overflow: 'visible' }}>
-        <div className="max-w-7xl mx-auto" style={{ overflow: 'visible' }}>
+    <section className="py-24 bg-background overflow-hidden">
+      <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-20">
             <p className="text-muted-foreground uppercase tracking-wider mb-4 text-sm font-medium">
@@ -41,8 +41,8 @@ export function TestimonialsSection() {
           </div>
           
           {/* Carousel de Testimonios */}
-          <div className="flex justify-center mb-16 py-12" style={{ paddingLeft: '0', paddingRight: '0', width: '100vw', position: 'relative', left: '50%', right: '50%', marginLeft: '-50vw', marginRight: '-50vw' }}>
-            <div className="w-full max-w-full overflow-visible" style={{ width: '100%', maxWidth: '1400px' }}>
+          <div className="flex justify-center mb-16 py-12">
+            <div className="w-full max-w-6xl mx-auto px-4">
               <Carousel
                 items={[
                   {
@@ -70,9 +70,9 @@ export function TestimonialsSection() {
                     icon: <span className="text-2xl font-bold">L</span>
                   }
                 ]}
-                baseWidth={450}
+                baseWidth={420}
                 autoplay={true}
-                autoplayDelay={4000}
+                autoplayDelay={5000}
                 pauseOnHover={true}
                 loop={true}
                 round={false}
