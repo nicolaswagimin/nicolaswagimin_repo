@@ -80,7 +80,7 @@ const SplitText: React.FC<SplitTextProps> = ({
       if (splitInstanceRef.current) {
         try {
           splitInstanceRef.current.revert();
-        } catch (e) {
+        } catch {
           // Ignorar errores
         }
         splitInstanceRef.current = null;
