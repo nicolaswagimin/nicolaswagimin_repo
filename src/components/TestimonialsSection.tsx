@@ -41,124 +41,42 @@ export function TestimonialsSection() {
           </div>
           
           {/* Carousel de Testimonios */}
-          <div className="flex justify-center mb-16">
-            <Carousel
-              items={[
-                {
-                  id: 1,
-                  title: dictionary.testimonials.featured.author,
-                  description: dictionary.testimonials.featured.quote,
-                  icon: <span className="text-2xl">P</span>
-                },
-                {
-                  id: 2,
-                  title: dictionary.testimonials.testimonial1.author,
-                  description: dictionary.testimonials.testimonial1.quote,
-                  icon: <span className="text-2xl">S</span>
-                },
-                {
-                  id: 3,
-                  title: dictionary.testimonials.testimonial2.author,
-                  description: dictionary.testimonials.testimonial2.quote,
-                  icon: <span className="text-2xl">M</span>
-                },
-                {
-                  id: 4,
-                  title: dictionary.testimonials.testimonial3.author,
-                  description: dictionary.testimonials.testimonial3.quote,
-                  icon: <span className="text-2xl">L</span>
-                }
-              ]}
-              baseWidth={450}
-              autoplay={true}
-              autoplayDelay={4000}
-              pauseOnHover={true}
-              loop={true}
-              round={false}
-            />
-          </div>
-          
-          {/* Testimonials Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Comment 1 */}
-            <div className="bg-card rounded-2xl p-8 border border-border shadow-md hover:shadow-lg transition-shadow">
-              <div className="space-y-6">
-                <div className="flex justify-center">
-                  <div className="text-primary/30 text-4xl">&ldquo;</div>
-                </div>
-                <div className="space-y-3">
-                  <p className="text-muted-foreground leading-relaxed">
-                    &ldquo;{dictionary.testimonials.testimonial1.quote}&rdquo;
-                  </p>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-card rounded-full border border-border flex items-center justify-center">
-                    <span className="text-foreground font-semibold">S</span>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="font-semibold text-foreground">
-                      {dictionary.testimonials.testimonial1.author}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {dictionary.testimonials.testimonial1.role}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Comment 2 */}
-            <div className="bg-card rounded-2xl p-8 border border-border shadow-md hover:shadow-lg transition-shadow">
-              <div className="space-y-6">
-                <div className="flex justify-center">
-                  <div className="text-primary/30 text-4xl">&ldquo;</div>
-                </div>
-                <div className="space-y-3">
-                  <p className="text-muted-foreground leading-relaxed">
-                    &ldquo;{dictionary.testimonials.testimonial2.quote}&rdquo;
-                  </p>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-card rounded-full border border-border flex items-center justify-center">
-                    <span className="text-foreground font-semibold">M</span>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="font-semibold text-foreground">
-                      {dictionary.testimonials.testimonial2.author}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {dictionary.testimonials.testimonial2.role}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Comment 3 */}
-            <div className="bg-card rounded-2xl p-8 border border-border shadow-md hover:shadow-lg transition-shadow">
-              <div className="space-y-6">
-                <div className="flex justify-center">
-                  <div className="text-primary/30 text-4xl">&ldquo;</div>
-                </div>
-                <div className="space-y-3">
-                  <p className="text-muted-foreground leading-relaxed">
-                    &ldquo;{dictionary.testimonials.testimonial3.quote}&rdquo;
-                  </p>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-card rounded-full border border-border flex items-center justify-center">
-                    <span className="text-foreground font-semibold">L</span>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="font-semibold text-foreground">
-                      {dictionary.testimonials.testimonial3.author}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {dictionary.testimonials.testimonial3.role}
-                    </p>
-                  </div>
-                </div>
-              </div>
+          <div className="flex justify-center mb-16 py-12 px-4 md:px-8 lg:px-12">
+            <div className="w-full max-w-6xl">
+              <Carousel
+                items={[
+                  {
+                    id: 1,
+                    title: dictionary.testimonials.featured.author,
+                    description: dictionary.testimonials.featured.quote,
+                    icon: <span className="text-2xl font-bold">P</span>
+                  },
+                  {
+                    id: 2,
+                    title: dictionary.testimonials.testimonial1.author,
+                    description: dictionary.testimonials.testimonial1.quote,
+                    icon: <span className="text-2xl font-bold">S</span>
+                  },
+                  {
+                    id: 3,
+                    title: dictionary.testimonials.testimonial2.author,
+                    description: dictionary.testimonials.testimonial2.quote,
+                    icon: <span className="text-2xl font-bold">M</span>
+                  },
+                  {
+                    id: 4,
+                    title: dictionary.testimonials.testimonial3.author,
+                    description: dictionary.testimonials.testimonial3.quote,
+                    icon: <span className="text-2xl font-bold">L</span>
+                  }
+                ]}
+                baseWidth={500}
+                autoplay={true}
+                autoplayDelay={4000}
+                pauseOnHover={true}
+                loop={true}
+                round={false}
+              />
             </div>
           </div>
           

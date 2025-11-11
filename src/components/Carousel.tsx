@@ -87,7 +87,7 @@ const DEFAULT_ITEMS: CarouselItem[] = [
 
 const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 500;
-const GAP = 16;
+const GAP = 24;
 const SPRING_OPTIONS = { type: 'spring' as const, stiffness: 300, damping: 30 };
 
 // Componente wrapper que crea el transform para cada item
@@ -149,7 +149,7 @@ export default function Carousel({
   loop = false,
   round = false
 }: CarouselProps): React.JSX.Element {
-  const containerPadding = 16;
+  const containerPadding = 32;
   const itemWidth = baseWidth - containerPadding * 2;
   const trackItemOffset = itemWidth + GAP;
 
@@ -244,8 +244,9 @@ export default function Carousel({
         display: 'flex', 
         justifyContent: 'center',
         position: 'relative',
-        minHeight: '400px',
-        alignItems: 'center'
+        minHeight: '450px',
+        alignItems: 'center',
+        padding: '20px 0'
       }}>
         <motion.div
           className="carousel-track"

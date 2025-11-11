@@ -2,11 +2,12 @@
   position: relative;
   border: 2px solid hsl(var(--border));
   border-radius: 16px;
-  padding: 16px;
+  padding: 32px;
   background-color: hsl(var(--card));
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   --outer-r: 16px;
   --p-distance: 8px;
+  margin: 0 auto;
 }
 
 .carousel-track {
@@ -14,7 +15,8 @@
   position: relative;
   transform-style: preserve-3d;
   perspective: 1000px;
-  min-height: 350px;
+  min-height: 400px;
+  align-items: center;
 }
 
 .carousel-item {
