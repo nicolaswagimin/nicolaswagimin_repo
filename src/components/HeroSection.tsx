@@ -112,15 +112,17 @@ export function HeroSection() {
             
             {/* Right Content - Carousel */}
             <div className="lg:col-span-5">
-              <div className="relative group flex items-center justify-center" style={{ height: '600px' }}>
-                <Carousel
-                  baseWidth={400}
-                  autoplay={true}
-                  autoplayDelay={3000}
-                  pauseOnHover={true}
-                  loop={true}
-                  round={false}
-                />
+              <div className="relative group flex items-center justify-center p-4" style={{ height: '600px' }}>
+                <div className="relative w-full max-w-md">
+                  <Carousel
+                    baseWidth={400}
+                    autoplay={true}
+                    autoplayDelay={3000}
+                    pauseOnHover={true}
+                    loop={true}
+                    round={false}
+                  />
+                </div>
               </div>
             </div>
           </div>
