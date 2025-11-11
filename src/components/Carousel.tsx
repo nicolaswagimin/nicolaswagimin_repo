@@ -113,16 +113,20 @@ function CarouselItemWrapper({
   itemsLength: number;
 }) {
   // Determinar si este item es el activo (centro)
-  const isActive = currentIndex % itemsLength === index % itemsLength;
+  // Simplificar la lógica para que siempre haya una tarjeta visible
+  const isActive = index === currentIndex;
   
   return (
     <motion.div
-      className={`carousel-item ${round ? 'round' : ''}`}
-      data-active={isActive}
+      className={`carousel-item ${round ? 'round' : ''} ${isActive ? 'active' : ''}`}
+      data-active={isActive ? 'true' : 'false'}
       style={{
         width: itemWidth,
         height: round ? itemWidth : '100%',
         rotateY: 0, // Eliminar rotación 3D para que no se vean las laterales
+        opacity: isActive ? 1 : 0,
+        visibility: isActive ? 'visible' : 'hidden',
+        pointerEvents: isActive ? 'auto' : 'none',
         ...(round && { borderRadius: '50%' })
       }}
       transition={effectiveTransition}
@@ -156,6 +160,9 @@ export default function Carousel({
   const x = useMotionValue(0);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isResetting, setIsResetting] = useState<boolean>(false);
+  
+  // Asegurar que siempre hay un índice válido
+  const safeCurrentIndex = Math.max(0, Math.min(currentIndex, carouselItems.length - 1));
 
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -257,7 +264,7 @@ export default function Carousel({
             alignItems: 'center'
           }}
           onDragEnd={handleDragEnd}
-          animate={{ x: -(currentIndex * trackItemOffset) }}
+          animate={{ x: -(safeCurrentIndex * trackItemOffset) }}
           transition={effectiveTransition}
           onAnimationComplete={handleAnimationComplete}
         >
@@ -273,7 +280,7 @@ export default function Carousel({
               round={round}
               x={x}
               effectiveTransition={effectiveTransition}
-              currentIndex={currentIndex}
+              currentIndex={safeCurrentIndex}
               itemsLength={items.length}
             />
           );
@@ -285,9 +292,9 @@ export default function Carousel({
           {items.map((_, index) => (
             <motion.div
               key={index}
-              className={`carousel-indicator ${currentIndex % items.length === index ? 'active' : 'inactive'}`}
+              className={`carousel-indicator ${safeCurrentIndex % items.length === index ? 'active' : 'inactive'}`}
               animate={{
-                scale: currentIndex % items.length === index ? 1.2 : 1
+                scale: safeCurrentIndex % items.length === index ? 1.2 : 1
               }}
               onClick={() => setCurrentIndex(index)}
               transition={{ duration: 0.15 }}

@@ -48,18 +48,24 @@
   cursor: grab;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+  z-index: 1;
 }
 
 /* Solo la tarjeta central es completamente visible */
+.carousel-item.active,
 .carousel-item[data-active="true"] {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
   z-index: 10;
   transform: rotateY(0deg) !important;
+}
+
+/* Ocultar tarjetas no activas */
+.carousel-item:not(.active):not([data-active="true"]) {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .carousel-item:hover {
