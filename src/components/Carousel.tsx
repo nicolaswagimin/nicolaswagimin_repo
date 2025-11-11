@@ -93,7 +93,7 @@ export default function Carousel({
   pauseOnHover = false,
   loop = false,
   round = false
-}: CarouselProps): React.JSX.Element {
+}: CarouselProps) {
   const containerPadding = 16;
   const itemWidth = baseWidth - containerPadding * 2;
   
@@ -133,9 +133,15 @@ export default function Carousel({
   const safeIndex = Math.max(0, Math.min(currentIndex, items.length - 1));
   const currentItem = items[safeIndex];
 
-  // Si no hay items, no renderizar
+  // Si no hay items, mostrar placeholder
   if (!items || items.length === 0 || !currentItem) {
-    return null;
+    return (
+      <div className="carousel-container" style={{ width: `${baseWidth}px`, minHeight: '400px' }}>
+        <div className="carousel-viewport" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '400px' }}>
+          <p className="text-muted-foreground">No items available</p>
+        </div>
+      </div>
+    );
   }
 
   return (
