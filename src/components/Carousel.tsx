@@ -230,8 +230,10 @@ export default function Carousel({
       };
 
   // Calcular el ancho total necesario para mostrar las tarjetas laterales
-  const viewportWidth = itemWidth * 3 + GAP * 2; // Mostrar 3 tarjetas visibles (centro + 1 a cada lado)
-  const containerWidth = Math.max(baseWidth, viewportWidth);
+  // Mostrar la tarjeta central completa + partes de las laterales
+  const viewportPadding = itemWidth * 0.5; // Espacio para mostrar partes de tarjetas laterales
+  const viewportWidth = itemWidth + viewportPadding * 2; // Ancho para mostrar tarjeta central + partes laterales
+  const containerWidth = Math.max(baseWidth + viewportPadding * 2, viewportWidth);
 
   return (
     <div
@@ -240,6 +242,7 @@ export default function Carousel({
       style={{
         width: '100%',
         maxWidth: '100%',
+        overflow: 'visible',
         ...(round && { height: `${baseWidth}px`, borderRadius: '50%' })
       }}
     >
@@ -255,7 +258,7 @@ export default function Carousel({
       }}>
         <div style={{
           width: `${containerWidth}px`,
-          overflow: 'hidden',
+          overflow: 'visible',
           position: 'relative',
           display: 'flex',
           justifyContent: 'center'

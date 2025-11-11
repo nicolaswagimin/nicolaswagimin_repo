@@ -41,8 +41,8 @@ export function TestimonialsSection() {
           </div>
           
           {/* Carousel de Testimonios */}
-          <div className="flex justify-center mb-16 py-12 px-0 md:px-4 lg:px-8">
-            <div className="w-full max-w-full overflow-visible">
+          <div className="flex justify-center mb-16 py-12" style={{ paddingLeft: '0', paddingRight: '0', marginLeft: '-1.5rem', marginRight: '-1.5rem' }}>
+            <div className="w-full max-w-full overflow-visible" style={{ width: '100%' }}>
               <Carousel
                 items={[
                   {

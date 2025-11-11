@@ -2,7 +2,7 @@
   position: relative;
   border: 2px solid hsl(var(--border));
   border-radius: 16px;
-  padding: 32px 0;
+  padding: 32px 60px;
   background-color: hsl(var(--card));
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   --outer-r: 16px;
