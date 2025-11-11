@@ -69,7 +69,7 @@ export function TestimonialsSection() {
                   icon: <span className="text-2xl">L</span>
                 }
               ]}
-              baseWidth={400}
+              baseWidth={450}
               autoplay={true}
               autoplayDelay={4000}
               pauseOnHover={true}
