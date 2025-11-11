@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { motion, PanInfo, useMotionValue, useTransform, MotionValue, Transition } from 'motion/react';
+import { motion, PanInfo, useMotionValue, MotionValue, Transition } from 'motion/react';
 import './Carousel.css';
 
 export interface CarouselItem {
@@ -90,57 +90,6 @@ const VELOCITY_THRESHOLD = 500;
 const GAP = 16;
 const SPRING_OPTIONS = { type: 'spring' as const, stiffness: 300, damping: 30 };
 
-// Componente wrapper que crea el transform para cada item
-function CarouselItemWrapper({
-  item,
-  index,
-  itemWidth,
-  trackItemOffset,
-  round,
-  x,
-  effectiveTransition,
-  currentIndex,
-  itemsLength
-}: {
-  item: CarouselItem;
-  index: number;
-  itemWidth: number;
-  trackItemOffset: number;
-  round: boolean;
-  x: MotionValue<number>;
-  effectiveTransition: Transition;
-  currentIndex: number;
-  itemsLength: number;
-}) {
-  // Determinar si este item es el activo (centro)
-  // Simplificar la lógica para que siempre haya una tarjeta visible
-  const isActive = index === currentIndex;
-  
-  return (
-    <motion.div
-      className={`carousel-item ${round ? 'round' : ''} ${isActive ? 'active' : ''}`}
-      data-active={isActive ? 'true' : 'false'}
-      style={{
-        width: itemWidth,
-        height: round ? itemWidth : '100%',
-        rotateY: 0, // Eliminar rotación 3D para que no se vean las laterales
-        opacity: isActive ? 1 : 0,
-        visibility: isActive ? 'visible' : 'hidden',
-        pointerEvents: isActive ? 'auto' : 'none',
-        ...(round && { borderRadius: '50%' })
-      }}
-      transition={effectiveTransition}
-    >
-      <div className={`carousel-item-header ${round ? 'round' : ''}`}>
-        <span className="carousel-icon-container">{item.icon}</span>
-      </div>
-      <div className="carousel-item-content">
-        <div className="carousel-item-title">{item.title}</div>
-        <p className="carousel-item-description">{item.description}</p>
-      </div>
-    </motion.div>
-  );
-}
 
 export default function Carousel({
   items = DEFAULT_ITEMS,
@@ -160,9 +109,6 @@ export default function Carousel({
   const x = useMotionValue(0);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isResetting, setIsResetting] = useState<boolean>(false);
-  
-  // Asegurar que siempre hay un índice válido
-  const safeCurrentIndex = Math.max(0, Math.min(currentIndex, carouselItems.length - 1));
 
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -243,48 +189,59 @@ export default function Carousel({
         ...(round && { height: `${baseWidth}px`, borderRadius: '50%' })
       }}
     >
-      <div style={{ 
-        overflow: 'hidden', 
-        width: '100%', 
-        display: 'flex', 
-        justifyContent: 'center',
-        position: 'relative',
-        height: '100%'
-      }}>
+      <div 
+        className="carousel-viewport"
+        style={{ 
+          overflow: 'hidden', 
+          width: '100%', 
+          position: 'relative',
+          minHeight: '400px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
         <motion.div
           className="carousel-track"
           drag="x"
           {...dragProps}
           style={{
-            width: itemWidth,
+            display: 'flex',
             gap: `${GAP}px`,
             x,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
+            width: `${itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)}px`,
           }}
           onDragEnd={handleDragEnd}
-          animate={{ x: -(safeCurrentIndex * trackItemOffset) }}
+          animate={{ x: -(currentIndex * (itemWidth + GAP)) }}
           transition={effectiveTransition}
           onAnimationComplete={handleAnimationComplete}
         >
-        {carouselItems.map((item, index) => {
-          // Crear transforms para cada item antes del map
-          return (
-            <CarouselItemWrapper
-              key={`${item.id}-${index}`}
-              item={item}
-              index={index}
-              itemWidth={itemWidth}
-              trackItemOffset={trackItemOffset}
-              round={round}
-              x={x}
-              effectiveTransition={effectiveTransition}
-              currentIndex={safeCurrentIndex}
-              itemsLength={items.length}
-            />
-          );
-        })}
+          {carouselItems.map((item, index) => {
+            const isActive = index === currentIndex;
+            return (
+              <motion.div
+                key={`${item.id}-${index}`}
+                className={`carousel-item ${isActive ? 'active' : ''}`}
+                style={{
+                  width: itemWidth,
+                  minHeight: '350px',
+                  flexShrink: 0,
+                }}
+                animate={{
+                  opacity: isActive ? 1 : 0,
+                }}
+                transition={effectiveTransition}
+              >
+                <div className={`carousel-item-header ${round ? 'round' : ''}`}>
+                  <span className="carousel-icon-container">{item.icon}</span>
+                </div>
+                <div className="carousel-item-content">
+                  <div className="carousel-item-title">{item.title}</div>
+                  <p className="carousel-item-description">{item.description}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
       <div className={`carousel-indicators-container ${round ? 'round' : ''}`}>
@@ -292,9 +249,9 @@ export default function Carousel({
           {items.map((_, index) => (
             <motion.div
               key={index}
-              className={`carousel-indicator ${safeCurrentIndex % items.length === index ? 'active' : 'inactive'}`}
+              className={`carousel-indicator ${currentIndex % items.length === index ? 'active' : 'inactive'}`}
               animate={{
-                scale: safeCurrentIndex % items.length === index ? 1.2 : 1
+                scale: currentIndex % items.length === index ? 1.2 : 1
               }}
               onClick={() => setCurrentIndex(index)}
               transition={{ duration: 0.15 }}
