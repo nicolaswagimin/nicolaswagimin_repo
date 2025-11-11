@@ -98,7 +98,9 @@ function CarouselItemWrapper({
   trackItemOffset,
   round,
   x,
-  effectiveTransition
+  effectiveTransition,
+  currentIndex,
+  itemsLength
 }: {
   item: CarouselItem;
   index: number;
@@ -107,18 +109,20 @@ function CarouselItemWrapper({
   round: boolean;
   x: MotionValue<number>;
   effectiveTransition: Transition;
+  currentIndex: number;
+  itemsLength: number;
 }) {
-  const range = [-(index + 1) * trackItemOffset, -index * trackItemOffset, -(index - 1) * trackItemOffset];
-  const outputRange = [90, 0, -90];
-  const rotateY = useTransform(x, range, outputRange, { clamp: false });
+  // Determinar si este item es el activo (centro)
+  const isActive = currentIndex % itemsLength === index % itemsLength;
   
   return (
     <motion.div
       className={`carousel-item ${round ? 'round' : ''}`}
+      data-active={isActive}
       style={{
         width: itemWidth,
         height: round ? itemWidth : '100%',
-        rotateY: rotateY,
+        rotateY: 0, // Eliminar rotación 3D para que no se vean las laterales
         ...(round && { borderRadius: '50%' })
       }}
       transition={effectiveTransition}
@@ -232,22 +236,31 @@ export default function Carousel({
         ...(round && { height: `${baseWidth}px`, borderRadius: '50%' })
       }}
     >
-      <motion.div
-        className="carousel-track"
-        drag="x"
-        {...dragProps}
-        style={{
-          width: itemWidth,
-          gap: `${GAP}px`,
-          perspective: 1000,
-          perspectiveOrigin: `${currentIndex * trackItemOffset + itemWidth / 2}px 50%`,
-          x
-        }}
-        onDragEnd={handleDragEnd}
-        animate={{ x: -(currentIndex * trackItemOffset) }}
-        transition={effectiveTransition}
-        onAnimationComplete={handleAnimationComplete}
-      >
+      <div style={{ 
+        overflow: 'hidden', 
+        width: '100%', 
+        display: 'flex', 
+        justifyContent: 'center',
+        position: 'relative',
+        height: '100%'
+      }}>
+        <motion.div
+          className="carousel-track"
+          drag="x"
+          {...dragProps}
+          style={{
+            width: itemWidth,
+            gap: `${GAP}px`,
+            x,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+          onDragEnd={handleDragEnd}
+          animate={{ x: -(currentIndex * trackItemOffset) }}
+          transition={effectiveTransition}
+          onAnimationComplete={handleAnimationComplete}
+        >
         {carouselItems.map((item, index) => {
           // Crear transforms para cada item antes del map
           return (
@@ -260,10 +273,13 @@ export default function Carousel({
               round={round}
               x={x}
               effectiveTransition={effectiveTransition}
+              currentIndex={currentIndex}
+              itemsLength={items.length}
             />
           );
         })}
-      </motion.div>
+        </motion.div>
+      </div>
       <div className={`carousel-indicators-container ${round ? 'round' : ''}`}>
         <div className="carousel-indicators">
           {items.map((_, index) => (
