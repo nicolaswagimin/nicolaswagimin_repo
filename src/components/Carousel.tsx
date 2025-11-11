@@ -129,7 +129,14 @@ export default function Carousel({
     }
   }, [autoplay, autoplayDelay, isHovered, loop, items.length, pauseOnHover]);
 
-  const currentItem = items[currentIndex];
+  // Asegurar que el índice sea válido
+  const safeIndex = Math.max(0, Math.min(currentIndex, items.length - 1));
+  const currentItem = items[safeIndex];
+
+  // Si no hay items, no renderizar
+  if (!items || items.length === 0 || !currentItem) {
+    return null;
+  }
 
   return (
     <div
@@ -152,14 +159,14 @@ export default function Carousel({
           justifyContent: 'center'
         }}
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            key={currentIndex}
+            key={safeIndex}
             className="carousel-item"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
             style={{
               width: itemWidth,
               minHeight: '350px',
@@ -180,9 +187,9 @@ export default function Carousel({
           {items.map((_, index) => (
             <motion.div
               key={index}
-              className={`carousel-indicator ${currentIndex === index ? 'active' : 'inactive'}`}
+              className={`carousel-indicator ${safeIndex === index ? 'active' : 'inactive'}`}
               animate={{
-                scale: currentIndex === index ? 1.2 : 1
+                scale: safeIndex === index ? 1.2 : 1
               }}
               onClick={() => setCurrentIndex(index)}
               transition={{ duration: 0.15 }}
