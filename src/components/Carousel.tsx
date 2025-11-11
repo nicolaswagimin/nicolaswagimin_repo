@@ -100,7 +100,8 @@ function CarouselItemWrapper({
   x,
   effectiveTransition,
   currentIndex,
-  itemsLength
+  itemsLength,
+  viewportWidth
 }: {
   item: CarouselItem;
   index: number;
@@ -111,29 +112,30 @@ function CarouselItemWrapper({
   effectiveTransition: Transition;
   currentIndex: number;
   itemsLength: number;
+  viewportWidth: number;
 }) {
-  // Calcular distancia desde el centro (sin considerar loop para simplificar)
+  // Calcular distancia desde el centro
   const distanceFromCenter = Math.abs(index - currentIndex);
   
-  // Simplificar rotación 3D: solo aplicar rotación basada en posición relativa
+  // Determinar posición relativa
   const isActive = index === currentIndex;
-  const isNext = index === currentIndex + 1 || (currentIndex === itemsLength - 1 && index === 0);
-  const isPrev = index === currentIndex - 1 || (currentIndex === 0 && index === itemsLength - 1);
+  const isAdjacent = distanceFromCenter === 1;
   
-  // Calcular rotación 3D suave
-  let rotateYValue = 0;
-  if (isNext) {
-    rotateYValue = -15;
-  } else if (isPrev) {
-    rotateYValue = 15;
-  } else if (distanceFromCenter > 1) {
-    rotateYValue = distanceFromCenter > 2 ? (index < currentIndex ? 25 : -25) : (index < currentIndex ? 20 : -20);
-  }
+  // Calcular rotación 3D basada en posición usando useTransform
+  const rotateY = useTransform(x, (value) => {
+    const centerX = (viewportWidth - itemWidth) / 2;
+    const targetX = -(currentIndex * trackItemOffset) + centerX;
+    const itemTargetX = -(index * trackItemOffset) + centerX;
+    const offset = (value - targetX) + (itemTargetX - targetX);
+    const normalizedOffset = offset / itemWidth;
+    // Rotación suave y limitada (-18 a 18 grados)
+    return Math.max(-18, Math.min(18, normalizedOffset * 10));
+  });
 
-  // Calcular opacidad y escala
-  const opacity = isActive ? 1 : isNext || isPrev ? 0.7 : 0.4;
-  const scale = isActive ? 1 : isNext || isPrev ? 0.92 : 0.85;
-  const zIndex = isActive ? 10 : isNext || isPrev ? 5 : 1;
+  // Calcular opacidad y escala basado en distancia
+  const opacity = isActive ? 1 : isAdjacent ? 0.65 : 0.35;
+  const scale = isActive ? 1 : isAdjacent ? 0.93 : 0.86;
+  const zIndex = isActive ? 10 : isAdjacent ? 5 : 1;
 
   return (
     <motion.div
@@ -142,19 +144,17 @@ function CarouselItemWrapper({
         width: itemWidth,
         height: round ? itemWidth : 'auto',
         minHeight: '400px',
+        rotateY,
         zIndex,
         ...(round && { borderRadius: '50%' })
       }}
       animate={{
         opacity,
-        scale,
-        rotateY: rotateYValue,
-        x: 0
+        scale
       }}
       transition={{
         opacity: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
-        scale: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
-        rotateY: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+        scale: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
       }}
     >
       <div className={`carousel-item-header ${round ? 'round' : ''}`}>
@@ -332,6 +332,7 @@ export default function Carousel({
                   effectiveTransition={effectiveTransition}
                   currentIndex={currentIndex}
                   itemsLength={items.length}
+                  viewportWidth={viewportWidth}
                 />
               );
             })}
