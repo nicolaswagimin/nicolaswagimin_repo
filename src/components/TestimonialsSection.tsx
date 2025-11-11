@@ -41,8 +41,8 @@ export function TestimonialsSection() {
           </div>
           
           {/* Carousel de Testimonios */}
-          <div className="flex justify-center mb-16 py-12 px-4 md:px-8 lg:px-12">
-            <div className="w-full max-w-6xl">
+          <div className="flex justify-center mb-16 py-12 px-0 md:px-4 lg:px-8">
+            <div className="w-full max-w-full overflow-visible">
               <Carousel
                 items={[
                   {
@@ -70,7 +70,7 @@ export function TestimonialsSection() {
                     icon: <span className="text-2xl font-bold">L</span>
                   }
                 ]}
-                baseWidth={500}
+                baseWidth={450}
                 autoplay={true}
                 autoplayDelay={4000}
                 pauseOnHover={true}

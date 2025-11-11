@@ -149,8 +149,8 @@ export default function Carousel({
   loop = false,
   round = false
 }: CarouselProps): React.JSX.Element {
-  const containerPadding = 32;
-  const itemWidth = baseWidth - containerPadding * 2;
+  const containerPadding = 0;
+  const itemWidth = baseWidth;
   const trackItemOffset = itemWidth + GAP;
 
   const carouselItems = loop ? [...items, items[0]] : items;
@@ -229,17 +229,22 @@ export default function Carousel({
         }
       };
 
+  // Calcular el ancho total necesario para mostrar las tarjetas laterales
+  const viewportWidth = itemWidth * 3 + GAP * 2; // Mostrar 3 tarjetas visibles (centro + 1 a cada lado)
+  const containerWidth = Math.max(baseWidth, viewportWidth);
+
   return (
     <div
       ref={containerRef}
       className={`carousel-container ${round ? 'round' : ''}`}
       style={{
-        width: `${baseWidth}px`,
+        width: '100%',
+        maxWidth: '100%',
         ...(round && { height: `${baseWidth}px`, borderRadius: '50%' })
       }}
     >
       <div style={{ 
-        overflow: 'hidden', 
+        overflow: 'visible', 
         width: '100%', 
         display: 'flex', 
         justifyContent: 'center',
@@ -248,25 +253,32 @@ export default function Carousel({
         alignItems: 'center',
         padding: '20px 0'
       }}>
-        <motion.div
-          className="carousel-track"
-          drag="x"
-          {...dragProps}
-          style={{
-            display: 'flex',
-            gap: `${GAP}px`,
-            x,
-            width: `${itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)}px`,
-            justifyContent: 'flex-start',
-            alignItems: 'center'
-          }}
-          onDragEnd={handleDragEnd}
-          animate={{ 
-            x: -(currentIndex * trackItemOffset) + ((itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)) - baseWidth) / 2 + containerPadding
-          }}
-          transition={effectiveTransition}
-          onAnimationComplete={handleAnimationComplete}
-        >
+        <div style={{
+          width: `${containerWidth}px`,
+          overflow: 'hidden',
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'center'
+        }}>
+          <motion.div
+            className="carousel-track"
+            drag="x"
+            {...dragProps}
+            style={{
+              display: 'flex',
+              gap: `${GAP}px`,
+              x,
+              width: `${itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)}px`,
+              justifyContent: 'flex-start',
+              alignItems: 'center'
+            }}
+            onDragEnd={handleDragEnd}
+            animate={{ 
+              x: -(currentIndex * trackItemOffset) + (containerWidth - itemWidth) / 2
+            }}
+            transition={effectiveTransition}
+            onAnimationComplete={handleAnimationComplete}
+          >
         {carouselItems.map((item, index) => {
           return (
             <CarouselItemWrapper
