@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/contexts/LanguageContext";
 import SplitText from "./SplitText";
+import Carousel from "./Carousel";
 
 export function TestimonialsSection() {
   const { dictionary } = useLanguage();
@@ -39,26 +40,42 @@ export function TestimonialsSection() {
             </p>
           </div>
           
-          {/* Featured Comment */}
-          <div className="bg-muted/50 rounded-3xl p-12 mb-16 border border-border">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="w-16 h-16 bg-card rounded-full border border-border mx-auto mb-8 flex items-center justify-center">
-                <span className="text-foreground text-2xl font-bold">P</span>
-              </div>
-              <div className="space-y-6 mb-8">
-                <blockquote className="text-2xl lg:text-3xl font-medium text-foreground leading-relaxed">
-                  &ldquo;{dictionary.testimonials.featured.quote}&rdquo;
-                </blockquote>
-              </div>
-              <div className="space-y-2">
-                <p className="text-lg font-semibold text-foreground">
-                  {dictionary.testimonials.featured.author}
-                </p>
-                <p className="text-muted-foreground">
-                  {dictionary.testimonials.featured.role}
-                </p>
-              </div>
-            </div>
+          {/* Carousel de Testimonios */}
+          <div className="flex justify-center mb-16">
+            <Carousel
+              items={[
+                {
+                  id: 1,
+                  title: dictionary.testimonials.featured.author,
+                  description: dictionary.testimonials.featured.quote,
+                  icon: <span className="text-2xl">P</span>
+                },
+                {
+                  id: 2,
+                  title: dictionary.testimonials.testimonial1.author,
+                  description: dictionary.testimonials.testimonial1.quote,
+                  icon: <span className="text-2xl">S</span>
+                },
+                {
+                  id: 3,
+                  title: dictionary.testimonials.testimonial2.author,
+                  description: dictionary.testimonials.testimonial2.quote,
+                  icon: <span className="text-2xl">M</span>
+                },
+                {
+                  id: 4,
+                  title: dictionary.testimonials.testimonial3.author,
+                  description: dictionary.testimonials.testimonial3.quote,
+                  icon: <span className="text-2xl">L</span>
+                }
+              ]}
+              baseWidth={400}
+              autoplay={true}
+              autoplayDelay={4000}
+              pauseOnHover={true}
+              loop={true}
+              round={false}
+            />
           </div>
           
           {/* Testimonials Grid */}
