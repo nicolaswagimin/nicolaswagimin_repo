@@ -210,6 +210,7 @@ export default function Carousel({
             gap: `${GAP}px`,
             x,
             width: `${itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)}px`,
+            transform: `translateX(${-(currentIndex * (itemWidth + GAP))}px)`,
           }}
           onDragEnd={handleDragEnd}
           animate={{ x: -(currentIndex * (itemWidth + GAP)) }}
@@ -217,20 +218,15 @@ export default function Carousel({
           onAnimationComplete={handleAnimationComplete}
         >
           {carouselItems.map((item, index) => {
-            const isActive = index === currentIndex;
             return (
-              <motion.div
+              <div
                 key={`${item.id}-${index}`}
-                className={`carousel-item ${isActive ? 'active' : ''}`}
+                className="carousel-item"
                 style={{
                   width: itemWidth,
                   minHeight: '350px',
                   flexShrink: 0,
                 }}
-                animate={{
-                  opacity: isActive ? 1 : 0,
-                }}
-                transition={effectiveTransition}
               >
                 <div className={`carousel-item-header ${round ? 'round' : ''}`}>
                   <span className="carousel-icon-container">{item.icon}</span>
@@ -239,7 +235,7 @@ export default function Carousel({
                   <div className="carousel-item-title">{item.title}</div>
                   <p className="carousel-item-description">{item.description}</p>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </motion.div>
