@@ -59,7 +59,7 @@ const DEFAULT_ITEMS: CarouselItem[] = [
 const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 500;
 const GAP = 16;
-const SPRING_OPTIONS = { type: 'spring', stiffness: 300, damping: 30 };
+const SPRING_OPTIONS = { type: 'spring' as const, stiffness: 300, damping: 30 };
 
 export default function Carousel({
   items = DEFAULT_ITEMS,
@@ -112,7 +112,7 @@ export default function Carousel({
     }
   }, [autoplay, autoplayDelay, isHovered, loop, items.length, carouselItems.length, pauseOnHover]);
 
-  const effectiveTransition = isResetting ? { duration: 0 } : SPRING_OPTIONS;
+  const effectiveTransition = isResetting ? { duration: 0 } as const : SPRING_OPTIONS;
 
   const handleAnimationComplete = () => {
     if (loop && currentIndex === carouselItems.length - 1) {
@@ -189,7 +189,7 @@ export default function Carousel({
                 rotateY: rotateY,
                 ...(round && { borderRadius: '50%' })
               }}
-              transition={effectiveTransition}
+              transition={isResetting ? { duration: 0 } as const : SPRING_OPTIONS}
             >
               <div className={`carousel-item-header ${round ? 'round' : ''}`}>
                 <span className="carousel-icon-container">{item.icon}</span>
