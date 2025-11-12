@@ -127,7 +127,7 @@ export function ContactSection() {
                 {/* Email */}
                 <div className="flex items-start space-x-4">
                   <div className="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <span className="text-primary text-xl">✉️</span>
+                    <img src="/images/Email.png" alt="Email" className="w-6 h-6 object-contain" />
                   </div>
                   <div className="space-y-2">
                     <p className="text-muted-foreground uppercase tracking-wider text-sm">
@@ -142,7 +142,7 @@ export function ContactSection() {
                 {/* Location */}
                 <div className="flex items-start space-x-4">
                   <div className="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <span className="text-primary text-xl">📍</span>
+                    <img src="/images/Location.png" alt="Location" className="w-6 h-6 object-contain" />
                   </div>
                   <div className="space-y-2">
                     <p className="text-muted-foreground uppercase tracking-wider text-sm">
@@ -157,7 +157,7 @@ export function ContactSection() {
                 {/* Status */}
                 <div className="flex items-start space-x-4">
                   <div className="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <span className="text-primary text-xl">🎓</span>
+                    <img src="/images/Status.png" alt="Status" className="w-6 h-6 object-contain" />
                   </div>
                   <div className="space-y-2">
                     <p className="text-muted-foreground uppercase tracking-wider text-sm">

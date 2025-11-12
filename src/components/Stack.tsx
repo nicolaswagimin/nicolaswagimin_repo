@@ -121,7 +121,7 @@ export default function Stack({
                       wrapper.innerHTML = `
                         <div class="card-image-placeholder" style="display: flex;">
                           <div class="placeholder-content">
-                            <div style="font-size: 48px; margin-bottom: 8px;">📷</div>
+                            <img src="/images/Webdeloper.png" alt="Placeholder" style="width: 48px; height: 48px; margin-bottom: 8px; object-fit: contain;" />
                             <span class="placeholder-text">Imagen ${card.id}</span>
                           </div>
                         </div>

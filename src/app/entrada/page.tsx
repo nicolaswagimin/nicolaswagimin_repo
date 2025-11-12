@@ -60,9 +60,18 @@ export default function EntradaPage() {
         <p>================================</p>
         
         <h2>INFORMACIÓN DE CONTACTO:</h2>
-        <p>📧 Email: nicolaswb2020@hotmail.com</p>
-        <p>📱 Teléfono: 3117296145</p>
-        <p>📍 Ubicación: Pasto, Colombia</p>
+        <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <img src="/images/Email.png" alt="Email" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
+          Email: nicolaswb2020@hotmail.com
+        </p>
+        <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <img src="/images/Frontend.png" alt="Phone" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
+          Teléfono: 3117296145
+        </p>
+        <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <img src="/images/Location.png" alt="Location" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
+          Ubicación: Pasto, Colombia
+        </p>
         <p>================================</p>
         
         <p><em>&quot;Me gusta programar y aprender cosas nuevas&quot;</em></p>

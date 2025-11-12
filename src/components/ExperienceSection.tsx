@@ -202,7 +202,7 @@ export function ExperienceSection() {
                 <div className="space-y-4">
                   <div className="flex items-center space-x-4 p-4 bg-card rounded-xl border border-border">
                     <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-lg flex-shrink-0 flex items-center justify-center">
-                      <span className="text-primary text-xl">🌐</span>
+                      <img src="/images/Webdeloper.png" alt="Web Developer" className="w-6 h-6 object-contain" />
                     </div>
                     <div className="space-y-1">
                       <h4 className="font-semibold text-foreground">
@@ -216,7 +216,7 @@ export function ExperienceSection() {
                   
                   <div className="flex items-center space-x-4 p-4 bg-card rounded-xl border border-border">
                     <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-lg flex-shrink-0 flex items-center justify-center">
-                      <span className="text-primary text-xl">⚙️</span>
+                      <img src="/images/Backend.png" alt="Backend" className="w-6 h-6 object-contain" />
                     </div>
                     <div className="space-y-1">
                       <h4 className="font-semibold text-foreground">
@@ -230,7 +230,7 @@ export function ExperienceSection() {
                   
                   <div className="flex items-center space-x-4 p-4 bg-card rounded-xl border border-border">
                     <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-lg flex-shrink-0 flex items-center justify-center">
-                      <span className="text-primary text-xl">📱</span>
+                      <img src="/images/Frontend.png" alt="Frontend" className="w-6 h-6 object-contain" />
                     </div>
                     <div className="space-y-1">
                       <h4 className="font-semibold text-foreground">

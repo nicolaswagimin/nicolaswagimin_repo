@@ -36,7 +36,7 @@ export function SkillsSection() {
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 mb-20">
             <div className="bg-card rounded-2xl p-8 text-center border border-border hover:shadow-lg transition-shadow">
               <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-                <span className="text-primary text-2xl">⚛</span>
+                <img src="/images/Frontend.png" alt="Frontend" className="w-8 h-8 object-contain" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">
                 {dictionary.skills.categories.frontend}
@@ -48,7 +48,7 @@ export function SkillsSection() {
             
             <div className="bg-card rounded-2xl p-8 text-center border border-border hover:shadow-lg transition-shadow">
               <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-                <span className="text-primary text-2xl">⚙️</span>
+                <img src="/images/Backend.png" alt="Backend" className="w-8 h-8 object-contain" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">
                 {dictionary.skills.categories.backend}
@@ -60,7 +60,7 @@ export function SkillsSection() {
             
             <div className="bg-card rounded-2xl p-8 text-center border border-border hover:shadow-lg transition-shadow">
               <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-                <span className="text-primary text-2xl">🚀</span>
+                <img src="/images/Django.png" alt="Frameworks" className="w-8 h-8 object-contain" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">
                 {dictionary.skills.categories.frameworks}
@@ -72,7 +72,7 @@ export function SkillsSection() {
             
             <div className="bg-card rounded-2xl p-8 text-center border border-border hover:shadow-lg transition-shadow">
               <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-                <span className="text-primary text-2xl">🛠️</span>
+                <img src="/images/Tools.png" alt="Tools" className="w-8 h-8 object-contain" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">
                 {dictionary.skills.categories.tools}
@@ -84,7 +84,7 @@ export function SkillsSection() {
             
             <div className="bg-card rounded-2xl p-8 text-center border border-border hover:shadow-lg transition-shadow">
               <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-                <span className="text-primary text-2xl">☁️</span>
+                <img src="/images/Deploid.png" alt="Deploy" className="w-8 h-8 object-contain" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">
                 {dictionary.skills.categories.deploy}
