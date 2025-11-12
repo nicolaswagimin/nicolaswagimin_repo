@@ -203,23 +203,23 @@ export const es = {
     description: "Comentarios de compañeros de estudio y docentes con quienes he colaborado en proyectos académicos y de aprendizaje.",
     featured: {
       quote: "Nicolás siempre aporta ideas creativas y se compromete con la calidad del trabajo. Su dedicación y enfoque colaborativo hacen que sea un excelente compañero de equipo en cualquier proyecto.",
-      author: "Profesor Andrés Villota",
-      role: "Docente • Universidad Cooperativa de Colombia"
+      author: "Santiago Latorre",
+      role: "Compañero de estudios • UCC"
     },
     testimonial1: {
       quote: "Es muy responsable con los proyectos de equipo. Siempre está dispuesto a ayudar y aportar soluciones cuando hay dificultades técnicas. Su conocimiento en desarrollo web nos ha ayudado mucho.",
-      author: "Sara Ortega",
+      author: "Valnethina Gomez",
       role: "Compañera de estudios • UCC"
     },
     testimonial2: {
       quote: "Nicolás tiene una gran capacidad para aprender tecnologías nuevas rápidamente. Siempre está actualizado con las últimas tendencias en desarrollo y aporta soluciones innovadoras a los proyectos.",
-      author: "Miguel Rodríguez", 
+      author: "Ricardo Arias", 
       role: "Compañero de estudios • UCC"
     },
     testimonial3: {
       quote: "Su actitud de aprendizaje constante es admirable. Siempre está investigando nuevas herramientas y compartiendo conocimiento con el resto del grupo. Es un estudiante muy dedicado.",
-      author: "Laura Fernández",
-      role: "Estudiante • Ingeniería de Software UCC"
+      author: "Luis Lasso",
+      role: "Compañero de estudios • UCC"
     },
     cta: {
       question: "¿Colaboramos en un proyecto?",

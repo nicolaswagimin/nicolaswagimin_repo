@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { motion, PanInfo, useMotionValue, Transition } from 'motion/react';
+import { motion, PanInfo, useMotionValue, useTransform } from 'motion/react';
+// replace icons with your own if needed
+import { FiCircle, FiCode, FiFileText, FiLayers, FiLayout } from 'react-icons/fi';
 import './Carousel.css';
 
 export interface CarouselItem {
@@ -21,130 +23,43 @@ export interface CarouselProps {
   round?: boolean;
 }
 
-// Iconos SVG simples como componentes
-const FileTextIcon = () => (
-  <svg className="carousel-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-  </svg>
-);
-
-const CircleIcon = () => (
-  <svg className="carousel-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="10" strokeWidth={2} />
-  </svg>
-);
-
-const LayersIcon = () => (
-  <svg className="carousel-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-  </svg>
-);
-
-const LayoutIcon = () => (
-  <svg className="carousel-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z" />
-  </svg>
-);
-
-const CodeIcon = () => (
-  <svg className="carousel-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-  </svg>
-);
-
 const DEFAULT_ITEMS: CarouselItem[] = [
   {
     title: 'Text Animations',
     description: 'Cool text animations for your projects.',
     id: 1,
-    icon: <FileTextIcon />
+    icon: <FiFileText className="carousel-icon" />
   },
   {
     title: 'Animations',
     description: 'Smooth animations for your projects.',
     id: 2,
-    icon: <CircleIcon />
+    icon: <FiCircle className="carousel-icon" />
   },
   {
     title: 'Components',
     description: 'Reusable components for your projects.',
     id: 3,
-    icon: <LayersIcon />
+    icon: <FiLayers className="carousel-icon" />
   },
   {
     title: 'Backgrounds',
     description: 'Beautiful backgrounds and patterns for your projects.',
     id: 4,
-    icon: <LayoutIcon />
+    icon: <FiLayout className="carousel-icon" />
   },
   {
     title: 'Common UI',
     description: 'Common UI components are coming soon!',
     id: 5,
-    icon: <CodeIcon />
+    icon: <FiCode className="carousel-icon" />
   }
 ];
 
-const DRAG_BUFFER = 50;
-const VELOCITY_THRESHOLD = 300;
-const GAP = 32;
-const SPRING_OPTIONS = { type: 'spring' as const, stiffness: 260, damping: 25 };
-
-// Componente wrapper que crea el transform para cada item
-function CarouselItemWrapper({
-  item,
-  index,
-  itemWidth,
-  trackItemOffset,
-  round,
-  currentIndex
-}: {
-  item: CarouselItem;
-  index: number;
-  itemWidth: number;
-  trackItemOffset: number;
-  round: boolean;
-  currentIndex: number;
-}) {
-  // Calcular distancia desde el centro
-  const distanceFromCenter = Math.abs(index - currentIndex);
-  
-  // Determinar posición relativa
-  const isActive = index === currentIndex;
-  const isAdjacent = distanceFromCenter === 1;
-
-  // Calcular opacidad y escala basado en distancia (sin rotación 3D compleja)
-  const opacity = isActive ? 1 : isAdjacent ? 0.7 : 0.4;
-  const scale = isActive ? 1 : isAdjacent ? 0.95 : 0.88;
-
-  return (
-    <motion.div
-      className={`carousel-item ${round ? 'round' : ''} ${isActive ? 'active' : ''}`}
-      style={{
-        width: itemWidth,
-        height: round ? itemWidth : 'auto',
-        minHeight: '400px',
-        ...(round && { borderRadius: '50%' })
-      }}
-      animate={{
-        opacity,
-        scale
-      }}
-      transition={{
-        opacity: { duration: 0.4, ease: 'easeOut' },
-        scale: { duration: 0.4, ease: 'easeOut' }
-      }}
-    >
-      <div className={`carousel-item-header ${round ? 'round' : ''}`}>
-        <span className="carousel-icon-container">{item.icon}</span>
-      </div>
-      <div className="carousel-item-content">
-        <div className="carousel-item-title">{item.title}</div>
-        <p className="carousel-item-description">{item.description}</p>
-      </div>
-    </motion.div>
-  );
-}
+const DRAG_BUFFER = 0;
+const VELOCITY_THRESHOLD = 500;
+const GAP = 16;
+const SPRING_OPTIONS = { type: 'spring', stiffness: 300, damping: 30 };
 
 export default function Carousel({
   items = DEFAULT_ITEMS,
@@ -155,7 +70,8 @@ export default function Carousel({
   loop = false,
   round = false
 }: CarouselProps): React.JSX.Element {
-  const itemWidth = baseWidth;
+  const containerPadding = 16;
+  const itemWidth = baseWidth - containerPadding * 2;
   const trackItemOffset = itemWidth + GAP;
 
   const carouselItems = loop ? [...items, items[0]] : items;
@@ -196,7 +112,7 @@ export default function Carousel({
     }
   }, [autoplay, autoplayDelay, isHovered, loop, items.length, carouselItems.length, pauseOnHover]);
 
-  const effectiveTransition: Transition = isResetting ? { duration: 0 } : SPRING_OPTIONS;
+  const effectiveTransition = isResetting ? { duration: 0 } : SPRING_OPTIONS;
 
   const handleAnimationComplete = () => {
     if (loop && currentIndex === carouselItems.length - 1) {
@@ -239,60 +155,53 @@ export default function Carousel({
       ref={containerRef}
       className={`carousel-container ${round ? 'round' : ''}`}
       style={{
-        width: '100%',
-        maxWidth: '100%',
+        width: `${baseWidth}px`,
         ...(round && { height: `${baseWidth}px`, borderRadius: '50%' })
       }}
     >
-      <div 
-        className="carousel-viewport-wrapper"
-        style={{ 
-          overflow: 'hidden', 
-          width: '100%', 
-          display: 'flex', 
-          justifyContent: 'center',
-          position: 'relative',
-          minHeight: '500px',
-          alignItems: 'center',
-          padding: '40px 20px'
+      <motion.div
+        className="carousel-track"
+        drag="x"
+        {...dragProps}
+        style={{
+          width: itemWidth,
+          gap: `${GAP}px`,
+          perspective: 1000,
+          perspectiveOrigin: `${currentIndex * trackItemOffset + itemWidth / 2}px 50%`,
+          x
         }}
+        onDragEnd={handleDragEnd}
+        animate={{ x: -(currentIndex * trackItemOffset) }}
+        transition={effectiveTransition}
+        onAnimationComplete={handleAnimationComplete}
       >
-        <motion.div
-          className="carousel-track"
-          drag="x"
-          dragElastic={0.2}
-          {...dragProps}
-          style={{
-            display: 'flex',
-            gap: `${GAP}px`,
-            x,
-            width: `${itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)}px`,
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            position: 'relative'
-          }}
-          onDragEnd={handleDragEnd}
-          animate={{ 
-            x: -(currentIndex * trackItemOffset) + (baseWidth * 1.7 - itemWidth) / 2
-          }}
-          transition={effectiveTransition}
-          onAnimationComplete={handleAnimationComplete}
-        >
-          {carouselItems.map((item, index) => {
-            return (
-              <CarouselItemWrapper
-                key={`${item.id}-${index}`}
-                item={item}
-                index={index}
-                itemWidth={itemWidth}
-                trackItemOffset={trackItemOffset}
-                round={round}
-                currentIndex={currentIndex}
-              />
-            );
-          })}
-        </motion.div>
-      </div>
+        {carouselItems.map((item, index) => {
+          const range = [-(index + 1) * trackItemOffset, -index * trackItemOffset, -(index - 1) * trackItemOffset];
+          const outputRange = [90, 0, -90];
+          const rotateY = useTransform(x, range, outputRange, { clamp: false });
+          return (
+            <motion.div
+              key={index}
+              className={`carousel-item ${round ? 'round' : ''}`}
+              style={{
+                width: itemWidth,
+                height: round ? itemWidth : '100%',
+                rotateY: rotateY,
+                ...(round && { borderRadius: '50%' })
+              }}
+              transition={effectiveTransition}
+            >
+              <div className={`carousel-item-header ${round ? 'round' : ''}`}>
+                <span className="carousel-icon-container">{item.icon}</span>
+              </div>
+              <div className="carousel-item-content">
+                <div className="carousel-item-title">{item.title}</div>
+                <p className="carousel-item-description">{item.description}</p>
+              </div>
+            </motion.div>
+          );
+        })}
+      </motion.div>
       <div className={`carousel-indicators-container ${round ? 'round' : ''}`}>
         <div className="carousel-indicators">
           {items.map((_, index) => (

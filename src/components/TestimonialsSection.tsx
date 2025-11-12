@@ -3,6 +3,7 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import SplitText from "./SplitText";
 import Carousel from "./Carousel";
+import { FiCircle, FiLayers, FiLayout, FiCode } from 'react-icons/fi';
 
 export function TestimonialsSection() {
   const { dictionary } = useLanguage();
@@ -43,37 +44,37 @@ export function TestimonialsSection() {
           
           {/* Carousel de Testimonios */}
           <div className="flex justify-center mb-16 py-12">
-            <div className="w-full max-w-6xl mx-auto px-4">
+            <div style={{ height: '600px', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <Carousel
                 items={[
                   {
                     id: 1,
                     title: dictionary.testimonials.featured.author,
                     description: dictionary.testimonials.featured.quote,
-                    icon: <span className="text-2xl font-bold">P</span>
+                    icon: <FiCircle className="carousel-icon" />
                   },
                   {
                     id: 2,
                     title: dictionary.testimonials.testimonial1.author,
                     description: dictionary.testimonials.testimonial1.quote,
-                    icon: <span className="text-2xl font-bold">S</span>
+                    icon: <FiLayers className="carousel-icon" />
                   },
                   {
                     id: 3,
                     title: dictionary.testimonials.testimonial2.author,
                     description: dictionary.testimonials.testimonial2.quote,
-                    icon: <span className="text-2xl font-bold">M</span>
+                    icon: <FiLayout className="carousel-icon" />
                   },
                   {
                     id: 4,
                     title: dictionary.testimonials.testimonial3.author,
                     description: dictionary.testimonials.testimonial3.quote,
-                    icon: <span className="text-2xl font-bold">L</span>
+                    icon: <FiCode className="carousel-icon" />
                   }
                 ]}
-                baseWidth={420}
+                baseWidth={300}
                 autoplay={true}
-                autoplayDelay={5000}
+                autoplayDelay={3000}
                 pauseOnHover={true}
                 loop={true}
                 round={false}

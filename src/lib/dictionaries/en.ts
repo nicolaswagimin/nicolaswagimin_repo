@@ -203,23 +203,23 @@ export const en = {
     description: "Comments from study partners and teachers with whom I have collaborated on academic and learning projects.",
     featured: {
       quote: "Nicolás always contributes creative ideas and commits to work quality. His dedication and collaborative approach make him an excellent team partner in any project.",
-      author: "Professor Andrés Villota",
-      role: "Teacher • Universidad Cooperativa de Colombia"
+      author: "Santiago Latorre",
+      role: "Study partner • UCC"
     },
     testimonial1: {
       quote: "He's very responsible with team projects. He's always willing to help and contribute solutions when there are technical difficulties. His knowledge in web development has helped us a lot.",
-      author: "Sara Ortega",
+      author: "Valnethina Gomez",
       role: "Study partner • UCC"
     },
     testimonial2: {
       quote: "Nicolás has a great ability to learn new technologies quickly. He's always up to date with the latest development trends and brings innovative solutions to projects.",
-      author: "Miguel Rodríguez", 
+      author: "Ricardo Arias", 
       role: "Study partner • UCC"
     },
     testimonial3: {
       quote: "His constant learning attitude is admirable. He's always researching new tools and sharing knowledge with the rest of the group. He's a very dedicated student.",
-      author: "Laura Fernández",
-      role: "Student • Software Engineering UCC"
+      author: "Luis Lasso",
+      role: "Study partner • UCC"
     },
     cta: {
       question: "Do we collaborate on a project?",
