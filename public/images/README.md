@@ -1,10 +1,9 @@
 # Imágenes del Hero Section
 
-Por favor, coloca aquí las siguientes imágenes:
+Las imágenes del Hero Section están en esta carpeta:
 
-1. **hero-1.webp** - Imagen de una persona sentada en un sofá azul oscuro con una laptop (formato WebP recomendado, 600-800px de ancho)
-
-2. **hero-2.webp** - Imagen de un joven adulto mirando a la cámara con fondo de plantas (formato WebP recomendado, 600-800px de ancho)
+1. **IMG_0276.jpg** - Imagen de una persona sentada en un sofá azul oscuro con una laptop
+2. **IMG_0273.jpg** - Imagen de un joven adulto mirando a la cámara con fondo de plantas
 
 ## Formato recomendado:
 - **Formato**: WebP (mejor compresión) o JPEG

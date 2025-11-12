@@ -120,8 +120,8 @@ export function HeroSection() {
                     sendToBackOnClick={false}
                     cardDimensions={{ width: 300, height: 400 }}
                     cardsData={[
-                      { id: 1, img: "/images/hero-1.webp" },
-                      { id: 2, img: "/images/hero-2.webp" }
+                      { id: 1, img: "/images/IMG_0276.jpg" },
+                      { id: 2, img: "/images/IMG_0273.jpg" }
                     ]}
                   />
                 </div>

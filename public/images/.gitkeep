@@ -1,5 +1,4 @@
 # Esta carpeta contiene las imágenes del Hero Section
-# Por favor, agrega aquí:
-# - hero-1.webp (600-800px de ancho, formato WebP)
-# - hero-2.webp (600-800px de ancho, formato WebP)
-
+# Las imágenes deben estar en esta carpeta como archivos físicos:
+# - IMG_0276.jpg
+# - IMG_0273.jpg
