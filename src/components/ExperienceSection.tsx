@@ -16,6 +16,7 @@ export function ExperienceSection() {
               {dictionary.experience.sectionTitle}
             </p>
             <SplitText
+              key={`experience-title-${dictionary.experience.title}`}
               text={dictionary.experience.title}
               className="text-4xl lg:text-5xl font-bold text-foreground mb-6"
               tag="h2"

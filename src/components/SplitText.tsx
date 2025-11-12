@@ -46,6 +46,7 @@ const SplitText: React.FC<SplitTextProps> = ({
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const animationRef = useRef<gsap.core.Tween | null>(null);
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [forceUpdate, setForceUpdate] = useState(0);
   const hasAnimatedRef = useRef(false);
   const previousTextRef = useRef<string>('');
 
@@ -65,7 +66,7 @@ const SplitText: React.FC<SplitTextProps> = ({
   useEffect(() => {
     if (previousTextRef.current !== text && previousTextRef.current !== '') {
       hasAnimatedRef.current = false;
-      // Forzar re-render y re-animación
+      // Limpiar completamente todas las instancias
       if (scrollTriggerRef.current) {
         scrollTriggerRef.current.kill();
         scrollTriggerRef.current = null;
@@ -82,6 +83,12 @@ const SplitText: React.FC<SplitTextProps> = ({
         }
         splitInstanceRef.current = null;
       }
+      // Forzar actualización para re-renderizar
+      setForceUpdate(prev => prev + 1);
+      // Pequeño delay para asegurar que el DOM se actualice
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
     }
     previousTextRef.current = text;
   }, [text]);
@@ -258,7 +265,7 @@ const SplitText: React.FC<SplitTextProps> = ({
       };
     },
     {
-      dependencies: [text, fontsLoaded, delay, duration, ease, splitType, threshold, rootMargin, repeat, onLetterAnimationComplete],
+      dependencies: [text, fontsLoaded, delay, duration, ease, splitType, threshold, rootMargin, repeat, onLetterAnimationComplete, forceUpdate],
       scope: ref,
     }
   );

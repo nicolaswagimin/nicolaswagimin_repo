@@ -16,6 +16,7 @@ export function SkillsSection() {
               {dictionary.skills.sectionTitle}
             </p>
             <SplitText
+              key={`skills-title-${dictionary.skills.title}`}
               text={dictionary.skills.title}
               className="text-4xl lg:text-5xl font-bold text-foreground mb-6"
               tag="h2"

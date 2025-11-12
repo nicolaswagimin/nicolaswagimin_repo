@@ -24,6 +24,7 @@ export function TestimonialsSection() {
               {dictionary.testimonials.sectionTitle}
             </p>
             <SplitText
+              key={`testimonials-title-${dictionary.testimonials.title}`}
               text={dictionary.testimonials.title}
               className="text-4xl lg:text-5xl font-bold text-foreground mb-6"
               tag="h2"

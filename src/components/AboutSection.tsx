@@ -18,6 +18,7 @@ export function AboutSection() {
                   {dictionary.about.sectionTitle}
                 </p>
                 <SplitText
+                  key={`about-title-${dictionary.about.title}`}
                   text={dictionary.about.title}
                   className="text-4xl lg:text-5xl font-bold text-foreground"
                   tag="h2"

@@ -28,6 +28,7 @@ export function ContactSection() {
               {dictionary.contact.sectionTitle}
             </p>
             <SplitText
+              key={`contact-title-${dictionary.contact.title}`}
               text={dictionary.contact.title}
               className="text-4xl lg:text-5xl font-bold text-foreground mb-6"
               tag="h2"

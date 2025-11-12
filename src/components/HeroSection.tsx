@@ -42,6 +42,7 @@ export function HeroSection() {
                   </p>
                   <div className="text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                     <SplitText
+                      key={`title-${dictionary.hero.title}`}
                       text={dictionary.hero.title}
                       className="font-bold"
                       tag="span"
@@ -55,6 +56,7 @@ export function HeroSection() {
                     />
                     {" "}
                     <SplitText
+                      key={`titleHighlight-${dictionary.hero.titleHighlight}`}
                       text={dictionary.hero.titleHighlight}
                       className="font-bold text-primary"
                       tag="span"

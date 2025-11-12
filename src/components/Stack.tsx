@@ -67,6 +67,7 @@ export default function Stack({
   );
   const autoRotateIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const isUserInteractingRef = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const sendToBack = (id: number) => {
     setCards(prev => {
@@ -82,8 +83,12 @@ export default function Stack({
   useEffect(() => {
     // Iniciar rotación automática después de 3 segundos
     const startAutoRotate = () => {
+      if (autoRotateIntervalRef.current) {
+        clearInterval(autoRotateIntervalRef.current);
+      }
+      
       autoRotateIntervalRef.current = setInterval(() => {
-        if (!isUserInteractingRef.current) {
+        if (!isUserInteractingRef.current && cards.length > 1) {
           // Rotar la última tarjeta al frente
           setCards(prev => {
             const newCards = [...prev];
@@ -103,36 +108,47 @@ export default function Stack({
       clearTimeout(timeoutId);
       if (autoRotateIntervalRef.current) {
         clearInterval(autoRotateIntervalRef.current);
+        autoRotateIntervalRef.current = null;
       }
     };
-  }, []);
+  }, [cards.length]);
 
   // Detectar interacción del usuario
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let resetTimeoutId: NodeJS.Timeout | null = null;
+    
     const handleInteraction = () => {
       isUserInteractingRef.current = true;
+      
+      // Limpiar timeout anterior si existe
+      if (resetTimeoutId) {
+        clearTimeout(resetTimeoutId);
+      }
+      
       // Resetear flag después de 5 segundos sin interacción
-      setTimeout(() => {
+      resetTimeoutId = setTimeout(() => {
         isUserInteractingRef.current = false;
+        resetTimeoutId = null;
       }, 5000);
     };
 
-    const container = document.querySelector('.stack-container');
-    if (container) {
-      container.addEventListener('mousedown', handleInteraction);
-      container.addEventListener('touchstart', handleInteraction);
-    }
+    container.addEventListener('mousedown', handleInteraction);
+    container.addEventListener('touchstart', handleInteraction);
+    container.addEventListener('dragstart', handleInteraction);
 
     return () => {
-      if (container) {
-        container.removeEventListener('mousedown', handleInteraction);
-        container.removeEventListener('touchstart', handleInteraction);
-      }
+      container.removeEventListener('mousedown', handleInteraction);
+      container.removeEventListener('touchstart', handleInteraction);
+      container.removeEventListener('dragstart', handleInteraction);
     };
   }, []);
 
   return (
     <div
+      ref={containerRef}
       className="stack-container"
       style={{
         width: cardDimensions.width,
