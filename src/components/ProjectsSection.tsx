@@ -52,6 +52,7 @@ export function ProjectsSection() {
               <div className="space-y-4">
                 <p className="text-muted-foreground uppercase tracking-wider">{dictionary.projects.sectionTitle}</p>
                 <SplitText
+                  key={`projects-title-${dictionary.projects.title}`}
                   text={dictionary.projects.title}
                   className="text-4xl font-bold text-foreground"
                   tag="h2"
