@@ -118,7 +118,7 @@ export function HeroSection() {
                     randomRotation={true}
                     sensitivity={180}
                     sendToBackOnClick={false}
-                    cardDimensions={{ width: 300, height: 400 }}
+                    cardDimensions={{ width: 350, height: 450 }}
                     cardsData={[
                       { id: 1, img: "/images/IMG_0276.jpg" },
                       { id: 2, img: "/images/IMG_0273.jpg" }
