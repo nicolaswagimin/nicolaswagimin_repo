@@ -7,6 +7,7 @@
   background-color: hsl(var(--card));
   --outer-r: 24px;
   --p-distance: 12px;
+  margin: 0 auto;
 }
 
 .dark .carousel-container {
@@ -31,6 +32,8 @@
   color: hsl(var(--foreground));
   overflow: hidden;
   cursor: grab;
+  min-height: 400px;
+  transform-style: preserve-3d;
 }
 
 .dark .carousel-item {

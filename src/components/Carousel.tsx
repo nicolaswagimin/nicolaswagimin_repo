@@ -88,8 +88,10 @@ function CarouselItemWrapper({
       className={`carousel-item ${round ? 'round' : ''}`}
       style={{
         width: itemWidth,
-        height: round ? itemWidth : '100%',
+        height: round ? itemWidth : 'auto',
+        minHeight: round ? itemWidth : '400px',
         rotateY: rotateY,
+        transformStyle: 'preserve-3d',
         ...(round && { borderRadius: '50%' })
       }}
       transition={isResetting ? { duration: 0 } as const : SPRING_OPTIONS}
