@@ -123,8 +123,6 @@ export function HeroSection() {
                       { id: 1, img: "/images/hero-1.webp" },
                       { id: 2, img: "/images/hero-2.webp" }
                     ]}
-                    // Nota: Si las imágenes no se cargan, asegúrate de que existan en public/images/
-                    // Formato recomendado: WebP, 600-800px de ancho
                   />
                 </div>
               </div>
