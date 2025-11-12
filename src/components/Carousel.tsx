@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { motion, PanInfo, useMotionValue, useTransform, MotionValue, Transition } from 'motion/react';
+import { motion, PanInfo, useMotionValue, Transition } from 'motion/react';
 import './Carousel.css';
 
 export interface CarouselItem {
@@ -97,22 +97,14 @@ function CarouselItemWrapper({
   itemWidth,
   trackItemOffset,
   round,
-  x,
-  effectiveTransition,
-  currentIndex,
-  itemsLength,
-  viewportWidth
+  currentIndex
 }: {
   item: CarouselItem;
   index: number;
   itemWidth: number;
   trackItemOffset: number;
   round: boolean;
-  x: MotionValue<number>;
-  effectiveTransition: Transition;
   currentIndex: number;
-  itemsLength: number;
-  viewportWidth: number;
 }) {
   // Calcular distancia desde el centro
   const distanceFromCenter = Math.abs(index - currentIndex);
@@ -120,22 +112,10 @@ function CarouselItemWrapper({
   // Determinar posición relativa
   const isActive = index === currentIndex;
   const isAdjacent = distanceFromCenter === 1;
-  
-  // Calcular rotación 3D basada en posición usando useTransform
-  const rotateY = useTransform(x, (value) => {
-    const centerX = (viewportWidth - itemWidth) / 2;
-    const targetX = -(currentIndex * trackItemOffset) + centerX;
-    const itemTargetX = -(index * trackItemOffset) + centerX;
-    const offset = (value - targetX) + (itemTargetX - targetX);
-    const normalizedOffset = offset / itemWidth;
-    // Rotación suave y limitada (-18 a 18 grados)
-    return Math.max(-18, Math.min(18, normalizedOffset * 10));
-  });
 
-  // Calcular opacidad y escala basado en distancia
-  const opacity = isActive ? 1 : isAdjacent ? 0.65 : 0.35;
-  const scale = isActive ? 1 : isAdjacent ? 0.93 : 0.86;
-  const zIndex = isActive ? 10 : isAdjacent ? 5 : 1;
+  // Calcular opacidad y escala basado en distancia (sin rotación 3D compleja)
+  const opacity = isActive ? 1 : isAdjacent ? 0.7 : 0.4;
+  const scale = isActive ? 1 : isAdjacent ? 0.95 : 0.88;
 
   return (
     <motion.div
@@ -144,8 +124,6 @@ function CarouselItemWrapper({
         width: itemWidth,
         height: round ? itemWidth : 'auto',
         minHeight: '400px',
-        rotateY,
-        zIndex,
         ...(round && { borderRadius: '50%' })
       }}
       animate={{
@@ -153,8 +131,8 @@ function CarouselItemWrapper({
         scale
       }}
       transition={{
-        opacity: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
-        scale: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+        opacity: { duration: 0.4, ease: 'easeOut' },
+        scale: { duration: 0.4, ease: 'easeOut' }
       }}
     >
       <div className={`carousel-item-header ${round ? 'round' : ''}`}>
@@ -256,10 +234,6 @@ export default function Carousel({
         }
       };
 
-  // Calcular el ancho del viewport para mostrar tarjeta central + partes de laterales
-  const viewportPadding = itemWidth * 0.35; // Espacio para mostrar partes de tarjetas laterales
-  const viewportWidth = itemWidth + viewportPadding * 2;
-
   return (
     <div
       ref={containerRef}
@@ -280,64 +254,44 @@ export default function Carousel({
           position: 'relative',
           minHeight: '500px',
           alignItems: 'center',
-          padding: '40px 0'
+          padding: '40px 20px'
         }}
       >
-        <div 
-          className="carousel-viewport"
+        <motion.div
+          className="carousel-track"
+          drag="x"
+          dragElastic={0.2}
+          {...dragProps}
           style={{
-            width: `${viewportWidth}px`,
-            overflow: 'hidden',
-            position: 'relative',
             display: 'flex',
-            justifyContent: 'center',
-            margin: '0 auto',
-            perspective: '1000px',
-            transformStyle: 'preserve-3d'
+            gap: `${GAP}px`,
+            x,
+            width: `${itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)}px`,
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            position: 'relative'
           }}
+          onDragEnd={handleDragEnd}
+          animate={{ 
+            x: -(currentIndex * trackItemOffset) + (baseWidth * 1.7 - itemWidth) / 2
+          }}
+          transition={effectiveTransition}
+          onAnimationComplete={handleAnimationComplete}
         >
-          <motion.div
-            className="carousel-track"
-            drag="x"
-            dragElastic={0.15}
-            dragMomentum={false}
-            {...dragProps}
-            style={{
-              display: 'flex',
-              gap: `${GAP}px`,
-              x,
-              width: `${itemWidth * carouselItems.length + GAP * (carouselItems.length - 1)}px`,
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              position: 'relative',
-              transformStyle: 'preserve-3d'
-            }}
-            onDragEnd={handleDragEnd}
-            animate={{ 
-              x: -(currentIndex * trackItemOffset) + (viewportWidth - itemWidth) / 2
-            }}
-            transition={effectiveTransition}
-            onAnimationComplete={handleAnimationComplete}
-          >
-            {carouselItems.map((item, index) => {
-              return (
-                <CarouselItemWrapper
-                  key={`${item.id}-${index}`}
-                  item={item}
-                  index={index}
-                  itemWidth={itemWidth}
-                  trackItemOffset={trackItemOffset}
-                  round={round}
-                  x={x}
-                  effectiveTransition={effectiveTransition}
-                  currentIndex={currentIndex}
-                  itemsLength={items.length}
-                  viewportWidth={viewportWidth}
-                />
-              );
-            })}
-          </motion.div>
-        </div>
+          {carouselItems.map((item, index) => {
+            return (
+              <CarouselItemWrapper
+                key={`${item.id}-${index}`}
+                item={item}
+                index={index}
+                itemWidth={itemWidth}
+                trackItemOffset={trackItemOffset}
+                round={round}
+                currentIndex={currentIndex}
+              />
+            );
+          })}
+        </motion.div>
       </div>
       <div className={`carousel-indicators-container ${round ? 'round' : ''}`}>
         <div className="carousel-indicators">

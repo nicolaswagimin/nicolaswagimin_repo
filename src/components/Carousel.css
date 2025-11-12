@@ -16,19 +16,14 @@
 .carousel-viewport-wrapper {
   position: relative;
   width: 100%;
-}
-
-.carousel-viewport {
-  position: relative;
-  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
 }
 
 .carousel-track {
   display: flex;
   position: relative;
-  transform-style: preserve-3d;
   align-items: center;
-  will-change: transform;
 }
 
 .carousel-item {
