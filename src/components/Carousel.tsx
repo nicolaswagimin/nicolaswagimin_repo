@@ -1,7 +1,5 @@
 'use client';
 
-'use client';
-
 import { useEffect, useState, useRef } from 'react';
 import { motion, PanInfo, useMotionValue, useTransform, MotionValue } from 'motion/react';
 // replace icons with your own if needed
@@ -87,7 +85,6 @@ function CarouselItemWrapper({
 
   return (
     <motion.div
-      key={index}
       className={`carousel-item ${round ? 'round' : ''}`}
       style={{
         width: itemWidth,
@@ -211,8 +208,10 @@ export default function Carousel({
         drag="x"
         {...dragProps}
         style={{
-          display: 'flex',
+          width: itemWidth,
           gap: `${GAP}px`,
+          perspective: 1000,
+          perspectiveOrigin: `${currentIndex * trackItemOffset + itemWidth / 2}px 50%`,
           x
         }}
         onDragEnd={handleDragEnd}
