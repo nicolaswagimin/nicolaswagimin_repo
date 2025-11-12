@@ -16,7 +16,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="min-h-screen bg-background relative overflow-hidden">
+    <section className="min-h-screen bg-background relative overflow-hidden" style={{ boxShadow: 'inset 0 0 100px rgba(0, 0, 0, 0.02)' }}>
       {/* Subtle Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-10 w-64 h-64 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl"></div>

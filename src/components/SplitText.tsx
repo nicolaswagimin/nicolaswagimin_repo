@@ -47,6 +47,7 @@ const SplitText: React.FC<SplitTextProps> = ({
   const animationRef = useRef<gsap.core.Tween | null>(null);
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const hasAnimatedRef = useRef(false);
+  const previousTextRef = useRef<string>('');
 
   useEffect(() => {
     // Verificar si las fuentes están cargadas
@@ -59,6 +60,31 @@ const SplitText: React.FC<SplitTextProps> = ({
       }
     }
   }, []);
+
+  // Resetear animación cuando cambia el texto
+  useEffect(() => {
+    if (previousTextRef.current !== text && previousTextRef.current !== '') {
+      hasAnimatedRef.current = false;
+      // Forzar re-render y re-animación
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+        scrollTriggerRef.current = null;
+      }
+      if (animationRef.current) {
+        animationRef.current.kill();
+        animationRef.current = null;
+      }
+      if (splitInstanceRef.current) {
+        try {
+          splitInstanceRef.current.revert();
+        } catch {
+          // Ignorar errores
+        }
+        splitInstanceRef.current = null;
+      }
+    }
+    previousTextRef.current = text;
+  }, [text]);
 
   useGSAP(
     () => {

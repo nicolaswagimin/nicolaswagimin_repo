@@ -60,7 +60,7 @@ export function AboutSection() {
               
               {/* Skills Cards */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-card rounded-xl p-4 border border-border">
+                <div className="bg-card rounded-xl p-4 border border-border" style={{ boxShadow: 'var(--shadow-sm)' }}>
                   <div className="w-10 h-10 bg-primary/10 dark:bg-primary/20 rounded-lg mb-3 flex items-center justify-center">
                     <span className="text-primary text-xs font-bold">FE</span>
                   </div>
@@ -71,7 +71,7 @@ export function AboutSection() {
                     {dictionary.about.skills.frontendStatus}
                   </p>
                 </div>
-                <div className="bg-card rounded-xl p-4 border border-border">
+                <div className="bg-card rounded-xl p-4 border border-border" style={{ boxShadow: 'var(--shadow-sm)' }}>
                   <div className="w-10 h-10 bg-primary/10 dark:bg-primary/20 rounded-lg mb-3 flex items-center justify-center">
                     <span className="text-primary text-xs font-bold">⚡</span>
                   </div>

@@ -50,7 +50,7 @@ export function ExperienceSection() {
                   <div className="absolute left-0 top-2 w-4 h-4 bg-card border-2 border-border rounded-full"></div>
                   <div className="absolute left-2 top-6 w-px h-full bg-border"></div>
                   
-                  <div className="bg-card rounded-2xl p-8 shadow-md border border-border">
+                  <div className="bg-card rounded-2xl p-8 border border-border" style={{ boxShadow: 'var(--shadow-md)' }}>
                     <div className="space-y-4">
                       <div className="flex items-start justify-between">
                         <div className="space-y-2">
@@ -85,7 +85,7 @@ export function ExperienceSection() {
                   <div className="absolute left-0 top-2 w-4 h-4 bg-card border-2 border-border rounded-full"></div>
                   <div className="absolute left-2 top-6 w-px h-full bg-border"></div>
                   
-                  <div className="bg-card rounded-2xl p-8 shadow-md border border-border">
+                  <div className="bg-card rounded-2xl p-8 border border-border" style={{ boxShadow: 'var(--shadow-md)' }}>
                     <div className="space-y-4">
                       <div className="flex items-start justify-between">
                         <div className="space-y-2">
@@ -119,7 +119,7 @@ export function ExperienceSection() {
                 <div className="relative pl-8">
                   <div className="absolute left-0 top-2 w-4 h-4 bg-card border-2 border-border rounded-full"></div>
                   
-                  <div className="bg-card rounded-2xl p-8 shadow-md border border-border">
+                  <div className="bg-card rounded-2xl p-8 border border-border" style={{ boxShadow: 'var(--shadow-md)' }}>
                     <div className="space-y-4">
                       <div className="flex items-start justify-between">
                         <div className="space-y-2">

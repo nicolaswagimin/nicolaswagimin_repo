@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useMotionValue, useTransform } from 'motion/react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './Stack.css';
 
 interface CardRotateProps {
@@ -65,6 +65,8 @@ export default function Stack({
           { id: 2, img: '/images/IMG_0273.jpg' }
         ]
   );
+  const autoRotateIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isUserInteractingRef = useRef(false);
 
   const sendToBack = (id: number) => {
     setCards(prev => {
@@ -75,6 +77,59 @@ export default function Stack({
       return newCards;
     });
   };
+
+  // Animación infinita automática
+  useEffect(() => {
+    // Iniciar rotación automática después de 3 segundos
+    const startAutoRotate = () => {
+      autoRotateIntervalRef.current = setInterval(() => {
+        if (!isUserInteractingRef.current) {
+          // Rotar la última tarjeta al frente
+          setCards(prev => {
+            const newCards = [...prev];
+            const lastCard = newCards.pop();
+            if (lastCard) {
+              newCards.unshift(lastCard);
+            }
+            return newCards;
+          });
+        }
+      }, 3000); // Rotar cada 3 segundos
+    };
+
+    const timeoutId = setTimeout(startAutoRotate, 3000);
+
+    return () => {
+      clearTimeout(timeoutId);
+      if (autoRotateIntervalRef.current) {
+        clearInterval(autoRotateIntervalRef.current);
+      }
+    };
+  }, []);
+
+  // Detectar interacción del usuario
+  useEffect(() => {
+    const handleInteraction = () => {
+      isUserInteractingRef.current = true;
+      // Resetear flag después de 5 segundos sin interacción
+      setTimeout(() => {
+        isUserInteractingRef.current = false;
+      }, 5000);
+    };
+
+    const container = document.querySelector('.stack-container');
+    if (container) {
+      container.addEventListener('mousedown', handleInteraction);
+      container.addEventListener('touchstart', handleInteraction);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('mousedown', handleInteraction);
+        container.removeEventListener('touchstart', handleInteraction);
+      }
+    };
+  }, []);
 
   return (
     <div

@@ -47,7 +47,7 @@ export function ContactSection() {
           <div className="grid lg:grid-cols-12 gap-16">
             {/* Contact Form */}
             <div className="lg:col-span-7">
-              <div className="bg-card rounded-3xl p-10 border border-border shadow-lg">
+              <div className="bg-card rounded-3xl p-10 border border-border" style={{ boxShadow: 'var(--shadow-lg)' }}>
                 <div className="space-y-4 mb-8">
                   <p className="text-muted-foreground uppercase tracking-wider text-sm font-medium">
                     {dictionary.contact.form.title}
@@ -203,7 +203,7 @@ export function ContactSection() {
               </div>
               
               {/* Call to Action */}
-              <div className="bg-card rounded-2xl p-8 border border-border shadow-lg">
+              <div className="bg-card rounded-2xl p-8 border border-border" style={{ boxShadow: 'var(--shadow-md)' }}>
                 <div className="space-y-4">
                   <h4 className="text-xl font-semibold text-foreground">
                     {dictionary.contact.cta.title}
