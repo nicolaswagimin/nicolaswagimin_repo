@@ -7,6 +7,8 @@
   background-color: hsl(var(--card));
   --outer-r: 24px;
   --p-distance: 12px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .dark .carousel-container {
@@ -16,6 +18,8 @@
 
 .carousel-track {
   display: flex;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 .carousel-item {

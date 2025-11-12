@@ -1,7 +1,9 @@
 'use client';
 
+'use client';
+
 import { useEffect, useState, useRef } from 'react';
-import { motion, PanInfo, useMotionValue, useTransform } from 'motion/react';
+import { motion, PanInfo, useMotionValue, useTransform, MotionValue } from 'motion/react';
 // replace icons with your own if needed
 import { FiCircle, FiCode, FiFileText, FiLayers, FiLayout } from 'react-icons/fi';
 import './Carousel.css';
@@ -60,6 +62,51 @@ const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 500;
 const GAP = 16;
 const SPRING_OPTIONS = { type: 'spring' as const, stiffness: 300, damping: 30 };
+
+// Componente wrapper para cada item del carousel
+function CarouselItemWrapper({
+  item,
+  index,
+  itemWidth,
+  trackItemOffset,
+  round,
+  x,
+  isResetting
+}: {
+  item: CarouselItem;
+  index: number;
+  itemWidth: number;
+  trackItemOffset: number;
+  round: boolean;
+  x: MotionValue<number>;
+  isResetting: boolean;
+}) {
+  const range = [-(index + 1) * trackItemOffset, -index * trackItemOffset, -(index - 1) * trackItemOffset];
+  const outputRange = [90, 0, -90];
+  const rotateY = useTransform(x, range, outputRange, { clamp: false });
+
+  return (
+    <motion.div
+      key={index}
+      className={`carousel-item ${round ? 'round' : ''}`}
+      style={{
+        width: itemWidth,
+        height: round ? itemWidth : '100%',
+        rotateY: rotateY,
+        ...(round && { borderRadius: '50%' })
+      }}
+      transition={isResetting ? { duration: 0 } as const : SPRING_OPTIONS}
+    >
+      <div className={`carousel-item-header ${round ? 'round' : ''}`}>
+        <span className="carousel-icon-container">{item.icon}</span>
+      </div>
+      <div className="carousel-item-content">
+        <div className="carousel-item-title">{item.title}</div>
+        <p className="carousel-item-description">{item.description}</p>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Carousel({
   items = DEFAULT_ITEMS,
@@ -164,10 +211,8 @@ export default function Carousel({
         drag="x"
         {...dragProps}
         style={{
-          width: itemWidth,
+          display: 'flex',
           gap: `${GAP}px`,
-          perspective: 1000,
-          perspectiveOrigin: `${currentIndex * trackItemOffset + itemWidth / 2}px 50%`,
           x
         }}
         onDragEnd={handleDragEnd}
@@ -175,32 +220,18 @@ export default function Carousel({
         transition={effectiveTransition}
         onAnimationComplete={handleAnimationComplete}
       >
-        {carouselItems.map((item, index) => {
-          const range = [-(index + 1) * trackItemOffset, -index * trackItemOffset, -(index - 1) * trackItemOffset];
-          const outputRange = [90, 0, -90];
-          const rotateY = useTransform(x, range, outputRange, { clamp: false });
-          return (
-            <motion.div
-              key={index}
-              className={`carousel-item ${round ? 'round' : ''}`}
-              style={{
-                width: itemWidth,
-                height: round ? itemWidth : '100%',
-                rotateY: rotateY,
-                ...(round && { borderRadius: '50%' })
-              }}
-              transition={isResetting ? { duration: 0 } as const : SPRING_OPTIONS}
-            >
-              <div className={`carousel-item-header ${round ? 'round' : ''}`}>
-                <span className="carousel-icon-container">{item.icon}</span>
-              </div>
-              <div className="carousel-item-content">
-                <div className="carousel-item-title">{item.title}</div>
-                <p className="carousel-item-description">{item.description}</p>
-              </div>
-            </motion.div>
-          );
-        })}
+        {carouselItems.map((item, index) => (
+          <CarouselItemWrapper
+            key={`${item.id}-${index}`}
+            item={item}
+            index={index}
+            itemWidth={itemWidth}
+            trackItemOffset={trackItemOffset}
+            round={round}
+            x={x}
+            isResetting={isResetting}
+          />
+        ))}
       </motion.div>
       <div className={`carousel-indicators-container ${round ? 'round' : ''}`}>
         <div className="carousel-indicators">
