@@ -109,7 +109,29 @@ export default function Stack({
                 height: cardDimensions.height
               }}
             >
-              <img src={card.img} alt={`card-${card.id}`} className="card-image" />
+              <div className="card-image-wrapper">
+                <Image
+                  src={card.img}
+                  alt={`card-${card.id}`}
+                  fill
+                  className="card-image"
+                  style={{ objectFit: 'cover' }}
+                  onError={(e) => {
+                    // Si la imagen falla, mostrar un placeholder
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const placeholder = target.nextElementSibling as HTMLElement;
+                    if (placeholder) {
+                      placeholder.style.display = 'flex';
+                    }
+                  }}
+                />
+                <div className="card-image-placeholder" style={{ display: 'none' }}>
+                  <div className="placeholder-content">
+                    <span className="placeholder-text">Image {card.id}</span>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </CardRotate>
         );
