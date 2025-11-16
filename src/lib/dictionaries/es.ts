@@ -254,7 +254,7 @@ export const es = {
       email: "Email",
       location: "Ubicación",
       status: "Estado",
-      emailValue: "nicolaswagimin@gmail.com",
+      emailValue: "nicolas.wagimin@campusucc.edu.co",
       locationValue: "Pasto, Colombia", 
       statusValue: "Estudiante activo"
     },
@@ -295,7 +295,7 @@ export const es = {
     },
     contact: {
       title: "Contacto",
-      email: "nicolaswagimin@gmail.com",
+      email: "nicolas.wagimin@campusucc.edu.co",
       location: "Pasto, Colombia",
       status: "Estudiante activo"
     },

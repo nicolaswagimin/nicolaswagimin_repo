@@ -62,7 +62,7 @@ export default function EntradaPage() {
         <h2>INFORMACIÓN DE CONTACTO:</h2>
         <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <img src="/images/Email.png" alt="Email" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
-          Email: nicolaswb2020@hotmail.com
+          Email: nicolas.wagimin@campusucc.edu.co
         </p>
         <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <img src="/images/Frontend.png" alt="Phone" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />

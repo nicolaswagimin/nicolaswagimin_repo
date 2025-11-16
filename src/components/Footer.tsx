@@ -15,22 +15,27 @@ export function Footer() {
   };
 
   const handleCollaborate = () => {
-    if (projectInput.trim()) {
-      // Redirigir a la sección de contacto
-      scrollToSection('contact');
+    const message = projectInput.trim();
+    
+    if (message) {
+      // Crear mailto link con todos los parámetros
+      const email = 'nicolas.wagimin@campusucc.edu.co';
+      const subject = encodeURIComponent(message);
+      const body = encodeURIComponent(`Hola Nicolás,\n\n${message}\n\nSaludos,`);
       
-      // Guardar el mensaje en localStorage para pre-llenar el formulario
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('collaborationMessage', projectInput.trim());
-      }
+      const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+      
+      // Abrir el cliente de correo
+      window.location.href = mailtoLink;
       
       // Limpiar el input después de un pequeño delay
       setTimeout(() => {
         setProjectInput('');
-      }, 500);
+      }, 300);
     } else {
-      // Si no hay texto, solo redirigir a contacto
-      scrollToSection('contact');
+      // Si no hay texto, abrir correo con solo el email y asunto vacío
+      const email = 'nicolas.wagimin@campusucc.edu.co';
+      window.location.href = `mailto:${email}`;
     }
   };
 
