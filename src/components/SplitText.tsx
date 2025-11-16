@@ -278,6 +278,9 @@ const SplitText: React.FC<SplitTextProps> = ({
       display: isInline ? 'inline-block' : 'block',
       whiteSpace: 'normal',
       wordWrap: 'break-word',
+      wordBreak: 'keep-all',
+      overflowWrap: 'break-word',
+      hyphens: 'auto',
       width: isInline ? 'auto' : '100%',
     };
     const classes = `${className}`.trim();

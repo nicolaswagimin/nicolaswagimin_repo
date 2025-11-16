@@ -27,28 +27,33 @@ export function HeroSection() {
         <div className="max-w-6xl mx-auto">
           {/* Top Badge */}
           <div className="text-center mb-12">
-            <div className="inline-block px-4 py-2 bg-muted rounded-full">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-muted rounded-full">
+              <img 
+                src="/images/IMG_0274.jpg" 
+                alt="Profile" 
+                className="w-8 h-8 rounded-full object-cover border-2 border-border"
+              />
               <span className="text-muted-foreground text-sm font-medium">{dictionary.hero.location}</span>
             </div>
           </div>
           
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-7 space-y-8">
+            <div className="lg:col-span-7 space-y-6 lg:space-y-8">
               <div className="space-y-6">
                 <div className="space-y-4">
                   <p className="text-muted-foreground uppercase tracking-wider text-sm font-medium">
                     {dictionary.hero.subtitle}
                   </p>
-                  <div className="text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+                  <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight break-words">
                     <SplitText
                       key={`title-${dictionary.hero.title}`}
                       text={dictionary.hero.title}
-                      className="font-bold"
+                      className="font-bold inline-block"
                       tag="span"
                       delay={50}
                       duration={0.8}
-                      splitType="chars"
+                      splitType="words"
                       from={{ opacity: 0, y: 50 }}
                       to={{ opacity: 1, y: 0 }}
                       threshold={0.2}
@@ -58,11 +63,11 @@ export function HeroSection() {
                     <SplitText
                       key={`titleHighlight-${dictionary.hero.titleHighlight}`}
                       text={dictionary.hero.titleHighlight}
-                      className="font-bold text-primary"
+                      className="font-bold text-primary inline-block"
                       tag="span"
                       delay={50}
                       duration={0.8}
-                      splitType="chars"
+                      splitType="words"
                       from={{ opacity: 0, y: 50 }}
                       to={{ opacity: 1, y: 0 }}
                       threshold={0.2}
@@ -96,36 +101,38 @@ export function HeroSection() {
               </div>
               
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-8 pt-8 border-t border-border">
+              <div className="grid grid-cols-3 gap-4 sm:gap-8 pt-6 lg:pt-8 border-t border-border">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-foreground mb-2">6+</div>
-                  <div className="text-sm text-muted-foreground">{dictionary.hero.stats.projects}</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-foreground mb-1 sm:mb-2">6+</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">{dictionary.hero.stats.projects}</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-foreground mb-2">2</div>
-                  <div className="text-sm text-muted-foreground">{dictionary.hero.stats.years}</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-foreground mb-1 sm:mb-2">2</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">{dictionary.hero.stats.years}</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-foreground mb-2">Active</div>
-                  <div className="text-sm text-muted-foreground">{dictionary.hero.stats.status}</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-foreground mb-1 sm:mb-2">Active</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">{dictionary.hero.stats.status}</div>
                 </div>
               </div>
             </div>
             
             {/* Right Content - Stack */}
             <div className="lg:col-span-5">
-              <div className="relative group flex items-center justify-center p-4" style={{ height: '600px' }}>
-                <div className="relative w-full max-w-md flex items-center justify-center">
-                  <Stack
-                    randomRotation={true}
-                    sensitivity={180}
-                    sendToBackOnClick={false}
-                    cardDimensions={{ width: 350, height: 450 }}
-                    cardsData={[
-                      { id: 1, img: "/images/IMG_0276.jpg" },
-                      { id: 2, img: "/images/IMG_0273.jpg" }
-                    ]}
-                  />
+              <div className="relative group flex items-center justify-center p-2 sm:p-4 min-h-[350px] sm:min-h-[400px] lg:min-h-[600px]">
+                <div className="relative w-full max-w-full sm:max-w-md flex items-center justify-center">
+                  <div className="w-[280px] h-[360px] sm:w-[320px] sm:h-[410px] lg:w-[350px] lg:h-[450px]">
+                    <Stack
+                      randomRotation={true}
+                      sensitivity={180}
+                      sendToBackOnClick={false}
+                      cardDimensions={{ width: 350, height: 450 }}
+                      cardsData={[
+                        { id: 1, img: "/images/IMG_0276.jpg" },
+                        { id: 2, img: "/images/IMG_0273.jpg" }
+                      ]}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

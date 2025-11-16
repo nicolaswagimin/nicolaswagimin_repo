@@ -151,8 +151,10 @@ export default function Stack({
       ref={containerRef}
       className="stack-container"
       style={{
-        width: cardDimensions.width,
-        height: cardDimensions.height,
+        width: '100%',
+        height: '100%',
+        maxWidth: `${cardDimensions.width}px`,
+        maxHeight: `${cardDimensions.height}px`,
         perspective: 600
       }}
     >
@@ -175,10 +177,12 @@ export default function Stack({
                 stiffness: animationConfig.stiffness,
                 damping: animationConfig.damping
               }}
-              style={{
-                width: cardDimensions.width,
-                height: cardDimensions.height
-              }}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      maxWidth: `${cardDimensions.width}px`,
+                      maxHeight: `${cardDimensions.height}px`
+                    }}
             >
               <div className="card-image-wrapper">
                 <img

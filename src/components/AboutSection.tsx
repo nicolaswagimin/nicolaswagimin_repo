@@ -41,20 +41,20 @@ export function AboutSection() {
             </div>
           </div>
           
-          <div className="grid lg:grid-cols-12 gap-16 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
             {/* Left - Image Box */}
             <div className="lg:col-span-5 space-y-6">
               <div className="relative group">
                 <div className="w-full aspect-square bg-muted rounded-2xl border-2 border-border overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5 dark:from-primary/20 dark:to-primary/10">
-                    <div className="text-center p-8">
-                      <div className="w-24 h-24 bg-primary/20 dark:bg-primary/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span className="text-3xl font-bold text-primary">NW</span>
-                      </div>
-                      <p className="text-muted-foreground text-sm">
-                        {dictionary.about.university}
-                      </p>
-                    </div>
+                  <img 
+                    src="/images/IMG_0274.jpg" 
+                    alt="Profile" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/95 to-transparent p-6">
+                    <p className="text-foreground text-sm font-medium text-center">
+                      {dictionary.about.university}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -63,7 +63,11 @@ export function AboutSection() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-card rounded-xl p-4 border border-border" style={{ boxShadow: 'var(--shadow-sm)' }}>
                   <div className="w-10 h-10 bg-primary/10 dark:bg-primary/20 rounded-lg mb-3 flex items-center justify-center">
-                    <span className="text-primary text-xs font-bold">FE</span>
+                    <img 
+                      src="/images/Frontend.png" 
+                      alt="Frontend" 
+                      className="w-6 h-6 object-contain"
+                    />
                   </div>
                   <p className="text-sm font-medium text-foreground mb-1">
                     {dictionary.about.skills.frontend}
@@ -74,7 +78,11 @@ export function AboutSection() {
                 </div>
                 <div className="bg-card rounded-xl p-4 border border-border" style={{ boxShadow: 'var(--shadow-sm)' }}>
                   <div className="w-10 h-10 bg-primary/10 dark:bg-primary/20 rounded-lg mb-3 flex items-center justify-center">
-                    <span className="text-primary text-xs font-bold">⚡</span>
+                    <img 
+                      src="/images/Backend.png" 
+                      alt="Backend" 
+                      className="w-6 h-6 object-contain"
+                    />
                   </div>
                   <p className="text-sm font-medium text-foreground mb-1">
                     {dictionary.about.skills.backend}

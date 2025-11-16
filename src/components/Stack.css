@@ -1,6 +1,8 @@
 .stack-container {
   position: relative;
   perspective: 600px;
+  width: 100%;
+  height: 100%;
 }
 
 .card-rotate {
