@@ -93,12 +93,19 @@ export function HeroSection() {
                 </Button>
                 <Button 
                   onClick={() => {
-                    const link = document.createElement('a');
-                    link.href = '/CV.pdf';
-                    link.download = 'CV_Nicolas_Wagimin_Bravo.pdf';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
+                    try {
+                      const link = document.createElement('a');
+                      link.href = '/CV.pdf';
+                      link.download = 'CV_Nicolas_Wagimin_Bravo.pdf';
+                      link.target = '_blank';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    } catch (error) {
+                      console.error('Error al descargar CV:', error);
+                      // Fallback: abrir en nueva pestaña si la descarga falla
+                      window.open('/CV.pdf', '_blank');
+                    }
                   }}
                   variant="outline" 
                   className="px-8 h-12"
