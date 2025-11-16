@@ -1,11 +1,13 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Button } from "./ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SplitText from "./SplitText";
 
 export function ContactSection() {
   const { dictionary } = useLanguage();
+  const [collaborationMessage, setCollaborationMessage] = useState('');
 
   const openSocialLink = (url: string) => {
     window.open(url, '_blank');
@@ -17,6 +19,18 @@ export function ContactSection() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Cargar mensaje de colaboración del localStorage al montar
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const message = localStorage.getItem('collaborationMessage');
+      if (message) {
+        setCollaborationMessage(message);
+        // Limpiar el mensaje del localStorage después de usarlo
+        localStorage.removeItem('collaborationMessage');
+      }
+    }
+  }, []);
 
   return (
     <section className="py-24 bg-muted/30" id="contact">
@@ -88,6 +102,8 @@ export function ContactSection() {
                     </label>
                     <input 
                       type="text" 
+                      value={collaborationMessage}
+                      onChange={(e) => setCollaborationMessage(e.target.value)}
                       placeholder={dictionary.contact.form.fields.subjectPlaceholder}
                       className="w-full h-12 bg-background border border-border rounded-xl px-4 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground"
                     />

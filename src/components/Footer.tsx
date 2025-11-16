@@ -1,14 +1,43 @@
 'use client';
 
+import { useState } from 'react';
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export function Footer() {
   const { dictionary } = useLanguage();
+  const [projectInput, setProjectInput] = useState('');
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleCollaborate = () => {
+    if (projectInput.trim()) {
+      // Redirigir a la sección de contacto
+      scrollToSection('contact');
+      
+      // Guardar el mensaje en localStorage para pre-llenar el formulario
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('collaborationMessage', projectInput.trim());
+      }
+      
+      // Limpiar el input después de un pequeño delay
+      setTimeout(() => {
+        setProjectInput('');
+      }, 500);
+    } else {
+      // Si no hay texto, solo redirigir a contacto
+      scrollToSection('contact');
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleCollaborate();
     }
   };
 
@@ -41,11 +70,18 @@ export function Footer() {
                 </h4>
                 <div className="flex space-x-3">
                   <input 
-                    type="email" 
+                    type="text"
+                    value={projectInput}
+                    onChange={(e) => setProjectInput(e.target.value)}
+                    onKeyPress={handleKeyPress}
                     placeholder={dictionary.footer.collaboration.placeholder}
                     className="flex-1 h-12 bg-background rounded-full border border-border px-4 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
-                  <button className="w-24 h-12 bg-primary rounded-full flex items-center justify-center hover:bg-primary-hover transition-colors shadow-md hover:shadow-lg">
+                  <button 
+                    onClick={handleCollaborate}
+                    className="w-24 h-12 bg-primary rounded-full flex items-center justify-center hover:bg-primary-hover transition-colors shadow-md hover:shadow-lg cursor-pointer"
+                    aria-label="Enviar proyecto"
+                  >
                     <span className="text-white font-bold">→</span>
                   </button>
                 </div>
