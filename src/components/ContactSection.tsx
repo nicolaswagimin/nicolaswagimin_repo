@@ -7,7 +7,12 @@ import SplitText from "./SplitText";
 
 export function ContactSection() {
   const { dictionary } = useLanguage();
-  const [collaborationMessage, setCollaborationMessage] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
 
   const openSocialLink = (url: string) => {
     window.open(url, '_blank');
@@ -25,12 +30,50 @@ export function ContactSection() {
     if (typeof window !== 'undefined') {
       const message = localStorage.getItem('collaborationMessage');
       if (message) {
-        setCollaborationMessage(message);
+        setFormData(prev => ({ ...prev, subject: message }));
         // Limpiar el mensaje del localStorage después de usarlo
         localStorage.removeItem('collaborationMessage');
       }
     }
   }, []);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    const recipientEmail = 'nicolas.wagimin@campusucc.edu.co';
+    const subject = formData.subject.trim() || 'Consulta desde portafolio';
+    const body = `Hola Nicolás,
+
+Mi nombre es: ${formData.name.trim() || 'No especificado'}
+Mi email es: ${formData.email.trim() || 'No especificado'}
+
+${formData.message.trim() || 'Sin mensaje adicional'}
+
+Saludos,`;
+
+    const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    window.location.href = mailtoLink;
+    
+    // Limpiar el formulario después de un pequeño delay
+    setTimeout(() => {
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+    }, 500);
+  };
+
+  const handleInputChange = (field: keyof typeof formData) => (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: e.target.value
+    }));
+  };
 
   return (
     <section className="py-24 bg-muted/30" id="contact">
@@ -72,7 +115,7 @@ export function ContactSection() {
                   </h3>
                 </div>
                 
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-3">
                       <label className="text-foreground font-medium">
@@ -80,6 +123,8 @@ export function ContactSection() {
                       </label>
                       <input 
                         type="text" 
+                        value={formData.name}
+                        onChange={handleInputChange('name')}
                         placeholder={dictionary.contact.form.fields.namePlaceholder}
                         className="w-full h-12 bg-background border border-border rounded-xl px-4 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground"
                       />
@@ -90,6 +135,8 @@ export function ContactSection() {
                       </label>
                       <input 
                         type="email" 
+                        value={formData.email}
+                        onChange={handleInputChange('email')}
                         placeholder={dictionary.contact.form.fields.emailPlaceholder}
                         className="w-full h-12 bg-background border border-border rounded-xl px-4 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground"
                       />
@@ -102,8 +149,8 @@ export function ContactSection() {
                     </label>
                     <input 
                       type="text" 
-                      value={collaborationMessage}
-                      onChange={(e) => setCollaborationMessage(e.target.value)}
+                      value={formData.subject}
+                      onChange={handleInputChange('subject')}
                       placeholder={dictionary.contact.form.fields.subjectPlaceholder}
                       className="w-full h-12 bg-background border border-border rounded-xl px-4 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground"
                     />
@@ -114,12 +161,14 @@ export function ContactSection() {
                       {dictionary.contact.form.fields.message}
                     </label>
                     <textarea 
+                      value={formData.message}
+                      onChange={handleInputChange('message')}
                       placeholder={dictionary.contact.form.fields.messagePlaceholder}
                       className="w-full h-32 bg-background border border-border rounded-xl px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground"
                     ></textarea>
                   </div>
                   
-                  <Button className="px-8 h-12">
+                  <Button type="submit" className="px-8 h-12">
                     {dictionary.contact.form.submit}
                   </Button>
                 </form>
