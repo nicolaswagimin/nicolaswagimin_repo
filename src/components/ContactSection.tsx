@@ -254,7 +254,7 @@ Saludos,`;
                     <span className="text-white font-bold">GH</span>
                   </button>
                   <button 
-                    onClick={() => openSocialLink('https://www.linkedin.com/in/nicolas-wagimin-bravo')}
+                    onClick={() => openSocialLink('https://www.linkedin.com/in/nicolas-wagimin-bravo-771aa213b/')}
                     className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center hover:bg-primary-hover cursor-pointer transition-colors shadow-md hover:shadow-lg"
                   >
                     <span className="text-white font-bold">in</span>

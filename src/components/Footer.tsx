@@ -177,7 +177,7 @@ export function Footer() {
                     <span className="text-white font-bold text-sm">GH</span>
                   </a>
                   <a 
-                    href="https://www.linkedin.com/in/nicolas-wagimin-bravo" 
+                    href="https://www.linkedin.com/in/nicolas-wagimin-bravo-771aa213b/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-10 h-10 bg-primary rounded-full flex items-center justify-center hover:bg-primary-hover cursor-pointer transition-colors shadow-md hover:shadow-lg"
