@@ -4,15 +4,22 @@
   border: 1px solid hsl(var(--border));
   border-radius: 24px;
   padding: 16px;
-  background-color: hsl(var(--card));
+  background-color: #ffffff;
   --outer-r: 24px;
   --p-distance: 12px;
   margin: 0 auto;
+  box-shadow: var(--shadow-xl);
+  transition: box-shadow 0.3s ease;
+}
+
+.carousel-container:hover {
+  box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.15), 0 12px 12px -5px rgba(0, 0, 0, 0.08);
 }
 
 .dark .carousel-container {
-  border: 1px solid #555;
-  background-color: #0d0716;
+  border: 1px solid hsl(var(--border));
+  background-color: hsl(var(--card));
+  box-shadow: var(--shadow-lg);
 }
 
 .carousel-track {
@@ -28,18 +35,30 @@
   justify-content: space-between;
   border: 1px solid hsl(var(--border));
   border-radius: calc(var(--outer-r) - var(--p-distance));
-  background-color: hsl(var(--card));
+  background-color: #f8f9fa;
   color: hsl(var(--foreground));
   overflow: hidden;
   cursor: grab;
   min-height: 400px;
   transform-style: preserve-3d;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-item:hover {
+  box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.12), 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
 }
 
 .dark .carousel-item {
-  border: 1px solid #555;
-  background-color: #0d0716;
+  border: 1px solid hsl(var(--border));
+  background-color: hsl(var(--card));
   color: #fff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+}
+
+.dark .carousel-item:hover {
+  box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.6), 0 4px 6px -1px rgba(0, 0, 0, 0.5);
 }
 
 .carousel-item:active {
@@ -48,25 +67,29 @@
 
 .carousel-container.round {
   border: 1px solid hsl(var(--border));
+  box-shadow: var(--shadow-xl);
 }
 
 .dark .carousel-container.round {
-  border: 1px solid #555;
+  border: 1px solid hsl(var(--border));
+  box-shadow: var(--shadow-lg);
 }
 
 .carousel-item.round {
-  background-color: hsl(var(--card));
+  background-color: #f8f9fa;
   position: relative;
   bottom: 0.1em;
   border: 1px solid hsl(var(--border));
   justify-content: center;
   align-items: center;
   text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
 }
 
 .dark .carousel-item.round {
-  background-color: #0d0716;
-  border: 1px solid #555;
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
 }
 
 .carousel-item-header.round {
