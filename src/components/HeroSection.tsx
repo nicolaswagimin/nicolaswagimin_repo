@@ -92,11 +92,18 @@ export function HeroSection() {
                   {dictionary.hero.buttons.viewProjects}
                 </Button>
                 <Button 
-                  onClick={() => scrollToSection('contact')}
+                  onClick={() => {
+                    const link = document.createElement('a');
+                    link.href = '/CV.pdf';
+                    link.download = 'CV_Nicolas_Wagimin_Bravo.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }}
                   variant="outline" 
                   className="px-8 h-12"
                 >
-                  {dictionary.hero.buttons.contact}
+                  {dictionary.hero.buttons.cv}
                 </Button>
               </div>
               

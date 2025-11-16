@@ -20,7 +20,7 @@ export const es = {
     description: "Soy Nicolás Wagimin Bravo, desarrollador en formación con interés en desarrollo web y backend, utilizando tecnologías modernas y buenas prácticas aprendidas en la universidad.",
     buttons: {
       viewProjects: "Ver Proyectos",
-      contact: "Contacto"
+      cv: "CV"
     },
     stats: {
       projects: "Proyectos",

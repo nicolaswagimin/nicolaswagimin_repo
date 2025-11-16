@@ -20,7 +20,7 @@ export const en = {
     description: "I'm Nicolás Wagimin Bravo, a developer in training with interest in web development and backend, using modern technologies and best practices learned at university.",
     buttons: {
       viewProjects: "View Projects",
-      contact: "Contact"
+      cv: "CV"
     },
     stats: {
       projects: "Projects",
